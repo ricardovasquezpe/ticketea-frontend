@@ -1,0 +1,15 @@
+.header{
+    cursor: pointer;
+    color: var(--chakra-colors-white-half);
+    font-size: 16px;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.headerActive{
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+}

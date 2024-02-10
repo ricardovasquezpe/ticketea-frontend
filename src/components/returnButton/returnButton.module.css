@@ -1,0 +1,12 @@
+.container{
+    cursor: pointer;
+    color: var(--chakra-colors-white-half);
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.container:hover{
+    color: white;
+}

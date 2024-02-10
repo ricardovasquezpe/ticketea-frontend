@@ -1,0 +1,42 @@
+.banner{
+    object-fit: cover;
+    object-position: center;
+    height: 250px;
+    width: 100%;
+}
+
+.containerTitle{
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.containerNoResults{
+    text-align: center;
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.noResultsTitle{
+    font-size: 20px;
+}
+
+.background{
+    position: absolute;
+    inset-inline: 0px;
+    inset-block-start: 0px;
+    block-size: 100%;
+    background-size: cover;
+    background-position: center center;
+    filter: blur(8px);
+    transform: scale(1.2);
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.parent{
+    position: relative;
+    inline-size: 100%;
+    block-size: auto;
+    overflow: hidden;
+}

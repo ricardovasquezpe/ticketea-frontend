@@ -1,0 +1,17 @@
+.menuLink {
+    font-family: "robotoBold";
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+}
+
+.menuLink:hover{
+    color: var(--chakra-colors-secondary-default);
+}
+
+.header{
+    background-color: var(--chakra-colors-primary-default);
+    border-bottom: 1px var(--chakra-colors-secondary-half) solid;
+}

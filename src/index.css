@@ -1,0 +1,18 @@
+h1{
+  background: var(--chakra-colors-newblue)
+}
+
+@font-face {
+  font-family: "RobotoRegular";
+  src: url("/fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: "RobotoBold";
+  src: url("/fonts/Roboto-Bold.ttf");
+}
+
+@font-face {
+  font-family: "MontserratBold";
+  src: url("/fonts/Montserrat-Bold.ttf");
+}

@@ -1,0 +1,55 @@
+.parent a{
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.parent a:hover{
+    color: var(--chakra-colors-secondary-default);
+}
+
+.brands{
+    margin-left: 5px;
+    display: inline;
+}
+
+.pulseHeart{
+    color:#ef1b55;
+    -webkit-animation-name:pulse-heart;
+    animation-name:pulse-heart;
+    -webkit-animation-duration:1s;
+    animation-duration:1s;
+    -webkit-animation-iteration-count:infinite;
+    animation-iteration-count:infinite;
+    -webkit-animation-timing-function:linear;
+    animation-timing-function:linear
+}
+ @-webkit-keyframes pulse-heart{
+    0%{
+        -webkit-transform:scale(1.1);
+        transform:scale(1.1)
+    }
+    50%{
+        -webkit-transform:scale(0.8);
+        transform:scale(0.8)
+    }
+    100%{
+        -webkit-transform:scale(1);
+        transform:scale(1)
+    }
+}
+ @keyframes pulse-heart{
+    0%{
+        -webkit-transform:scale(1.1);
+        transform:scale(1.1)
+    }
+    50%{
+        -webkit-transform:scale(0.8);
+        transform:scale(0.8)
+    }
+    100%{
+        -webkit-transform:scale(1);
+        webkit-transform:scale(1)
+    }
+}

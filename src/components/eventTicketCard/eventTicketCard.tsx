@@ -1,0 +1,52 @@
+import { Avatar, Box, Divider, HStack, Image, Show, Text } from "@chakra-ui/react";
+import styles from "./eventiTicketCard.module.css";
+import { RatingBadge } from "../ratingBadge/ratingBadge";
+import Utils from "../../utils/utils";
+
+export const EventTicketCard = (props: Props) => {
+    return (
+        <Box className={styles.parent}>
+            <HStack justifyContent="space-between">
+                <HStack gap={3}>
+                    <Show above="sm">
+                        <Image className={styles.eventImage} 
+                            src={props.eventImage}
+                            fallbackSrc='https://via.placeholder.com/150'/>
+                    </Show>
+                    <Box textAlign={"start"}>
+                        <Text className={styles.eventName}>{props.eventName}</Text>
+                        <Text className={styles.artistName}>{props.artistName}</Text>
+                    <Text className={styles.eventDate}>{props.eventDate}</Text>
+                    </Box>
+                </HStack>
+                <Box textAlign={"end"}>
+                    <Text className={styles.ticketPrice}>S/. {(props.ticketPrice!=null)?Utils.currencyFormat(props.ticketPrice):0}</Text>
+                    <Text className={styles.ticketZone}>{props.ticketZone}</Text>
+                    {(props.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca {props.seat}</Text>:<></>}
+                </Box>
+            </HStack>
+            {(props.sellerName != null) ? <>
+                <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
+                <HStack gap={3}>
+                    <Avatar size='sm' name={props.sellerName} src={props.sellerImage} />
+                    <Text>{props.sellerName}</Text>
+                    <RatingBadge id="mybadge" rating={props.ratingNumber!}></RatingBadge>
+                </HStack>
+            </> : <></>}
+            
+        </Box>
+    );
+};
+
+type Props = {
+    eventImage: string,
+    eventName: string,
+    artistName: string,
+    eventDate: string,
+    ticketZone: string,
+    ticketPrice: number,
+    sellerName?: string,
+    sellerImage?: string,
+    ratingNumber?: number,
+    seat: string
+};

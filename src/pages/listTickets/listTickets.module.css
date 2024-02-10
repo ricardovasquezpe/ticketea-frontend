@@ -1,0 +1,49 @@
+.eventImage{
+    object-fit: cover;
+    width: 180px;
+    height: 180px;
+}
+
+@media (max-width: 480px) {
+    .eventImage{
+        object-fit: cover;
+        width: 80px;
+        height: 80px;
+    }
+  }
+
+.containerTitle{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.background{
+    position: absolute;
+    inset-inline: 0px;
+    inset-block-start: 0px;
+    block-size: 100%;
+    background-size: cover;
+    background-position: center center;
+    filter: blur(32px);
+    transform: scale(1.2);
+    z-index: -1;
+    opacity: 0.6;
+}
+
+.parent{
+    position: relative;
+    inline-size: 100%;
+    block-size: auto;
+    overflow: hidden;
+}
+
+.containerNoResults{
+    text-align: center;
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.noResultsTitle{
+    font-size: 20px;
+}

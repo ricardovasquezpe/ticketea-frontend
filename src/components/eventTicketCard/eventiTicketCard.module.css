@@ -1,0 +1,39 @@
+.parent{
+    background-color: var(--chakra-colors-primary-ligth);
+    border-radius: var(--chakra-radii-custom);
+    padding: 20px;
+    width: 100%;
+}
+
+.eventImage{
+    object-fit: cover;
+    width: 80px;
+    height: 80px;
+}
+
+.eventName{
+    font-size: 20px;
+}
+
+.artistName{
+    font-size: 20px;
+    color: var(--chakra-colors-white-half);
+}
+
+.ticketsNumber{
+    margin-bottom: 8px;
+}
+
+.eventDate{
+    font-size: 16px;
+    color: var(--chakra-colors-white-half);
+}
+
+.ticketZone{
+    font-size: 18px;
+    color: var(--chakra-colors-white-half);
+}
+
+.ticketPrice{
+    font-size: 20px;
+}

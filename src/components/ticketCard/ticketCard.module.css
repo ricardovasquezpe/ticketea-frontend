@@ -1,0 +1,25 @@
+.parent{
+    background-color: var(--chakra-colors-primary-ligth);
+    border-radius: var(--chakra-radii-custom);
+    padding: 25px;
+    cursor: pointer;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.parent:hover{
+    background-color: var(--chakra-colors-secondary-half);
+}
+
+.ticketZoneName{
+    font-size: 20px;
+    font-family: "robotoBold";
+    margin-bottom: 3px;
+}
+
+.ticketPrice{
+    font-size: 22px;
+    color: #D9D9D9;
+}

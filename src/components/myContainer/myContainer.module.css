@@ -1,0 +1,6 @@
+.parent{
+    background-color: var(--chakra-colors-primary-ligth);
+    border-radius: var(--chakra-radii-custom);
+    padding: 20px;
+    width: 100%;
+}
