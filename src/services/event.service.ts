@@ -1,3 +1,7 @@
+import { EVENTS_SEARCH_URL } from "../utils/constants";
+import httpClient from "./config/httpClient";
+import { Event } from "./models/event.model";
+
 const events = [{
     id: 1,
     eventName: "World Hottest Tour",
@@ -139,6 +143,10 @@ const events = [{
         seat: "15-C"
     }]
 }];
+
+export function searchEvents(searchText: string, orderBy: string, order: string): Promise<any[]>{
+    return httpClient.get(EVENTS_SEARCH_URL, { params: { title: searchText, orderBy: orderBy, order: order } });    
+}
 
 export function getEventByText(searchText:string) {
     return events.filter(obj => obj.eventName.toLowerCase().includes(searchText.toLowerCase()) || obj.artistName.toLowerCase().includes(searchText.toLowerCase()))

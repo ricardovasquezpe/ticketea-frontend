@@ -7,14 +7,15 @@ import { useEffect, useMemo, useState } from "react";
 import styles from "./searchEvent.module.css";
 import { useDispatch } from "react-redux";
 import { onSearch } from "../../store/search/searchAction";
-import { getEventByText } from "../../services/event.service";
+import { searchEvents } from "../../services/event.service";
 import { store } from "../../store/store";
 import { useNavigate } from "react-router-dom";
+import { Event } from "../../services/models/event.model";
 
 export const SearchEvent = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [events, setEvents] = useState([] as any);
+    const [events, setEvents] = useState([] as any[]);
     const [search, setSearch] = useState("");
     const [timer, setTimer] = useState(null as any);
     
@@ -31,16 +32,24 @@ export const SearchEvent = () => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         var searchText = store.getState().search.search;
         setSearch(searchText);
-        setEvents(getEventByText(""));
+        onLoadpage();
     }, []);
+
+    const onLoadpage = () => {
+        searchEvents("", "", "").then((res:any) => {
+            setEvents(res.data);
+        })
+    }
 
     const inputChanged = (text:any) => {
         setSearch(text);
         clearTimeout(timer);
 
-        const newTimer = setTimeout(() => {
+        const newTimer = setTimeout(async() => {
             dispatch(onSearch(text));
-            setEvents(getEventByText(text));
+            searchEvents(text, "", "").then((res:any) => {
+                setEvents(res.data);
+            })
         }, 800);
 
         setTimer(newTimer);
@@ -72,15 +81,14 @@ export const SearchEvent = () => {
                         </Box>
                         <Box>
                             <VStack align='stretch' spacing={3}>
-
                                 {
-                                    events.map((event: any, index: any) => (
+                                    events.map((event: Event, index: any) => (
                                         <EventCard key={index} 
-                                            eventImage={event.eventImage}
-                                            eventName={event.eventName}
-                                            artistName={event.artistName}
-                                            ticketsNumber={event.ticketsNumber}
-                                            eventDate={event.eventDate}
+                                            eventImage={event.image_url}
+                                            eventName={event.title}
+                                            artistName={event.artist.name}
+                                            ticketsNumber={event.ticketsCount}
+                                            eventDate={event.date}
                                             eventId={event.id}
                                             onClick={()=>{navigate("/tickets/" + event.id)}}></EventCard>
                                     ))

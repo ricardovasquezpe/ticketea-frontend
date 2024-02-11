@@ -30,7 +30,7 @@ type Props = {
     artistName: string,
     eventImage: string,
     ticketsNumber: number,
-    eventDate: string,
+    eventDate: number,
     eventId: number,
     onClick?: () => void
 };
