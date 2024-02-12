@@ -19,41 +19,14 @@ import Utils from "../../utils/utils";
 import { Ticket } from "../../services/models/ticket.model";
 import moment from 'moment/min/moment-with-locales';
 import { Event } from "../../services/models/event.model";
+import { TICKET_DETAIL_TOUR_STEPS } from "../../utils/constants";
 
 export const TicketDetail = () => {
     const navigate = useNavigate();
     const [event, setEvent] = useState({} as Event);
     const [ticket, setTicket] = useState({} as Ticket);
     const { ticketId } = useParams();
-    const steps = [{
-        content: "Dando click aqui podrás ver los comentarios de sus compradores",
-        title: "Rating del vendedor",
-        target: "#mybadge",
-        order: "",
-        group: ""
-    },
-    {
-        content: "Validamos todos los datos del usuario con nuestro sistema integrado",
-        title: "TicketeaProtect",
-        target: "#ticketeaSecure",
-        order: "",
-        group: ""
-    },
-    {
-        content: "Te damos algunas recomendaciones para que asegures la entrada a la hora de tu compra",
-        title: "Tu seguridad es primero",
-        target: "#seguridad",
-        order: "",
-        group: ""
-    },
-    {
-        content: "Cuando estes listo, podras ir a comprar la entrada",
-        title: "Vamos a comprar!",
-        target: "#buy",
-        order: "",
-        group: ""
-    }]
-    const tg = new TourGuideClient({steps: steps, autoScroll:true, nextLabel: "Siguiente", prevLabel: "Atras", finishLabel: "Terminar"});
+    const tg = new TourGuideClient({steps: TICKET_DETAIL_TOUR_STEPS, autoScroll:true, nextLabel: "Siguiente", prevLabel: "Atras", finishLabel: "Terminar"});
 
     const click = () => {
         navigate("/ticket-buy/" + ticketId);
@@ -157,7 +130,7 @@ export const TicketDetail = () => {
                             {(ticket.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca {ticket.seat}</Text>:<></>}
                         </Box>
                         <HStack id="buy">
-                            <Text fontSize={"14px"} color={"white.half"}>(+30% del precio original)</Text>
+                            <Text fontSize={"14px"} color={"white.half"}>(+{Utils.calculatePercentageAdd(ticket.price, (ticket.zone) ? ticket.zone.price : 0)}% del precio original)</Text>
                             <Text marginRight={4}>S/. {(ticket.price!=null)?Utils.currencyFormat(ticket.price):0}</Text>
                             <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 

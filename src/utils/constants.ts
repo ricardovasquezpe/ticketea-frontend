@@ -10,3 +10,32 @@ export const PAYMENT_METHOD_PLIN = "4";
 
 export const ASC_ORDER_BY = "ASC";
 export const DESC_ORDER_BY = "DESC";
+
+export const TICKET_DETAIL_TOUR_STEPS = [{
+    content: "Dando click aqui podrás ver los comentarios de sus compradores",
+    title: "Rating del vendedor",
+    target: "#mybadge",
+    order: "",
+    group: ""
+},
+{
+    content: "Validamos todos los datos del usuario con nuestro sistema integrado",
+    title: "TicketeaProtect",
+    target: "#ticketeaSecure",
+    order: "",
+    group: ""
+},
+{
+    content: "Te damos algunas recomendaciones para que asegures la entrada a la hora de tu compra",
+    title: "Tu seguridad es primero",
+    target: "#seguridad",
+    order: "",
+    group: ""
+},
+{
+    content: "Cuando estes listo, podras ir a comprar la entrada",
+    title: "Vamos a comprar!",
+    target: "#buy",
+    order: "",
+    group: ""
+}];

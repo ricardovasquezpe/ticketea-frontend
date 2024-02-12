@@ -16,7 +16,6 @@ import moment from 'moment/min/moment-with-locales';
 export const ListTickets = () => {
     const [tickets, setTickets] = useState([] as any);
     const [event, setEvent] = useState({} as Event);
-    const [orderByDate, setOrderByDate] = useState(false);
     const { eventId } = useParams();
     const navigate = useNavigate();
 
@@ -27,7 +26,7 @@ export const ListTickets = () => {
     }, []);
 
     const getTickets = () => {
-        getTicketsByEventId(eventId, "price", (orderByDate)?ASC_ORDER_BY:DESC_ORDER_BY).then((res:any) =>{
+        getTicketsByEventId(eventId, "price", DESC_ORDER_BY).then((res:any) =>{
             setTickets(res.data);
         });
     }
@@ -39,7 +38,9 @@ export const ListTickets = () => {
     }
 
     const orderBy = (active: boolean) => {
-        setOrderByDate(active);
+        getTicketsByEventId(eventId, "price", (active)?ASC_ORDER_BY:DESC_ORDER_BY).then((res:any) =>{
+            setTickets(res.data);
+        });
     }
 
 
