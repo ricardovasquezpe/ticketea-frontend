@@ -9,13 +9,14 @@ import { useEffect, useState } from "react";
 import { Modals } from "../../config/modal/modal-config";
 import { useModal } from "../../config/modal/use-modal";
 import { useNavigate, useParams } from "react-router-dom";
-import { getEventById, getTicketDetailById } from "../../services/event.service";
+import { getTicketById } from "../../services/event.service";
 import { RatingBadge } from "../../components/ratingBadge/ratingBadge";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faShieldHeart } from "@fortawesome/free-solid-svg-icons";
 import { TourGuideClient } from "@sjmc11/tourguidejs";
 import "@sjmc11/tourguidejs/src/scss/tour.scss" 
 import Utils from "../../utils/utils";
+import { Ticket } from "../../services/models/ticket.model";
 
 export const TicketDetail = () => {
     const navigate = useNavigate();
@@ -58,24 +59,26 @@ export const TicketDetail = () => {
 
     useEffect(() => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-        getEventDetail();
         getTicketDetail();
+        tourInit();
+    }, []);
+
+    const tourInit = () => {
         const tour = localStorage.getItem('tour-ticket-detail');
         if(tour != "true") {
             tg.start();
             localStorage.setItem('tour-ticket-detail', "true");
         }
-    }, []);
-
-    const getEventDetail = () => {
-        getEventById(eventId).then((res: any) => {
-            setEvent(res);
-        });
-    }
+    } 
 
     const getTicketDetail = () => {
-        getTicketDetailById(eventId, ticketId).then((res: any) => {
-            setTicket(res);
+        getTicketById(ticketId).then((res: any) => {
+            var ticket: Ticket = res.data;
+            setTicket(ticket);
+            setEvent(ticket.event);
+
+            console.log(ticket.userSeller.last_name_father);
+            
         });
     }
 
@@ -116,24 +119,24 @@ export const TicketDetail = () => {
     return (
         <>
             <Box className={styles.parent}>
-                <Box className={styles.background} style={{backgroundImage: "url("+event.eventImage+")"}}></Box>
+                <Box className={styles.background} style={{backgroundImage: "url("+event.image_url+")"}}></Box>
                 <Box paddingBottom={5} paddingTop={5}>
                     <Center>
                         <Grid templateColumns="repeat(5, 1fr)" gap={5}> 
                             <GridItem colSpan={{base: 5, sm: 5, md: 1}}>
                                 <Center>
-                                    <Image className={styles.eventImage} src={event.eventImage}></Image>
+                                    <Image className={styles.eventImage} src={event.image_url}></Image>
                                 </Center>
                             </GridItem>
                             <GridItem colSpan={{base: 5, sm: 5, md: 4}}>
                                 <Box textAlign={{base: "center", sm: "center", md: "left"}}>
-                                    <Text fontSize={30} fontFamily={"robotoBold"} marginBottom={2}>{event.eventName}</Text>
+                                    <Text fontSize={30} fontFamily={"robotoBold"} marginBottom={2}>{event.title}</Text>
                                     <HStack>
-                                        <Text>{event.artistName}</Text>
+                                        <Text>{(event.artist)?event.artist.name:""}</Text>
                                         <Text fontWeight={"bold"}>|</Text>
-                                        <Text>{event.eventDate}</Text>
+                                        <Text>{event.date}</Text>
                                         <Text fontWeight={"bold"}>|</Text>
-                                        <Text>{event.eventPlace}</Text>
+                                        <Text>{event.place}</Text>
                                     </HStack>
                                 </Box>
                             </GridItem>
@@ -151,12 +154,12 @@ export const TicketDetail = () => {
                 <MyContainer>
                     <HStack justifyContent={"space-between"}>
                         <Box>
-                            <Text fontFamily={"robotoBold"} fontSize={"22px"}>{ticket.zoneName}</Text>
+                            <Text fontFamily={"robotoBold"} fontSize={"22px"}>{(ticket.zone)?ticket.zone.name:""}</Text>
                             {(ticket.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca {ticket.seat}</Text>:<></>}
                         </Box>
                         <HStack id="buy">
                             <Text fontSize={"14px"} color={"white.half"}>(+30% del precio original)</Text>
-                            <Text marginRight={4}>S/. {(ticket.ticketPrice!=null)?Utils.currencyFormat(ticket.ticketPrice):0}</Text>
+                            <Text marginRight={4}>S/. {(ticket.price!=null)?Utils.currencyFormat(ticket.price):0}</Text>
                             <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
                                     backgroundColorHover="secondary.dark" 
@@ -167,7 +170,7 @@ export const TicketDetail = () => {
                         </HStack>
                     </HStack>
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
-                    <Link color='teal.500' href='https://teleticket.com.pe/libido-la-reunion-2024' isExternal>
+                    <Link color='teal.500' href={(ticket.event)?ticket.event.url:""} isExternal>
                         Link de la pagina oficial <ExternalLinkIcon mx='2px' />
                     </Link>
                 </MyContainer>
@@ -178,18 +181,11 @@ export const TicketDetail = () => {
                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
                         <MyContainer>
                             <VStack>
-                                <Avatar size='xl' name='Dan Abrahmov' src={ticket.sellerImage} />
+                                <Avatar size='xl' name={(ticket.userSeller)?ticket.userSeller.fullName:""} src={(ticket.userSeller)?ticket.userSeller.profile_photo_url:""} />
                                 <Box textAlign={"center"}>
-                                    <Text lineHeight={"20px"} fontFamily={"robotoBold"} fontSize={"22px"}>{ticket.sellerName}</Text>
-                                    {
-                                        /*
-                                        <Link fontSize={14} color='teal.500' href='/profile' isExternal>
-                                            Ver su perfil <ExternalLinkIcon mx='2px' />
-                                        </Link>
-                                        */
-                                    }
+                                    <Text lineHeight={"20px"} fontFamily={"robotoBold"} fontSize={"22px"}>{(ticket.userSeller)?ticket.userSeller.fullName:""}</Text>
                                 </Box>
-                                <RatingBadge id="mybadge" rating={ticket.rating} onClick={displayRatingDetailModal}></RatingBadge>
+                                <RatingBadge id="mybadge" rating={3} onClick={displayRatingDetailModal}></RatingBadge>
                                 <Box marginTop={1}></Box>
                                 <VStack gap={1} width={"100%"} paddingLeft={30} paddingRight={30}>
                                     <HStack justifyContent={"space-between"} width={"100%"}>

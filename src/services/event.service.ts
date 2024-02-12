@@ -1,4 +1,4 @@
-import { EVENTS_SEARCH_URL, EVENT_BY_ID, TICKETS_BY_EVENT_URL } from "../utils/constants";
+import { EVENTS_SEARCH_URL, EVENT_BY_ID, TICKETS_BY_EVENT_URL, TICKET_BY_ID } from "../utils/constants";
 import httpClient from "./config/httpClient";
 import { Event } from "./models/event.model";
 
@@ -156,6 +156,6 @@ export async function getEventById(eventId: any): Promise<any>{
     return httpClient.get(EVENT_BY_ID + "/" + eventId);
 }
 
-export async function getTicketDetailById(eventId: any, ticketId: any): Promise<any>{
-    return events.find(obj => obj.id == eventId)?.tickets.find(obj => obj.id == ticketId);
+export async function getTicketById(ticketId: any): Promise<any>{
+    return httpClient.get(TICKET_BY_ID + "/" + ticketId);
 }
