@@ -13,11 +13,14 @@ import { PAYMENT_METHOD_BANK_ACCOUNT } from "../../utils/constants";
 import { Ticket } from "../../services/models/ticket.model";
 import { Event } from "../../services/models/event.model";
 import { getTicketById } from "../../services/ticket.service";
+import { User } from "../../services/models/user.model";
+import { getUserById } from "../../services/user.service";
 
 export const Checkout = () => {
     const navigate = useNavigate();
     const [event, setEvent] = useState({} as Event);
     const [ticket, setTicket] = useState({} as Ticket);
+    const [user, setUser] = useState({} as User);
     const [_, setPaymentMethod] = useState(PAYMENT_METHOD_BANK_ACCOUNT);
     const { ticketId } = useParams();
 
@@ -32,6 +35,10 @@ export const Checkout = () => {
             setTicket(ticket);
             getEventById(ticket.eventIdEnc).then((res: any) => {
                 setEvent(res.data);
+            });
+
+            getUserById(ticket.userSellerIdEnc).then((res: any) => {
+                setUser(res.data);
             });
         });
     }
@@ -64,8 +71,8 @@ export const Checkout = () => {
                                     artistName={(event.artist)?event.artist.name:""}
                                     eventDate={event.date}
                                     ratingNumber={2}
-                                    sellerImage={(ticket.userSeller)?ticket.userSeller.profile_photo_url:""}
-                                    sellerName={(ticket.userSeller)?ticket.userSeller.fullName:""}
+                                    sellerImage={user.profile_photo_url}
+                                    sellerName={user.fullName}
                                     ticketPrice={ticket.price}
                                     ticketZone={(ticket.zone)?ticket.zone.name:""}
                                     seat={ticket.seat}></EventTicketCard>

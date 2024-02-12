@@ -21,11 +21,14 @@ import moment from 'moment/min/moment-with-locales';
 import { Event } from "../../services/models/event.model";
 import { TICKET_DETAIL_TOUR_STEPS } from "../../utils/constants";
 import { getTicketById } from "../../services/ticket.service";
+import { User } from "../../services/models/user.model";
+import { getUserById } from "../../services/user.service";
 
 export const TicketDetail = () => {
     const navigate = useNavigate();
     const [event, setEvent] = useState({} as Event);
     const [ticket, setTicket] = useState({} as Ticket);
+    const [user, setUser] = useState({} as User);
     const { ticketId } = useParams();
     const tg = new TourGuideClient({steps: TICKET_DETAIL_TOUR_STEPS, autoScroll:true, nextLabel: "Siguiente", prevLabel: "Atras", finishLabel: "Terminar"});
 
@@ -53,6 +56,10 @@ export const TicketDetail = () => {
             setTicket(ticket);
             getEventById(ticket.eventIdEnc).then((res: any) => {
                 setEvent(res.data);
+            });
+
+            getUserById(ticket.userSellerIdEnc).then((res: any) => {
+                setUser(res.data);
             });
         });
     }
@@ -156,9 +163,9 @@ export const TicketDetail = () => {
                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
                         <MyContainer>
                             <VStack>
-                                <Avatar size='xl' name={(ticket.userSeller)?ticket.userSeller.fullName:""} src={(ticket.userSeller)?ticket.userSeller.profile_photo_url:""} />
+                                <Avatar size='xl' name={user.fullName} src={user.profile_photo_url} />
                                 <Box textAlign={"center"}>
-                                    <Text lineHeight={"20px"} fontFamily={"robotoBold"} fontSize={"22px"}>{(ticket.userSeller)?ticket.userSeller.fullName:""}</Text>
+                                    <Text lineHeight={"20px"} fontFamily={"robotoBold"} fontSize={"22px"}>{user.fullName}</Text>
                                 </Box>
                                 <RatingBadge id="mybadge" rating={3} onClick={displayRatingDetailModal}></RatingBadge>
                                 <Box marginTop={1}></Box>
