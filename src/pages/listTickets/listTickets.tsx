@@ -88,8 +88,8 @@ export const ListTickets = () => {
                                             zoneName={ticket.zone.name}
                                             ratingNumber={3}
                                             ticketPrice={ticket.price}
-                                            sellerImage={ticket.userSeller.profile_photo_url}
-                                            sellerName={ticket.userSeller.name}
+                                            sellerImage={ticket.userSeller!.profile_photo_url}
+                                            sellerName={ticket.userSeller!.name}
                                             seat={ticket.seat}></TicketCard>
                                     ))
                                 }
