@@ -5,13 +5,14 @@ import { OrderByMenu } from "../../components/orderByMenu/orderByMenu";
 import { TicketCard } from "../../components/ticketCard/ticketCard";
 import { ReturnButton } from "../../components/returnButton/returnButton";
 import { useEffect, useState } from "react";
-import { getEventById, getTicketsByEventId } from "../../services/event.service";
+import { getEventById } from "../../services/event.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { MyButton } from "../../components/myButton/myButton";
 import { ASC_ORDER_BY, DESC_ORDER_BY } from "../../utils/constants";
 import { Ticket } from "../../services/models/ticket.model";
 import { Event } from "../../services/models/event.model";
 import moment from 'moment/min/moment-with-locales';
+import { getTicketsByEventId } from "../../services/ticket.service";
 
 export const ListTickets = () => {
     const [tickets, setTickets] = useState([] as any);

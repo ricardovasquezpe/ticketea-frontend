@@ -8,10 +8,11 @@ import { ReturnButton } from "../../components/returnButton/returnButton";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import { useNavigate, useParams } from "react-router-dom";
-import { getEventById, getTicketById } from "../../services/event.service";
+import { getEventById } from "../../services/event.service";
 import { PAYMENT_METHOD_BANK_ACCOUNT } from "../../utils/constants";
 import { Ticket } from "../../services/models/ticket.model";
 import { Event } from "../../services/models/event.model";
+import { getTicketById } from "../../services/ticket.service";
 
 export const Checkout = () => {
     const navigate = useNavigate();

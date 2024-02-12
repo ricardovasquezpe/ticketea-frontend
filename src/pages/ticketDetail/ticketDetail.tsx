@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Modals } from "../../config/modal/modal-config";
 import { useModal } from "../../config/modal/use-modal";
 import { useNavigate, useParams } from "react-router-dom";
-import { getEventById, getTicketById } from "../../services/event.service";
+import { getEventById } from "../../services/event.service";
 import { RatingBadge } from "../../components/ratingBadge/ratingBadge";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faShieldHeart } from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +20,7 @@ import { Ticket } from "../../services/models/ticket.model";
 import moment from 'moment/min/moment-with-locales';
 import { Event } from "../../services/models/event.model";
 import { TICKET_DETAIL_TOUR_STEPS } from "../../utils/constants";
+import { getTicketById } from "../../services/ticket.service";
 
 export const TicketDetail = () => {
     const navigate = useNavigate();
