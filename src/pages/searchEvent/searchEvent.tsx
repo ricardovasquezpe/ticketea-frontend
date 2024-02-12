@@ -11,12 +11,14 @@ import { searchEvents } from "../../services/event.service";
 import { store } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 import { Event } from "../../services/models/event.model";
+import { ASC_ORDER_BY, DESC_ORDER_BY } from "../../utils/constants";
 
 export const SearchEvent = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [events, setEvents] = useState([] as any[]);
     const [search, setSearch] = useState("");
+    const [orderByDate, setOrderByDate] = useState(false);
     const [timer, setTimer] = useState(null as any);
     
     const generateRandom = (min = 0, max = 100) =>{
@@ -36,7 +38,7 @@ export const SearchEvent = () => {
     }, []);
 
     const onLoadpage = () => {
-        searchEvents("", "", "").then((res:any) => {
+        searchEvents("", "date", ASC_ORDER_BY).then((res:any) => {
             setEvents(res.data);
         })
     }
@@ -47,12 +49,19 @@ export const SearchEvent = () => {
 
         const newTimer = setTimeout(async() => {
             dispatch(onSearch(text));
-            searchEvents(text, "", "").then((res:any) => {
+            searchEvents(search, "date", (orderByDate) ? ASC_ORDER_BY : DESC_ORDER_BY).then((res:any) => {
                 setEvents(res.data);
             })
         }, 800);
 
         setTimer(newTimer);
+    }
+
+    const orderBy = (active: boolean) => {
+        setOrderByDate(active);
+        searchEvents(search, "date", (active) ? ASC_ORDER_BY : DESC_ORDER_BY).then((res:any) => {
+            setEvents(res.data);
+        })
     }
 
     return (
@@ -76,7 +85,7 @@ export const SearchEvent = () => {
                         <Box className={styles.containerTitle}>
                             <HStack justify={"space-between"}>
                                 <SectionTitle title="Eventos encontrados"></SectionTitle>
-                                <OrderByMenu text="Ordenar por: Fecha"></OrderByMenu>
+                                <OrderByMenu onChange={(active)=>{orderBy(active)}} text="Ordenar por: Fecha"></OrderByMenu>
                             </HStack>
                         </Box>
                         <Box>
@@ -89,8 +98,8 @@ export const SearchEvent = () => {
                                             artistName={event.artist.name}
                                             ticketsNumber={event.ticketsCount}
                                             eventDate={event.date}
-                                            eventId={event.id}
-                                            onClick={()=>{navigate("/tickets/" + event.id)}}></EventCard>
+                                            eventId={event.encId}
+                                            onClick={()=>{navigate("/tickets/" + event.encId)}}></EventCard>
                                     ))
                                 }
                             </VStack>

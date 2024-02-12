@@ -1,10 +1,10 @@
 export class Artist {
-    public id: number;
+    public encId: string;
     public name: string;
     public image_url: string;
 
-    constructor(id: number, name: string, image_url: string){
-        this.id = id;
+    constructor(encId: string, name: string, image_url: string){
+        this.encId = encId;
         this.name = name;
         this.image_url = image_url;
     }

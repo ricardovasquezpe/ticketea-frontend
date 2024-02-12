@@ -7,6 +7,7 @@ export const OrderByMenu = (props: Props) => {
 
     const click = () => {
         setActive(!active);
+        props.onChange(!active);
     }
 
     return (
@@ -17,5 +18,6 @@ export const OrderByMenu = (props: Props) => {
 };
 
 type Props = {
-    text: string
+    text: string,
+    onChange: (active: boolean) => void
 };

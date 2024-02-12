@@ -1,7 +1,10 @@
 import { Badge, Box, HStack, Image, Show, Text } from "@chakra-ui/react";
 import styles from "./eventCard.module.css";
+import moment from 'moment/min/moment-with-locales';
 
 export const EventCard = (props: Props) => {
+    const formattedTime = moment(props.eventDate * 1000).format("DD MMMM. YYYY h:mm A");
+
     return (
         <Box className={styles.parent} onClick={props.onClick}>
             <HStack justifyContent="space-between">
@@ -18,7 +21,7 @@ export const EventCard = (props: Props) => {
                 </HStack>
                 <Box textAlign={"end"}>
                     <Badge variant={(props.ticketsNumber == 0) ? "red": "green"}className={styles.ticketsNumber}>{props.ticketsNumber} tickets</Badge>
-                    <Text className={styles.eventDate}>{props.eventDate}</Text>
+                    <Text className={styles.eventDate}>{formattedTime}</Text>
                 </Box>
             </HStack>
         </Box>
@@ -31,6 +34,6 @@ type Props = {
     eventImage: string,
     ticketsNumber: number,
     eventDate: number,
-    eventId: number,
+    eventId: string,
     onClick?: () => void
 };

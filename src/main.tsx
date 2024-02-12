@@ -6,7 +6,10 @@ import theme from './config/theme.tsx'
 import { Provider } from 'react-redux'
 import { persistor, store } from './store/store.ts'
 import { PersistGate } from 'redux-persist/integration/react';
+import moment from 'moment/min/moment-with-locales';
+import 'moment/locale/es';
 
+moment.updateLocale("es", {});
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ChakraProvider theme={theme}>
       <Provider store={store}>
