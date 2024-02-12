@@ -11,6 +11,7 @@ import { MyButton } from "../../components/myButton/myButton";
 import { ASC_ORDER_BY, DESC_ORDER_BY } from "../../utils/constants";
 import { Ticket } from "../../services/models/ticket.model";
 import { Event } from "../../services/models/event.model";
+import moment from 'moment/min/moment-with-locales';
 
 export const ListTickets = () => {
     const [tickets, setTickets] = useState([] as any);
@@ -41,6 +42,7 @@ export const ListTickets = () => {
         setOrderByDate(active);
     }
 
+
     return (
         <>
             <Box className={styles.parent}>
@@ -54,7 +56,7 @@ export const ListTickets = () => {
                             <HStack gap={2}>
                                 <Text>{(event.artist) ? event.artist.name : ""}</Text>
                                 <Text fontWeight={"bold"}>|</Text>
-                                <Text>{event.date}</Text>
+                                <Text>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
                                 <Text fontWeight={"bold"}>|</Text>
                                 <Text>{event.place}</Text>
                             </HStack>

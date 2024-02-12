@@ -2,6 +2,7 @@ import { Avatar, Box, Divider, HStack, Image, Show, Text } from "@chakra-ui/reac
 import styles from "./eventiTicketCard.module.css";
 import { RatingBadge } from "../ratingBadge/ratingBadge";
 import Utils from "../../utils/utils";
+import moment from 'moment/min/moment-with-locales';
 
 export const EventTicketCard = (props: Props) => {
     return (
@@ -16,7 +17,7 @@ export const EventTicketCard = (props: Props) => {
                     <Box textAlign={"start"}>
                         <Text className={styles.eventName}>{props.eventName}</Text>
                         <Text className={styles.artistName}>{props.artistName}</Text>
-                    <Text className={styles.eventDate}>{props.eventDate}</Text>
+                    <Text className={styles.eventDate}>{moment(props.eventDate * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
                     </Box>
                 </HStack>
                 <Box textAlign={"end"}>
@@ -42,7 +43,7 @@ type Props = {
     eventImage: string,
     eventName: string,
     artistName: string,
-    eventDate: string,
+    eventDate: number,
     ticketZone: string,
     ticketPrice: number,
     sellerName?: string,

@@ -20,7 +20,7 @@ function App() {
           <Route path='/' element={<SearchEvent></SearchEvent>}></Route>
           <Route path='/tickets/:eventId' element={<ListTickets></ListTickets>}></Route>
           <Route path='/ticket-detail/:ticketId' element={<TicketDetail></TicketDetail>}></Route>
-          <Route path='/ticket-buy/:eventId/:ticketId' element={<Checkout></Checkout>}></Route>
+          <Route path='/ticket-buy/:ticketId' element={<Checkout></Checkout>}></Route>
           <Route path='/sell-ticket' element={<SellTicket></SellTicket>}></Route>
           <Route path='/my-tickets' element={<MyTickets></MyTickets>}></Route>
           <Route path='/my-account' element={<MyAccount></MyAccount>}></Route>

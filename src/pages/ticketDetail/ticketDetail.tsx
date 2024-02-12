@@ -17,12 +17,14 @@ import { TourGuideClient } from "@sjmc11/tourguidejs";
 import "@sjmc11/tourguidejs/src/scss/tour.scss" 
 import Utils from "../../utils/utils";
 import { Ticket } from "../../services/models/ticket.model";
+import moment from 'moment/min/moment-with-locales';
+import { Event } from "../../services/models/event.model";
 
 export const TicketDetail = () => {
     const navigate = useNavigate();
-    const [event, setEvent] = useState({} as any);
-    const [ticket, setTicket] = useState({} as any);
-    const { eventId, ticketId } = useParams();
+    const [event, setEvent] = useState({} as Event);
+    const [ticket, setTicket] = useState({} as Ticket);
+    const { ticketId } = useParams();
     const steps = [{
         content: "Dando click aqui podrás ver los comentarios de sus compradores",
         title: "Rating del vendedor",
@@ -54,7 +56,7 @@ export const TicketDetail = () => {
     const tg = new TourGuideClient({steps: steps, autoScroll:true, nextLabel: "Siguiente", prevLabel: "Atras", finishLabel: "Terminar"});
 
     const click = () => {
-        navigate("/ticket-buy/" + eventId + "/" + ticketId);
+        navigate("/ticket-buy/" + ticketId);
     }
 
     useEffect(() => {
@@ -76,9 +78,6 @@ export const TicketDetail = () => {
             var ticket: Ticket = res.data;
             setTicket(ticket);
             setEvent(ticket.event);
-
-            console.log(ticket.userSeller.last_name_father);
-            
         });
     }
 
@@ -134,7 +133,7 @@ export const TicketDetail = () => {
                                     <HStack>
                                         <Text>{(event.artist)?event.artist.name:""}</Text>
                                         <Text fontWeight={"bold"}>|</Text>
-                                        <Text>{event.date}</Text>
+                                        <Text>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
                                         <Text fontWeight={"bold"}>|</Text>
                                         <Text>{event.place}</Text>
                                     </HStack>

@@ -10,29 +10,26 @@ import { Modals } from "../../config/modal/modal-config";
 import { useNavigate, useParams } from "react-router-dom";
 import { getEventById, getTicketById } from "../../services/event.service";
 import { PAYMENT_METHOD_BANK_ACCOUNT } from "../../utils/constants";
+import { Ticket } from "../../services/models/ticket.model";
+import { Event } from "../../services/models/event.model";
 
 export const Checkout = () => {
     const navigate = useNavigate();
-    const [event, setEvent] = useState({} as any);
-    const [ticket, setTicket] = useState({} as any);
+    const [event, setEvent] = useState({} as Event);
+    const [ticket, setTicket] = useState({} as Ticket);
     const [_, setPaymentMethod] = useState(PAYMENT_METHOD_BANK_ACCOUNT);
-    const { eventId, ticketId } = useParams();
+    const { ticketId } = useParams();
 
     useEffect(() => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-        getEventDetail();
         getTicketDetail();
     }, []);
 
-    const getEventDetail = () => {
-        getEventById(eventId).then((res: any) => {
-            setEvent(res);
-        });
-    }
-
     const getTicketDetail = () => {
         getTicketById(ticketId).then((res: any) => {
-            setTicket(res);
+            var ticket:Ticket = res.data;
+            setTicket(ticket);
+            setEvent(ticket.event);
         });
     }
 
@@ -59,15 +56,15 @@ export const Checkout = () => {
                 <VStack align='stretch' gap={5}>
                     <ReturnButton route="/ticket-detail"></ReturnButton>
                     <SectionTitle title="Ticket"/>
-                    <EventTicketCard eventImage={event.eventImage}
-                                    eventName={event.eventName}
-                                    artistName={event.artistName}
-                                    eventDate={event.eventDate}
-                                    ratingNumber={ticket.rating}
-                                    sellerImage={ticket.sellerImage}
-                                    sellerName={ticket.sellerName}
-                                    ticketPrice={ticket.ticketPrice}
-                                    ticketZone={ticket.zoneName}
+                    <EventTicketCard eventImage={event.image_url}
+                                    eventName={event.title}
+                                    artistName={(event.artist)?event.artist.name:""}
+                                    eventDate={event.date}
+                                    ratingNumber={2}
+                                    sellerImage={(ticket.userSeller)?ticket.userSeller.profile_photo_url:""}
+                                    sellerName={(ticket.userSeller)?ticket.userSeller.fullName:""}
+                                    ticketPrice={ticket.price}
+                                    ticketZone={(ticket.zone)?ticket.zone.name:""}
                                     seat={ticket.seat}></EventTicketCard>
                     <SectionTitle title="Metodo de pago"/>
                     <PaymentMethodSection onChange={(method)=>{setPaymentMethod(method)}}/>
