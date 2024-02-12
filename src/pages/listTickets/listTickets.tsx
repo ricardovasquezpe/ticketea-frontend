@@ -5,13 +5,17 @@ import { OrderByMenu } from "../../components/orderByMenu/orderByMenu";
 import { TicketCard } from "../../components/ticketCard/ticketCard";
 import { ReturnButton } from "../../components/returnButton/returnButton";
 import { useEffect, useState } from "react";
-import { getEventDetailById, getTicketsByEventId } from "../../services/event.service";
+import { getEventById, getTicketsByEventId } from "../../services/event.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { MyButton } from "../../components/myButton/myButton";
+import { ASC_ORDER_BY, DESC_ORDER_BY } from "../../utils/constants";
+import { Ticket } from "../../services/models/ticket.model";
+import { Event } from "../../services/models/event.model";
 
 export const ListTickets = () => {
     const [tickets, setTickets] = useState([] as any);
-    const [event, setEvent] = useState({} as any);
+    const [event, setEvent] = useState({} as Event);
+    const [orderByDate, setOrderByDate] = useState(false);
     const { eventId } = useParams();
     const navigate = useNavigate();
 
@@ -22,33 +26,37 @@ export const ListTickets = () => {
     }, []);
 
     const getTickets = () => {
-        getTicketsByEventId(eventId).then((res:any) =>{
-            setTickets(res);
+        getTicketsByEventId(eventId, "price", (orderByDate)?ASC_ORDER_BY:DESC_ORDER_BY).then((res:any) =>{
+            setTickets(res.data);
         });
     }
     
     const getEventDetail = () => {
-        getEventDetailById(eventId).then((res: any) => {
-            setEvent(res);
+        getEventById(eventId).then((res: any) => {
+            setEvent(res.data);
         });
+    }
+
+    const orderBy = (active: boolean) => {
+        setOrderByDate(active);
     }
 
     return (
         <>
             <Box className={styles.parent}>
-                <Box className={styles.background} style={{backgroundImage: "url("+event.eventImage+")"}}></Box>
+                <Box className={styles.background} style={{backgroundImage: "url("+event.image_url+")"}}></Box>
                 <Box paddingBottom={5} paddingTop={5}>
                     <Center>
                         <VStack spacing={3}>
                             <Image className={styles.eventImage} 
-                                src={event.eventImage}></Image>
-                            <Text fontSize={30} fontFamily={"robotoBold"}>{event.eventName}</Text>
+                                src={event.image_url}></Image>
+                            <Text fontSize={30} fontFamily={"robotoBold"}>{event.title}</Text>
                             <HStack gap={2}>
-                                <Text>{event.artistName}</Text>
+                                <Text>{(event.artist) ? event.artist.name : ""}</Text>
                                 <Text fontWeight={"bold"}>|</Text>
-                                <Text>{event.eventDate}</Text>
+                                <Text>{event.date}</Text>
                                 <Text fontWeight={"bold"}>|</Text>
-                                <Text>{event.eventPlace}</Text>
+                                <Text>{event.place}</Text>
                             </HStack>
                         </VStack>
                     </Center>
@@ -64,21 +72,20 @@ export const ListTickets = () => {
                         <Box className={styles.containerTitle}>
                             <HStack justify={"space-between"}>
                                 <SectionTitle title="Tickets del evento"></SectionTitle>
-                                <OrderByMenu text="Ordenar por: Precio"></OrderByMenu>
+                                <OrderByMenu text="Ordenar por: Precio" onChange={(active)=>{orderBy(active)}}></OrderByMenu>
                             </HStack>
                         </Box>
                         <Box>
                             <VStack align='stretch' spacing={3}>
                                 {
-                                    tickets.map((ticket: any, index: any) => (
+                                    tickets.map((ticket: Ticket, index: any) => (
                                         <TicketCard key={index}
-                                            eventId={eventId}
-                                            ticketId={ticket.id} 
-                                            zoneName={ticket.zoneName}
-                                            ratingNumber={ticket.rating}
-                                            ticketPrice={ticket.ticketPrice}
-                                            sellerImage={ticket.sellerImage}
-                                            sellerName={ticket.sellerName}
+                                            ticketId={ticket.encId} 
+                                            zoneName={ticket.zone.name}
+                                            ratingNumber={3}
+                                            ticketPrice={ticket.price}
+                                            sellerImage={ticket.userSeller.profile_photo_url}
+                                            sellerName={ticket.userSeller.name}
                                             seat={ticket.seat}></TicketCard>
                                     ))
                                 }

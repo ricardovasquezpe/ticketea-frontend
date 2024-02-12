@@ -1,4 +1,4 @@
-import { EVENTS_SEARCH_URL } from "../utils/constants";
+import { EVENTS_SEARCH_URL, EVENT_BY_ID, TICKETS_BY_EVENT_URL } from "../utils/constants";
 import httpClient from "./config/httpClient";
 import { Event } from "./models/event.model";
 
@@ -148,16 +148,12 @@ export function searchEvents(searchText: string, orderBy: string, order: string)
     return httpClient.get(EVENTS_SEARCH_URL, { params: { title: searchText, orderBy: orderBy, order: order } });    
 }
 
-export function getEventByText(searchText:string) {
-    return events.filter(obj => obj.eventName.toLowerCase().includes(searchText.toLowerCase()) || obj.artistName.toLowerCase().includes(searchText.toLowerCase()))
+export async function getTicketsByEventId(eventId: any, orderBy: string, order: string): Promise<any>{
+    return httpClient.get(TICKETS_BY_EVENT_URL + "/" + eventId, { params: { orderBy: orderBy, order: order } });   
 }
 
-export async function getTicketsByEventId(eventId: any): Promise<any>{
-    return events.find(obj => obj.id == eventId)?.tickets;
-}
-
-export async function getEventDetailById(eventId: any): Promise<any>{
-    return events.find(obj => obj.id == eventId);
+export async function getEventById(eventId: any): Promise<any>{
+    return httpClient.get(EVENT_BY_ID + "/" + eventId);
 }
 
 export async function getTicketDetailById(eventId: any, ticketId: any): Promise<any>{

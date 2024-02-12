@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Modals } from "../../config/modal/modal-config";
 import { useModal } from "../../config/modal/use-modal";
 import { useNavigate, useParams } from "react-router-dom";
-import { getEventDetailById, getTicketDetailById } from "../../services/event.service";
+import { getEventById, getTicketDetailById } from "../../services/event.service";
 import { RatingBadge } from "../../components/ratingBadge/ratingBadge";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faShieldHeart } from "@fortawesome/free-solid-svg-icons";
@@ -68,7 +68,7 @@ export const TicketDetail = () => {
     }, []);
 
     const getEventDetail = () => {
-        getEventDetailById(eventId).then((res: any) => {
+        getEventById(eventId).then((res: any) => {
             setEvent(res);
         });
     }

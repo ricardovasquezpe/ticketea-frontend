@@ -7,7 +7,7 @@ import Utils from "../../utils/utils";
 export const TicketCard = (props: Props) => {
     const navigate = useNavigate();
     const click = () => {
-        navigate("/ticket-detail/" + props.eventId + "/" + props.ticketId);
+        navigate("/ticket-detail"+ "/" + props.ticketId);
     }
 
     return (
@@ -37,7 +37,6 @@ type Props = {
     ticketPrice: number,
     sellerName: string,
     sellerImage: string,
-    ticketId: number,
-    eventId: any,
+    ticketId: string,
     seat: string
 };

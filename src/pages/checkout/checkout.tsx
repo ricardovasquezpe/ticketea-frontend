@@ -8,7 +8,7 @@ import { ReturnButton } from "../../components/returnButton/returnButton";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import { useNavigate, useParams } from "react-router-dom";
-import { getEventDetailById, getTicketDetailById } from "../../services/event.service";
+import { getEventById, getTicketDetailById } from "../../services/event.service";
 import { PAYMENT_METHOD_BANK_ACCOUNT } from "../../utils/constants";
 
 export const Checkout = () => {
@@ -25,7 +25,7 @@ export const Checkout = () => {
     }, []);
 
     const getEventDetail = () => {
-        getEventDetailById(eventId).then((res: any) => {
+        getEventById(eventId).then((res: any) => {
             setEvent(res);
         });
     }
