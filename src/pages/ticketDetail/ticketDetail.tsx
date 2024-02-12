@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Modals } from "../../config/modal/modal-config";
 import { useModal } from "../../config/modal/use-modal";
 import { useNavigate, useParams } from "react-router-dom";
-import { getTicketById } from "../../services/event.service";
+import { getEventById, getTicketById } from "../../services/event.service";
 import { RatingBadge } from "../../components/ratingBadge/ratingBadge";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faShieldHeart } from "@fortawesome/free-solid-svg-icons";
@@ -50,7 +50,9 @@ export const TicketDetail = () => {
         getTicketById(ticketId).then((res: any) => {
             var ticket: Ticket = res.data;
             setTicket(ticket);
-            setEvent(ticket.event);
+            getEventById(ticket.eventIdEnc).then((res: any) => {
+                setEvent(res.data);
+            });
         });
     }
 
@@ -142,7 +144,7 @@ export const TicketDetail = () => {
                         </HStack>
                     </HStack>
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
-                    <Link color='teal.500' href={(ticket.event)?ticket.event.url:""} isExternal>
+                    <Link color='teal.500' href={event.url} isExternal>
                         Link de la pagina oficial <ExternalLinkIcon mx='2px' />
                     </Link>
                 </MyContainer>
