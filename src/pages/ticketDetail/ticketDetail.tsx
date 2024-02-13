@@ -23,6 +23,7 @@ import { TICKET_DETAIL_TOUR_STEPS } from "../../utils/constants";
 import { getTicketById } from "../../services/ticket.service";
 import { User } from "../../services/models/user.model";
 import { getUserById } from "../../services/user.service";
+import { getRatingsByUserId } from "../../services/rating.service";
 
 export const TicketDetail = () => {
     const navigate = useNavigate();
@@ -65,19 +66,21 @@ export const TicketDetail = () => {
     }
 
     const ratingDetailModal = useModal<any>(Modals.RatingDetailsModal);
-    const displayRatingDetailModal = () => {
+    const displayRatingDetailModal = async () => {
+        var ratings = await getRatingsByUserId(user.encId);
         ratingDetailModal.open({
-          onSave: () => {
-            console.log("OnSave");
-          },
-          onClose: () => {
-            console.log("onClose");
-            ratingDetailModal.close();
-          },
-          onCancel: () => {
-            console.log("onCancel");
-            ratingDetailModal.close();
-          },
+            ratings: ratings.data,
+            onSave: () => {
+                console.log("OnSave");
+            },
+            onClose: () => {
+                console.log("onClose");
+                ratingDetailModal.close();
+            },
+            onCancel: () => {
+                console.log("onCancel");
+                ratingDetailModal.close();
+            },
         });
     }
 
@@ -89,11 +92,11 @@ export const TicketDetail = () => {
             },
             onClose: () => {
               console.log("onClose");
-              ratingDetailModal.close();
+              ticketeaProtectModal.close();
             },
             onCancel: () => {
               console.log("onCancel");
-              ratingDetailModal.close();
+              ticketeaProtectModal.close();
             },
           });
     }
