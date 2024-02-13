@@ -15,7 +15,8 @@ export const MyButton = (props: Props) => {
                     isDisabled={props.isDisabled}
                     border={props.border}
                     size={props.size}
-                    width={props.width}>
+                    width={props.width}
+                    isLoading={props.isLoading}>
                 {props.title}
             </Button>
         </>
@@ -34,5 +35,6 @@ type Props = {
     isDisabled?: boolean,
     border?: string,
     size?: string,
-    width?: string
+    width?: string,
+    isLoading?: boolean
 };

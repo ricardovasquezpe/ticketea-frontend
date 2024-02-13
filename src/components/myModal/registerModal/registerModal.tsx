@@ -12,6 +12,7 @@ import { onLogin } from "../../../store/auth/authAction";
 export const RegisterModal = (props: Props) => {
     const { register, trigger: registerTrigger, getValues: registerGetValues, formState: { errors } } = useForm();
     const [errorMessage, setErrorMessage] = useState("" as any);
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
     const bodyComponents = () => {
@@ -30,12 +31,13 @@ export const RegisterModal = (props: Props) => {
     const footerComponents = () => {
         return <VStack gap={3}>
                 <MyButton textColor="white" 
-                                    backgroundColor="secondary.default" 
-                                    backgroundColorHover="secondary.dark" 
-                                    title={"Registrarme"}
-                                    fontSize="18px"
-                                    padding="14px 28px"
-                                    onClick={onRegister}></MyButton>
+                            backgroundColor="secondary.default" 
+                            backgroundColorHover="secondary.dark" 
+                            title={"Registrarme"}
+                            fontSize="18px"
+                            padding="14px 28px"
+                            onClick={onRegister}
+                            isLoading={loading}></MyButton>
                 <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>{errorMessage}</Text>
             </VStack>
     }
@@ -61,10 +63,11 @@ export const RegisterModal = (props: Props) => {
         }
 
         setErrorMessage("");
-
+        setLoading(true);
         var payload = {...registerGetValues(), birthDate: birthDateMoment.format("DD/MM/YYYY")}
         var response = await registerUser(payload);
         if(response.data.message){
+            setLoading(false);
             setErrorMessage("El usuario ya existe");
             return;
         }
