@@ -31,14 +31,12 @@ export const Header = () => {
     const displayLoginModal = () => {
         loginModal.open({
           onSave: () => {
-            console.log("OnSave");
+            loginModal.close();
           },
           onClose: () => {
-            console.log("onClose");
             loginModal.close();
           },
           onCancel: () => {
-            console.log("onCancel");
             loginModal.close();
           },
         });

@@ -7,23 +7,29 @@ import { useDispatch } from "react-redux";
 import { onLogin } from "../../../store/auth/authAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { loginUser } from "../../../services/auth.service";
+import Session from "../../../utils/session";
 
 export const LoginModal = (props: Props) => {
     const { register: login, trigger: loginTrigger, getValues: loginGetValues, formState: { errors } } = useForm();
     const [errorMessage, setErrorMessage] = useState("" as any);
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const clickShowPassword = () => setShowPassword(!showPassword)
 
     const bodyComponents = () => {
         return <VStack gap={3}>
-                    <Input placeholder='Correo Electronico' {...login("email", {required: "El Correo electronico es obligatorio", pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electronico debe ser un email valido" }})} isInvalid={(errors?.email?.message != null) ? true : false}/>
+                    <Input placeholder='Correo Electronico' 
+                            {...login("email", {required: "El Correo electronico es obligatorio", pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electronico debe ser un email valido" }})} 
+                            isInvalid={(errors?.email?.message != null) ? true : false}/>
                     <InputGroup size='md'>
                         <Input
                             pr='4.5rem'
                             type={showPassword ? 'text' : 'password'}
                             placeholder='Contraseña'
-                            {...login("password", {required: "La Contraseña es obligatorio"})} isInvalid={(errors?.password?.message != null) ? true : false}/>
+                            {...login("password", {required: "La Contraseña es obligatorio"})} 
+                            isInvalid={(errors?.password?.message != null) ? true : false}/>
                         <InputRightElement width='3rem'>
                             <FontAwesomeIcon color={"var(--chakra-colors-grey-default)"} cursor={"pointer"} onClick={clickShowPassword} icon={(showPassword ? faEyeSlash : faEye)} size="1x"/>
                         </InputRightElement>
@@ -39,7 +45,8 @@ export const LoginModal = (props: Props) => {
                                     title={"Ingresar"}
                                     fontSize="18px"
                                     padding="14px 28px"
-                                    onClick={loginAction}></MyButton>
+                                    onClick={loginAction}
+                                    isLoading={loading}></MyButton>
                 <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>{errorMessage}</Text>
             </VStack>
     }
@@ -50,11 +57,20 @@ export const LoginModal = (props: Props) => {
             setErrorMessage(Object.values(errors)[0]?.message);
             return;
         }
-        
-        dispatch(onLogin());
-        
+
+        setLoading(true);
         setErrorMessage("");
-        props.onClose();
+        
+        var response = await loginUser(loginGetValues());
+        if(response.data.message){
+            setLoading(false);
+            setErrorMessage("El correo o contraseña invalidos");
+            return;
+        }
+        
+        Session.saveUserToken(response.data.token);
+        dispatch(onLogin());
+        props.onSave();
     }
 
     return (
