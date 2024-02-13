@@ -44,6 +44,7 @@ export const ListTickets = () => {
         });
     }
 
+    
 
     return (
         <>
@@ -53,7 +54,8 @@ export const ListTickets = () => {
                     <Center>
                         <VStack spacing={3}>
                             <Image className={styles.eventImage} 
-                                src={event.image_url}></Image>
+                                   src={event.image_url}
+                                   fallbackSrc='https://via.placeholder.com/150'></Image>
                             <Text fontSize={30} fontFamily={"robotoBold"}>{event.title}</Text>
                             <HStack gap={2}>
                                 <Text>{(event.artist) ? event.artist.name : ""}</Text>

@@ -49,7 +49,7 @@ export const SearchEvent = () => {
 
         const newTimer = setTimeout(async() => {
             dispatch(onSearch(text));
-            searchEvents(search, "date", (orderByDate) ? ASC_ORDER_BY : DESC_ORDER_BY).then((res:any) => {
+            searchEvents(text, "date", (orderByDate) ? ASC_ORDER_BY : DESC_ORDER_BY).then((res:any) => {
                 setEvents(res.data);
             })
         }, 800);

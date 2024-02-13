@@ -107,7 +107,7 @@ export const TicketDetail = () => {
                         <Grid templateColumns="repeat(5, 1fr)" gap={5}> 
                             <GridItem colSpan={{base: 5, sm: 5, md: 1}}>
                                 <Center>
-                                    <Image className={styles.eventImage} src={event.image_url}></Image>
+                                    <Image className={styles.eventImage} src={event.image_url} fallbackSrc='https://via.placeholder.com/150'></Image>
                                 </Center>
                             </GridItem>
                             <GridItem colSpan={{base: 5, sm: 5, md: 4}}>
