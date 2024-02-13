@@ -167,7 +167,7 @@ export const TicketDetail = () => {
                                 <Box textAlign={"center"}>
                                     <Text lineHeight={"20px"} fontFamily={"robotoBold"} fontSize={"22px"}>{user.fullName}</Text>
                                 </Box>
-                                <RatingBadge id="mybadge" rating={3} onClick={displayRatingDetailModal}></RatingBadge>
+                                <RatingBadge id="mybadge" rating={user.avgRating!} onClick={displayRatingDetailModal}></RatingBadge>
                                 <Box marginTop={1}></Box>
                                 <VStack gap={1} width={"100%"} paddingLeft={30} paddingRight={30}>
                                     <HStack justifyContent={"space-between"} width={"100%"}>

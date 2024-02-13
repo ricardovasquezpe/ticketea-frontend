@@ -7,9 +7,9 @@ export class User {
     public profile_photo_url: string;
     public birth_date: string;
     public fullName: string;
-    public avgRating?: string;
+    public avgRating?: number;
 
-    constructor(encId: string, name: string, email: string, last_name_father: string, last_name_mother: string, profile_photo_url: string, birth_date: string, fullName: string, avgRating: string){
+    constructor(encId: string, name: string, email: string, last_name_father: string, last_name_mother: string, profile_photo_url: string, birth_date: string, fullName: string, avgRating: number){
         this.encId = encId;
         this.name = name;
         this.email = email;

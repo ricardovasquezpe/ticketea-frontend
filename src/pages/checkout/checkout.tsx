@@ -70,7 +70,7 @@ export const Checkout = () => {
                                     eventName={event.title}
                                     artistName={(event.artist)?event.artist.name:""}
                                     eventDate={event.date}
-                                    ratingNumber={2}
+                                    ratingNumber={user.avgRating!}
                                     sellerImage={user.profile_photo_url}
                                     sellerName={user.fullName}
                                     ticketPrice={ticket.price}

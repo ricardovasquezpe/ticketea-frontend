@@ -86,7 +86,7 @@ export const ListTickets = () => {
                                         <TicketCard key={index}
                                             ticketId={ticket.encId} 
                                             zoneName={ticket.zone.name}
-                                            ratingNumber={3}
+                                            ratingNumber={ticket.userSeller!.avgRating!}
                                             ticketPrice={ticket.price}
                                             sellerImage={ticket.userSeller!.profile_photo_url}
                                             sellerName={ticket.userSeller!.name}
