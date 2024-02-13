@@ -13,38 +13,34 @@ import { Ticket } from "../../services/models/ticket.model";
 import { Event } from "../../services/models/event.model";
 import moment from 'moment/min/moment-with-locales';
 import { getTicketsByEventId } from "../../services/ticket.service";
+import { useModal } from "../../config/modal/use-modal";
+import { Modals } from "../../config/modal/modal-config";
 
 export const ListTickets = () => {
     const [tickets, setTickets] = useState([] as any);
     const [event, setEvent] = useState({} as Event);
     const { eventId } = useParams();
     const navigate = useNavigate();
+    const loadingModal = useModal<any>(Modals.LoadingModal);
 
     useEffect(() => {
+        loadingModal.open({title: "Cargando los tickets"});
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-        getEventDetail();
-        getTickets();
+        onLoadData();
     }, []);
 
-    const getTickets = () => {
-        getTicketsByEventId(eventId, "price", DESC_ORDER_BY).then((res:any) =>{
-            setTickets(res.data);
-        });
-    }
-    
-    const getEventDetail = () => {
-        getEventById(eventId).then((res: any) => {
-            setEvent(res.data);
-        });
+    const onLoadData = async() => {
+        var ticketsRes = await getTicketsByEventId(eventId, "price", DESC_ORDER_BY);
+        setTickets(ticketsRes.data);
+        var eventRes = await getEventById(eventId);
+        setEvent(eventRes.data);
+        loadingModal.close();
     }
 
     const orderBy = (active: boolean) => {
-        getTicketsByEventId(eventId, "price", (active)?ASC_ORDER_BY:DESC_ORDER_BY).then((res:any) =>{
-            setTickets(res.data);
-        });
+        var res:any = getTicketsByEventId(eventId, "price", (active)?ASC_ORDER_BY:DESC_ORDER_BY);
+        setTickets(res.data);
     }
-
-    
 
     return (
         <>

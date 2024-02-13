@@ -23,24 +23,26 @@ export const Checkout = () => {
     const [user, setUser] = useState({} as User);
     const [_, setPaymentMethod] = useState(PAYMENT_METHOD_BANK_ACCOUNT);
     const { ticketId } = useParams();
+    const loadingModal = useModal<any>(Modals.LoadingModal);
 
     useEffect(() => {
+        loadingModal.open({title: "Cargando informacion de pago"});
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-        getTicketDetail();
+        onLoadData();
     }, []);
 
-    const getTicketDetail = () => {
-        getTicketById(ticketId).then((res: any) => {
-            var ticket: Ticket = res.data;
-            setTicket(ticket);
-            getEventById(ticket.eventIdEnc).then((res: any) => {
-                setEvent(res.data);
-            });
+    const onLoadData = async() => {
+        var ticketRes = await getTicketById(ticketId);
+        var ticketObj: Ticket = ticketRes.data;
+        setTicket(ticketObj);
 
-            getUserById(ticket.userSellerIdEnc).then((res: any) => {
-                setUser(res.data);
-            });
-        });
+        var eventRes:any = await getEventById(ticketObj.eventIdEnc);
+        setEvent(eventRes.data);
+
+        var userRes:any = await getUserById(ticketObj.userSellerIdEnc);
+        setUser(userRes.data);
+
+        loadingModal.close();
     }
 
     const FinishPaymentModal = useModal<any>(Modals.FinishPaymentModal);

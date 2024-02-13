@@ -32,14 +32,16 @@ export const TicketDetail = () => {
     const [user, setUser] = useState({} as User);
     const { ticketId } = useParams();
     const tg = new TourGuideClient({steps: TICKET_DETAIL_TOUR_STEPS, autoScroll:true, nextLabel: "Siguiente", prevLabel: "Atras", finishLabel: "Terminar"});
+    const loadingModal = useModal<any>(Modals.LoadingModal);
 
     const click = () => {
         navigate("/ticket-buy/" + ticketId);
     }
 
     useEffect(() => {
+        loadingModal.open({title: "Cargando el detalle del ticket"});
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-        getTicketDetail();
+        onLoadData();
         tourInit();
     }, []);
 
@@ -51,18 +53,18 @@ export const TicketDetail = () => {
         }
     } 
 
-    const getTicketDetail = () => {
-        getTicketById(ticketId).then((res: any) => {
-            var ticket: Ticket = res.data;
-            setTicket(ticket);
-            getEventById(ticket.eventIdEnc).then((res: any) => {
-                setEvent(res.data);
-            });
+    const onLoadData = async() => {
+        var ticketRes = await getTicketById(ticketId);
+        var ticketObj: Ticket = ticketRes.data;
+        setTicket(ticketObj);
 
-            getUserById(ticket.userSellerIdEnc).then((res: any) => {
-                setUser(res.data);
-            });
-        });
+        var eventRes:any = await getEventById(ticketObj.eventIdEnc);
+        setEvent(eventRes.data);
+
+        var userRes:any = await getUserById(ticketObj.userSellerIdEnc);
+        setUser(userRes.data);
+
+        loadingModal.close();
     }
 
     const ratingDetailModal = useModal<any>(Modals.RatingDetailsModal);

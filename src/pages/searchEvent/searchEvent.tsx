@@ -8,10 +8,11 @@ import styles from "./searchEvent.module.css";
 import { useDispatch } from "react-redux";
 import { onSearch } from "../../store/search/searchAction";
 import { searchEvents } from "../../services/event.service";
-import { store } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 import { Event } from "../../services/models/event.model";
 import { ASC_ORDER_BY, DESC_ORDER_BY } from "../../utils/constants";
+import { useModal } from "../../config/modal/use-modal";
+import { Modals } from "../../config/modal/modal-config";
 
 export const SearchEvent = () => {
     const dispatch = useDispatch();
@@ -20,7 +21,8 @@ export const SearchEvent = () => {
     const [search, setSearch] = useState("");
     const [orderByDate, setOrderByDate] = useState(false);
     const [timer, setTimer] = useState(null as any);
-    
+    const loadingModal = useModal<any>(Modals.LoadingModal);
+
     const generateRandom = (min = 0, max = 100) =>{
         let difference = max - min;
         let rand = Math.random();
@@ -31,16 +33,17 @@ export const SearchEvent = () => {
     const imageNumber = useMemo(() => generateRandom(3, 8), []);
 
     useEffect(() => {
+        loadingModal.open({title: "Cargando los eventos"});
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-        var searchText = store.getState().search.search;
-        setSearch(searchText);
-        onLoadpage();
+        //var searchText = store.getState().search.search;
+        //setSearch(searchText);
+        onLoadData();
     }, []);
 
-    const onLoadpage = () => {
-        searchEvents("", "date", ASC_ORDER_BY).then((res:any) => {
-            setEvents(res.data);
-        })
+    const onLoadData = async () => {
+        var res:any = await searchEvents("", "date", ASC_ORDER_BY)
+        setEvents(res.data);
+        loadingModal.close();
     }
 
     const inputChanged = (text:any) => {

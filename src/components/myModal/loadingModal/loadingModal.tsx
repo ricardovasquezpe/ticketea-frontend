@@ -15,7 +15,7 @@ export const LoadingModal = (props: Props) => {
             closeButton={false} 
             onClose={props.onClose} 
             closeOnOverlay={false}
-            titleComponent={<Text fontSize={20}>Cargando tu información</Text>}
+            titleComponent={<Text fontSize={20}>{props.title}</Text>}
             bodyComponent={bodyComponents()}/>
     );
 };
@@ -24,4 +24,5 @@ type Props = {
     onClose: () => void,
     onSave: () => void,
     onCancel: () => void,
+    title: string
 };
