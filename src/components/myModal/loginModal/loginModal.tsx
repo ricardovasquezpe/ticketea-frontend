@@ -3,7 +3,6 @@ import { MyModal } from "../myModal";
 import { MyButton } from "../../myButton/myButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import Session from "../../../utils/session";
 import { useDispatch } from "react-redux";
 import { onLogin } from "../../../store/auth/authAction";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -51,12 +50,10 @@ export const LoginModal = (props: Props) => {
             setErrorMessage(Object.values(errors)[0]?.message);
             return;
         }
-
-        console.log(loginGetValues());
+        
         dispatch(onLogin());
         
         setErrorMessage("");
-        Session.setIsLoggedIn(true);
         props.onClose();
     }
 

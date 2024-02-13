@@ -1,5 +1,5 @@
 import styles from './header.module.css'
-import {  Image, Flex,  HStack , chakra, Hide, Text, Box } from '@chakra-ui/react';
+import {  Image, Flex,  HStack , chakra, Hide, Text, Box, useToast } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MobileDrawer } from './mobile-drawer';
 import { useModal } from '../../config/modal/use-modal';
@@ -14,6 +14,7 @@ export const Header = () => {
     const dispatch = useDispatch();
     const [isLogin, setIsLogin] = useState(store.getState().auth.isLoggedIn);
     const navigate = useNavigate();
+    const toast = useToast();
 
     useEffect(() => {
         const unsubscribe = store.subscribe(() => {
@@ -47,14 +48,22 @@ export const Header = () => {
     const displayRegisterModal = () => {
         registerModal.open({
           onSave: () => {
-            console.log("OnSave");
+            registerModal.close();
+            toast({
+                title: 'Gracias por registrarte! ahora ya puedes anunciar tus entradas y comprar!',
+                description: "",
+                status: 'success',
+                containerStyle: {
+                    fontSize: "16px"
+                },
+                duration: 9000,
+                isClosable: true,
+            })
           },
           onClose: () => {
-            console.log("onClose");
             registerModal.close();
           },
           onCancel: () => {
-            console.log("onCancel");
             registerModal.close();
           },
         });

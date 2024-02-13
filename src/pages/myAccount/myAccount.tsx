@@ -71,7 +71,7 @@ export const MyAccount = () => {
             },
             duration: 9000,
             isClosable: true,
-          })
+        })
     }
 
     return (

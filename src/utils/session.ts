@@ -1,12 +1,12 @@
 export default class Session {
 
-    static ISLOGGEGIN_KEY = "isLoggedIn";
+    static JWTUSER_KEY = "jwt_user";
 
-    static getIsLoggedIn = () => {
-        return localStorage.getItem(this.ISLOGGEGIN_KEY) == "true";
+    static getUserToken = () => {
+        return localStorage.getItem(this.JWTUSER_KEY);
     }
 
-    static setIsLoggedIn = (val:any) => {
-        localStorage.setItem(this.ISLOGGEGIN_KEY, val);
+    static saveUserToken = (val:any) => {
+        localStorage.setItem(this.JWTUSER_KEY, val);
     }
 }

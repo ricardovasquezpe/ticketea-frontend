@@ -2,8 +2,10 @@ export const EVENTS_SEARCH_URL = "/events/search";
 export const TICKETS_BY_EVENT_URL = "/tickets/getByEvent";
 export const EVENT_BY_ID = "/events";
 export const TICKET_BY_ID = "/tickets";
-export const USER_BY_ID = "/users"
-export const RATING_BY_USER_ID = "/ratings/byUser"
+export const USER_BY_ID = "/users";
+export const RATING_BY_USER_ID = "/ratings/byUser";
+export const LOGIN_USER_URL = "/auth/login";
+export const REGISTER_USER_URL = "/auth/register";
 
 export const PAYMENT_METHOD_BANK_ACCOUNT = "1";
 export const PAYMENT_METHOD_CREDIT_CARD = "2";
