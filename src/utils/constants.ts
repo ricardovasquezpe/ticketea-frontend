@@ -9,6 +9,8 @@ export const REGISTER_USER_URL = "/auth/register";
 export const MY_USER_DATA_URL = "/users/me/details";
 export const CHANGE_MY_PHOTO_URL = "/users/me/photo";
 export const UPDATE_MY_USER_DATA_URL = "/users/me/details";
+export const SEND_VALIDATION_MY_PHONE = "/validate/me/phoneSend";
+export const VALIDATE_MY_PHONE = "/validate/me/phoneVerify";
 
 export const PAYMENT_METHOD_BANK_ACCOUNT = "1";
 export const PAYMENT_METHOD_CREDIT_CARD = "2";

@@ -62,8 +62,10 @@ export const MyAccount = () => {
     const validatePhoneModal = useModal<any>(Modals.ValidatePhoneModal);
     const validatePhone = () => {
         validatePhoneModal.open({
-          onSave: () => {
-            console.log("OnSave");
+          onSave: async () => {
+            var res = await getMyUserData();
+            setUser(res.data);
+            validatePhoneModal.close();
           },
           onClose: () => {
             console.log("onClose");
@@ -223,7 +225,12 @@ export const MyAccount = () => {
                         <VStack gap={2}>
                             <MyContainer>
                             <HStack justifyContent={"space-between"}>
-                                <Text fontSize={"16px"}>Celular</Text>
+                                <HStack>
+                                    <Text fontSize={"16px"}>Celular</Text>
+                                    {(user.userValidations?.find((val) => val.type == UserValidationType.PhoneVerified && val.validated)) ? 
+                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
+                                        <></>}
+                                </HStack>
                                 <MyButton textColor="white" 
                                             backgroundColor="secondary.default" 
                                             backgroundColorHover="secondary.dark" 
@@ -231,7 +238,8 @@ export const MyAccount = () => {
                                             fontSize="14px"
                                             padding="5px 10px"
                                             size="xs"
-                                            onClick={validatePhone}></MyButton>
+                                            onClick={validatePhone}
+                                            isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PhoneVerified && val.count == 2)?true:false)}></MyButton>
                             </HStack>
                         </MyContainer>
                         <MyContainer>
