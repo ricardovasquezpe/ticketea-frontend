@@ -6,4 +6,10 @@ export default class Utils {
     static calculatePercentageAdd = (price: number, originalPrice: number) => {
         return (((price * 100) / originalPrice) - 100).toFixed(0);
     }
+
+    static validateImageFileType = (type: string) => {
+        const validImageTypes = ['image/jpeg', 'image/png'];
+        if (!validImageTypes.includes(type)) return false;
+        return true;
+    }
 }

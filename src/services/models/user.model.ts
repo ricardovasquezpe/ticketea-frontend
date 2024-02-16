@@ -1,3 +1,5 @@
+import { UserValidations } from "./userValidations.model";
+
 export class User {
     public encId: string;
     public name: string;
@@ -8,8 +10,9 @@ export class User {
     public birth_date: string;
     public fullName: string;
     public avgRating?: number;
+    public userValidations?: UserValidations[];
 
-    constructor(encId: string, name: string, email: string, last_name_father: string, last_name_mother: string, profile_photo_url: string, birth_date: string, fullName: string, avgRating: number){
+    constructor(encId: string, name: string, email: string, last_name_father: string, last_name_mother: string, profile_photo_url: string, birth_date: string, fullName: string, avgRating: number, userValidations: UserValidations[]){
         this.encId = encId;
         this.name = name;
         this.email = email;
@@ -19,5 +22,6 @@ export class User {
         this.birth_date = birth_date;
         this.fullName = fullName;
         this.avgRating = avgRating;
+        this.userValidations = userValidations;
     }
 }

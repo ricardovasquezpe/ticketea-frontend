@@ -7,9 +7,44 @@ import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import { useToast } from '@chakra-ui/react'
+import { useEffect, useState } from "react";
+import { getMyUserData } from "../../services/user.service";
+import { User } from "../../services/models/user.model";
 
 export const MyAccount = () => {
     const toast = useToast();
+    const loadingModal = useModal<any>(Modals.LoadingModal);
+    const [user, setUser] = useState({} as User);
+
+    useEffect(() => {
+        loadingModal.open({title: "Cargando los tickets"});
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        onLoadData();
+    }, []);
+
+    const onLoadData = async() => {
+        var res = await getMyUserData();
+        setUser(res.data);
+        loadingModal.close();
+    }
+
+    const changeProfilePhotoModal = useModal<any>(Modals.ChangeProfilePhotoModal);
+    const changeProfilePhoto = () => {
+        changeProfilePhotoModal.open({
+            onSave: () => {
+                console.log("OnSave");
+            },
+            onClose: () => {
+                console.log("onClose");
+                changeProfilePhotoModal.close();
+            },
+            onCancel: () => {
+                console.log("onCancel");
+                changeProfilePhotoModal.close();
+            },
+        });
+    }
+
     const validatePhoneModal = useModal<any>(Modals.ValidatePhoneModal);
     const validatePhone = () => {
         validatePhoneModal.open({
@@ -83,11 +118,12 @@ export const MyAccount = () => {
                         <VStack justifyContent={"stretch"} gap={5}>
                             <Box>
                                 <VStack>
-                                    <Avatar size='xl' name={"Carlos Alberto"} src={"https://bit.ly/kent-c-dodds"} />
+                                    <Avatar size='xl' name={user.fullName} src={user.profile_photo_url} />
                                     <MyButton textColor="white" 
                                         backgroundColor="secondary.default" 
                                         backgroundColorHover="secondary.dark" 
                                         title={"Cambiar foto"}
+                                        onClick={changeProfilePhoto}
                                         fontSize="14px"
                                         padding="5px 10px"
                                         size="xs"></MyButton>

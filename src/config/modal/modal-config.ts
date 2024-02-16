@@ -13,6 +13,7 @@ export enum Modals {
  ConfirmTicketModal,
  RequestRefundModal,
  EditTicketPriceModal,
+ ChangeProfilePhotoModal,
 
  DeleteTicketDialog
 }
@@ -53,6 +54,9 @@ export const modalsConfig: Record<Modals, LazyExoticComponent<any>> = {
     }))),
     [Modals.EditTicketPriceModal]: React.lazy(() => import('../../components/myModal/editTicketPriceModal/editTicketPriceModal').then((module) => ({
         default: module.EditTicketPriceModal,
+    }))),
+    [Modals.ChangeProfilePhotoModal]: React.lazy(() => import('../../components/myModal/changeProfilePhotoModal/changeProfilePhotoModal').then((module) => ({
+        default: module.changeProfilePhotoModal,
     }))),
     [Modals.DeleteTicketDialog]: React.lazy(() => import('../../components/myDialog/deleteTicketDialog/deleteTicketDialog').then((module) => ({
         default: module.DeleteTicketDialog,

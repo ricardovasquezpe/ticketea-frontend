@@ -6,6 +6,7 @@ export const USER_BY_ID = "/users";
 export const RATING_BY_USER_ID = "/ratings/byUser";
 export const LOGIN_USER_URL = "/auth/login";
 export const REGISTER_USER_URL = "/auth/register";
+export const MY_USER_DATA_URL = "/users/me/details";
 
 export const PAYMENT_METHOD_BANK_ACCOUNT = "1";
 export const PAYMENT_METHOD_CREDIT_CARD = "2";
