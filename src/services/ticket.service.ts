@@ -10,5 +10,5 @@ export async function getTicketById(ticketId: any): Promise<any>{
 }
 
 export async function createTicket(payload: any): Promise<any>{
-    return httpClient.get(CREATE_TICKET, payload);
+    return httpClient.post(CREATE_TICKET, payload);
 }

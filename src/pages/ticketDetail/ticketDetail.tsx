@@ -12,7 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getEventById } from "../../services/event.service";
 import { RatingBadge } from "../../components/ratingBadge/ratingBadge";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck, faShieldHeart } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck, faCircleXmark, faShieldHeart } from "@fortawesome/free-solid-svg-icons";
 import { TourGuideClient } from "@sjmc11/tourguidejs";
 import "@sjmc11/tourguidejs/src/scss/tour.scss" 
 import Utils from "../../utils/utils";
@@ -24,6 +24,7 @@ import { getTicketById } from "../../services/ticket.service";
 import { User } from "../../services/models/user.model";
 import { getUserById } from "../../services/user.service";
 import { getRatingsByUserId } from "../../services/rating.service";
+import { UserValidationType } from "../../utils/enums/userValidationType.enum";
 
 export const TicketDetail = () => {
     const navigate = useNavigate();
@@ -145,7 +146,7 @@ export const TicketDetail = () => {
                             {(ticket.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca {ticket.seat}</Text>:<></>}
                         </Box>
                         <HStack id="buy">
-                            <Text fontSize={"14px"} color={"white.half"}>(+{Utils.calculatePercentageAdd(ticket.price, (ticket.zone) ? ticket.zone.price : 0)}% del precio original)</Text>
+                            <Text fontSize={"14px"} color={"white.half"}>({Utils.calculatePercentageAdd(ticket.price, (ticket.zone) ? ticket.zone.price : 0)}% del precio original)</Text>
                             <Text marginRight={4}>S/. {(ticket.price!=null)?Utils.currencyFormat(ticket.price):0}</Text>
                             <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
@@ -176,21 +177,38 @@ export const TicketDetail = () => {
                                 <Box marginTop={1}></Box>
                                 <VStack gap={1} width={"100%"} paddingLeft={30} paddingRight={30}>
                                     <HStack justifyContent={"space-between"} width={"100%"}>
-                                        <Text>Celular Verificado</Text>
-                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/>
-                                    </HStack>
-                                    <HStack justifyContent={"space-between"} width={"100%"}>
-                                        <Text>Email Verificado</Text>
-                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/>
+                                        <Text>Datos Completos</Text>
+                                        {
+                                            (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.ProfileUpdated)) ? 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                        }
                                     </HStack>
                                     <HStack justifyContent={"space-between"} width={"100%"}>
                                         <Text>DNI Verificado por RENIEC</Text>
-                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/>
+                                        {
+                                            (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PersonalDocumentVerified)) ? 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                        }
                                     </HStack>
                                     <HStack justifyContent={"space-between"} width={"100%"}>
-                                        <Text>Datos Completos</Text>
-                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/>
+                                        <Text>Celular Verificado</Text>
+                                        {
+                                            (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PhoneVerified)) ? 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                        }
                                     </HStack>
+                                    <HStack justifyContent={"space-between"} width={"100%"}>
+                                        <Text>Email Verificado</Text>
+                                        {
+                                            (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.EmailVerified)) ? 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                        }
+                                    </HStack>
+                                    
                                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
                                     <HStack id="ticketeaSecure">
                                         <Text>Validado por</Text>

@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, HStack, Input, InputGroup, InputLeftAddon, Select, Text, VStack } from "@chakra-ui/react";
+import { Box, Grid, GridItem, HStack, Input, InputGroup, InputLeftAddon, Select, Text, VStack, useToast } from "@chakra-ui/react";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { MyButton } from "../../components/myButton/myButton";
@@ -31,6 +31,8 @@ export const SellTicket = () => {
     const { register: sell, trigger: sellTrigger, getValues: sellGetValues, formState: { errors }, setValue: sellSetValue  } = useForm();
     const loadingModal = useModal<any>(Modals.LoadingModal);
     const [errorMessage, setErrorMessage] = useState("" as any);
+    const [loading, setLoading] = useState(false);
+    const toast = useToast();
 
     useEffect(() => {
         loadingModal.open({title: "Cargando informacion de pago"});
@@ -75,13 +77,32 @@ export const SellTicket = () => {
             return;
         }
 
+        setLoading(true);
         var formData = new FormData();
         formData.append("eventId", eventSelected.encId);
         formData.append("zoneId", sellGetValues().zone);
         formData.append("price", sellGetValues().price);
         formData.append("seat", sellGetValues().seat);
         formData.append("file", files[0]);
-        //var res = await createTicket();
+        var res = await createTicket(formData);
+        if(res.data.message != null){
+            setErrorMessage(res.data.message);
+            setLoading(false);
+            return;
+        }
+
+        toast({
+            title: 'Tu entrada ya esta creada, ahora solo falta esperar a un vendedor!',
+            description: "",
+            status: 'success',
+            containerStyle: {
+                fontSize: "16px"
+            },
+            duration: 9000,
+            isClosable: true,
+        });
+
+        navigate("/my-tickets");
     }
 
     const handlePrecioChange = (e: any) => {
@@ -238,7 +259,8 @@ export const SellTicket = () => {
                                 title={"Crear anuncio!"}
                                 fontSize="18px"
                                 padding="14px"
-                                onClick={sellTicket}></MyButton>
+                                onClick={sellTicket}
+                                isLoading={loading}></MyButton>
                         <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>{errorMessage}</Text>
                     </VStack>
                 </VStack>
