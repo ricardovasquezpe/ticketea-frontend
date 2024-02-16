@@ -3,6 +3,7 @@ import { MyModal } from "../myModal";
 import { MyButton } from "../../myButton/myButton";
 import { ChangeEvent, useState } from "react";
 import Utils from "../../../utils/utils";
+import { updateMyUserPhoto } from "../../../services/user.service";
 
 export const changeProfilePhotoModal = (props: Props) => {
     const [loading, setLoading] = useState(false);
@@ -15,16 +16,27 @@ export const changeProfilePhotoModal = (props: Props) => {
         }
     }
 
-    const changeAction = () => {
+    const changeAction = async () => {
         if(file != null){
             setErrorMessage("");
             setLoading(true);
-            
+
             if(!Utils.validateImageFileType(file.type)){
                 setErrorMessage("El archivo debe ser una imagen");
                 setLoading(false);
                 return;
             }
+
+            var formData = new FormData();
+            formData.append("image", file);
+            var res = await updateMyUserPhoto(formData);
+            if(res.data.message != null){
+                setErrorMessage(res.data.message);
+                setLoading(false);
+                return;
+            }
+
+            props.onSave();
         }
     }
 

@@ -31,8 +31,10 @@ export const MyAccount = () => {
     const changeProfilePhotoModal = useModal<any>(Modals.ChangeProfilePhotoModal);
     const changeProfilePhoto = () => {
         changeProfilePhotoModal.open({
-            onSave: () => {
-                console.log("OnSave");
+            onSave: async () => {
+                var res = await getMyUserData();
+                setUser(res.data);
+                changeProfilePhotoModal.close();
             },
             onClose: () => {
                 console.log("onClose");
