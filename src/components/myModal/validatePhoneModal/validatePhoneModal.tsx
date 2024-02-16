@@ -1,4 +1,4 @@
-import { Center, HStack, Input, InputGroup, InputLeftAddon, PinInput, PinInputField, Text, VStack } from "@chakra-ui/react";
+import { HStack, Input, InputGroup, InputLeftAddon, PinInput, PinInputField, Text, VStack } from "@chakra-ui/react";
 import { MyModal } from "../myModal";
 import { MyButton } from "../../myButton/myButton";
 import { sendMyPhoneValidation, validateMyPhone } from "../../../services/validate.service";
@@ -45,14 +45,14 @@ export const ValidatePhoneModal = (props: Props) => {
 
     const bodyComponents = () => {
         return  <VStack justifyContent={"stretch"} alignItems={"start"} gap={3} marginBottom={"10px"}>
-                    <Text color={"white.half"} fontSize={"14px"}>Podrás enviar un nuevo sms cada 30 segundos</Text>
+                    <Text color={"white.half"} fontSize={"14px"}>Podrás enviar un nuevo codigo cada 30 segundos</Text>
                     <HStack width={"100%"}>
                         <InputGroup>
                             <InputLeftAddon bg={"#0a272e"}>
                             +51
                             </InputLeftAddon>
                             <Input type='tel' 
-                                    placeholder='phone number' 
+                                    placeholder='Numero Celular' 
                                     {...phoneValidation("phone", {required: "El numero celular es obligatorio", 
                                                                   pattern: { value: /^\d{9}$/, message: "El numero telefonico debe tener 9 digitos" }
                                                                   })} 

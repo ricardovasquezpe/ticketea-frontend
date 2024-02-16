@@ -81,8 +81,10 @@ export const MyAccount = () => {
     const validateEmailModal = useModal<any>(Modals.ValidateEmailModal);
     const validateEmail = () => {
         validateEmailModal.open({
-          onSave: () => {
-            console.log("OnSave");
+          onSave: async () => {
+            var res = await getMyUserData();
+            setUser(res.data);
+            validateEmailModal.close();
           },
           onClose: () => {
             console.log("onClose");
@@ -244,7 +246,12 @@ export const MyAccount = () => {
                         </MyContainer>
                         <MyContainer>
                             <HStack justifyContent={"space-between"}>
-                                <Text fontSize={"16px"}>Correo Electronico</Text>
+                                <HStack>
+                                    <Text fontSize={"16px"}>Correo Electronico</Text>
+                                    {(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.validated)) ? 
+                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
+                                        <></>}
+                                </HStack>
                                 <MyButton textColor="white" 
                                             backgroundColor="secondary.default" 
                                             backgroundColorHover="secondary.dark" 
@@ -252,8 +259,8 @@ export const MyAccount = () => {
                                             fontSize="14px"
                                             padding="5px 10px"
                                             size="xs"
-                                            onClick={validateEmail}></MyButton>
-                                <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/>
+                                            onClick={validateEmail}
+                                            isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.count == 2)?true:false)}></MyButton>
                             </HStack>
                         </MyContainer>
                         <MyContainer>

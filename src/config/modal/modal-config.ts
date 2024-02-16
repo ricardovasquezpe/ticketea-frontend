@@ -38,10 +38,10 @@ export const modalsConfig: Record<Modals, LazyExoticComponent<any>> = {
     [Modals.RegisterModal]: React.lazy(() => import('../../components/myModal/registerModal/registerModal').then((module) => ({
         default: module.RegisterModal,
     }))),
-    [Modals.ValidatePhoneModal]: React.lazy(() => import('../../components/myModal/validatePhoneModal/validatePhoneModa').then((module) => ({
+    [Modals.ValidatePhoneModal]: React.lazy(() => import('../../components/myModal/validatePhoneModal/validatePhoneModal').then((module) => ({
         default: module.ValidatePhoneModal,
     }))),
-    [Modals.ValidateEmailModal]: React.lazy(() => import('../../components/myModal/validateEmail/validateEmail').then((module) => ({
+    [Modals.ValidateEmailModal]: React.lazy(() => import('../../components/myModal/validateEmail/validateEmailModal').then((module) => ({
         default: module.ValidateEmailModal,
     }))),
     [Modals.ValidatePersonalDocModal]: React.lazy(() => import('../../components/myModal/validatePersonalDocModal/validatePersonalDocModal').then((module) => ({
