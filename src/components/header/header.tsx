@@ -117,7 +117,10 @@ export const Header = () => {
         {
             id: 4,
             label: "Salir",
-            onClick: () => {Session.clearUserToken(); dispatch(onLogout())}, 
+            onClick: () => {
+                dispatch(onLogout());
+                navigate("/");
+            }, 
             type: "linkButton"
         }
     ]

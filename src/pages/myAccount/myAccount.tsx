@@ -23,7 +23,7 @@ export const MyAccount = () => {
     const [loadingUserUpdate, setLoadingUserUpdate] = useState(false);
 
     useEffect(() => {
-        loadingModal.open({title: "Cargando los tickets"});
+        loadingModal.open({title: "Cargando tu información"});
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         onLoadData();
     }, []);

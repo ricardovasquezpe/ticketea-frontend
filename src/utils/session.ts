@@ -1,5 +1,4 @@
 export default class Session {
-
     static JWTUSER_KEY = "jwt_user";
 
     static getUserToken = () => {
@@ -12,5 +11,9 @@ export default class Session {
 
     static clearUserToken = () => {
         localStorage.removeItem(this.JWTUSER_KEY);
+    }
+
+    static isLoggedIn = ():boolean =>{
+        return (this.getUserToken() != null);
     }
 }

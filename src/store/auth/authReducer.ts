@@ -1,3 +1,4 @@
+import Session from "../../utils/session";
 import { LOGIN, LOGOUT } from "./authTypes";
 
 const initialState = { isLoggedIn: false };
@@ -10,6 +11,7 @@ export default function (state = initialState, action: any) {
         isLoggedIn: true,
       };
     case LOGOUT:
+      Session.clearUserToken();
       return {
         ...state,
         isLoggedIn: false,
