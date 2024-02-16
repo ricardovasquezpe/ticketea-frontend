@@ -9,4 +9,8 @@ export default class Session {
     static saveUserToken = (val:any) => {
         localStorage.setItem(this.JWTUSER_KEY, val);
     }
+
+    static clearUserToken = () => {
+        localStorage.removeItem(this.JWTUSER_KEY);
+    }
 }
