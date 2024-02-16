@@ -8,13 +8,18 @@ import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import { useToast } from '@chakra-ui/react'
 import { useEffect, useState } from "react";
-import { getMyUserData } from "../../services/user.service";
+import { getMyUserData, updateMyUserData } from "../../services/user.service";
 import { User } from "../../services/models/user.model";
+import { useForm } from "react-hook-form";
+import moment from 'moment/min/moment-with-locales';
 
 export const MyAccount = () => {
     const toast = useToast();
     const loadingModal = useModal<any>(Modals.LoadingModal);
     const [user, setUser] = useState({} as User);
+    const { register: userData, trigger: userDataTrigger, getValues: userDataGetValues, formState: { errors }, reset } = useForm();
+    const [errorMessage, setErrorMessage] = useState("" as any);
+    const [loadingUserUpdate, setLoadingUserUpdate] = useState(false);
 
     useEffect(() => {
         loadingModal.open({title: "Cargando los tickets"});
@@ -25,6 +30,12 @@ export const MyAccount = () => {
     const onLoadData = async() => {
         var res = await getMyUserData();
         setUser(res.data);
+        reset({
+            "name": res.data.name,
+            "lastNameFather": res.data.last_name_father,
+            "lastNameMother": res.data.last_name_mother,
+            "birthDate": moment(res.data.birth_date, "DD/MM/YYYY").toISOString().substr(0, 10)
+        });
         loadingModal.close();
     }
 
@@ -98,17 +109,57 @@ export const MyAccount = () => {
         });
     }
 
-    const saveUserData = () => {
-        toast({
-            title: 'Información guardada correctamente',
-            description: "",
-            status: 'success',
-            containerStyle: {
-                fontSize: "16px"
+    const confirmUserUpdateDailog = useModal<any>(Modals.ConfirmUserUpdateDailog);
+    const confirmUserUpdate = async () => {
+        const isValid = await userDataTrigger(["name", "lastNameFather", "lastNameMother", "birthDate"], { shouldFocus: true });
+        if(!isValid){
+            setErrorMessage(Object.values(errors)[0]?.message);
+            return;
+        }
+
+        var birthDateMoment = moment(userDataGetValues().birthDate, 'YYYY-MM-DD');
+        var birthDate = birthDateMoment.toDate();
+        birthDate.setFullYear(birthDate.getFullYear() + 18);
+        if(birthDate > new Date()){
+            setErrorMessage("Debes ser mayor de edad");
+            return;
+        }
+
+        setErrorMessage("");
+        confirmUserUpdateDailog.open({
+            onSave: async () => {
+                confirmUserUpdateDailog.close();
+                setLoadingUserUpdate(true);
+
+                var payload = {...userDataGetValues(), birthDate: birthDateMoment.format("DD/MM/YYYY")}
+                var res = await updateMyUserData(payload);
+                if(res.data.message != null){
+                    setErrorMessage(res.data.message);
+                    setLoadingUserUpdate(false);
+                    return;
+                }
+
+                setLoadingUserUpdate(false);
+                toast({
+                    title: 'Información guardada correctamente',
+                    description: "",
+                    status: 'success',
+                    containerStyle: {
+                        fontSize: "16px"
+                    },
+                    duration: 9000,
+                    isClosable: true,
+                });
             },
-            duration: 9000,
-            isClosable: true,
-        })
+            onClose: () => {
+                console.log("onClose");
+                confirmUserUpdateDailog.close();
+            },
+            onCancel: () => {
+                console.log("onCancel");
+                confirmUserUpdateDailog.close();
+            },
+        });
     }
 
     return (
@@ -134,13 +185,16 @@ export const MyAccount = () => {
                             <Box width={"100%"}>
                                 <Grid templateColumns="repeat(4, 1fr)" gap={3}> 
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Nombres"></Input>
+                                        <Input placeholder="Nombres" {...userData("name", {required: "Los Nombres es obligatorio", maxLength: {value: 100, message: "Los Nombres no debe ser tener de 100 caracteres"}})} isInvalid={(errors?.name?.message != null) ? true : false}></Input>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Apellidos"></Input>
+                                        <Input placeholder="Apellido Paterno" {...userData("lastNameFather", {required: "El apellido paterno es obligatorio", maxLength: {value: 100, message: "El apellido paterno no debe tener mas de 100 caracteres"}})} isInvalid={(errors?.lastNameFather?.message != null) ? true : false}></Input>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Fecha de nacimiento" type="date" lang="fr-CA"/>
+                                        <Input placeholder="Apellido Materno" {...userData("lastNameMother", {required: "El apellido materno es obligatorio", maxLength: {value: 100, message: "El apellido materno no debe tener mas de 100 caracteres"}})} isInvalid={(errors?.lastNameMother?.message != null) ? true : false}></Input>
+                                    </GridItem>
+                                    <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
+                                        <Input placeholder="Fecha de nacimiento" type="date" {...userData("birthDate", {required: "La Fecha de nacimiento es obligatorio"})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
                                     </GridItem>
                                 </Grid>
                                 <Text marginTop={"10px"} color={"white.half"} fontSize={"14px"}>* Recuerda que solo podras editar tus datos 1 sola vez</Text>
@@ -152,7 +206,9 @@ export const MyAccount = () => {
                                             title={"Guardar"}
                                             fontSize="18px"
                                             padding="14px"
-                                            onClick={saveUserData}></MyButton>
+                                            onClick={confirmUserUpdate}
+                                            isLoading={loadingUserUpdate}></MyButton>
+                                <Text color={"red.default"} marginTop={"15px"} textAlign={"left"} fontSize={"14px"}>{errorMessage}</Text>
                             </Box>
                         </VStack>
                     </MyContainer>
@@ -217,8 +273,7 @@ export const MyAccount = () => {
                                     backgroundColorHover="secondary.dark" 
                                     title={"Guardar"}
                                     fontSize="18px"
-                                    padding="14px"
-                                    onClick={saveUserData}></MyButton>
+                                    padding="14px"></MyButton>
                         </VStack>
                     </MyContainer>
                 </VStack>  
