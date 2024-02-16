@@ -18,6 +18,8 @@ import { UserValidationType } from "../../utils/enums/userValidationType.enum";
 import moment from 'moment/min/moment-with-locales';
 import { Zone } from "../../services/models/zone.model";
 import { getZonesByEventId } from "../../services/zone.service";
+import { useForm } from "react-hook-form";
+import { createTicket } from "../../services/ticket.service";
 
 export const SellTicket = () => {
     const navigate = useNavigate();
@@ -26,7 +28,9 @@ export const SellTicket = () => {
     const [events, setEvents] = useState([] as Event[]);
     const [eventSelected, setEventSelected] = useState({} as Event);
     const [zones, setZones] = useState([] as Zone[]);
+    const { register: sell, trigger: sellTrigger, getValues: sellGetValues, formState: { errors }, setValue: sellSetValue  } = useForm();
     const loadingModal = useModal<any>(Modals.LoadingModal);
+    const [errorMessage, setErrorMessage] = useState("" as any);
 
     useEffect(() => {
         loadingModal.open({title: "Cargando informacion de pago"});
@@ -52,6 +56,42 @@ export const SellTicket = () => {
             setEventSelected({} as Event);
             setZones([]);
         }
+    }
+
+    const sellTicket = async () => {
+        if(user.userValidations?.length != 5){
+            setErrorMessage("Debes compeltar la verificación de tu perfil");
+            return;
+        }
+
+        const isValid = await sellTrigger(["event", "price", "zone", "seat"], { shouldFocus: true });
+        if(!isValid){
+            setErrorMessage(Object.values(errors)[0]?.message);
+            return;
+        }
+
+        if(files.length == 0){
+            setErrorMessage("Debes subir tu entrada en formato PDF")
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append("eventId", eventSelected.encId);
+        formData.append("zoneId", sellGetValues().zone);
+        formData.append("price", sellGetValues().price);
+        formData.append("seat", sellGetValues().seat);
+        formData.append("file", files[0]);
+        //var res = await createTicket();
+    }
+
+    const handlePrecioChange = (e: any) => {
+        let input = e.target.value;
+        input = input.replace(/[^0-9.]/g, "");
+        if (input.split(".").length > 2) {
+            input = input.slice(0, -1);
+        }
+
+        sellSetValue("price", input);
     }
 
     return (
@@ -121,7 +161,13 @@ export const SellTicket = () => {
                     <MyContainer>
                         <Text fontSize={"20px"}>Seleccionar evento</Text>
                         <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
-                            <Select marginBottom={"15px"} placeholder='Seleccione el evento' onChange={(e)=>{onSelectEvent(e)}}>
+                            <Select marginBottom={"15px"} 
+                                    placeholder='Seleccione el evento' 
+                                    {...sell("event",{
+                                            required: "La zona es requerido",
+                                            onChange: (e) => { onSelectEvent(e) }
+                                        })} 
+                                    isInvalid={(errors?.event?.message != null) ? true : false}>
                                 {events.map((event: Event, index: number) => {
                                     return <option key={index} value={event.encId}> {event.title} / {event.artist.name} / {moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</option>
                                 })}
@@ -138,7 +184,9 @@ export const SellTicket = () => {
                         <Text fontSize={"20px"}>Información de la entrada</Text>
                         <Grid templateColumns="repeat(4, 1fr)" gap={3} margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}> 
                             <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                <Select placeholder='Seleccione la zona'>
+                                <Select placeholder='Seleccione la zona' 
+                                        {...sell("zone", {required: "La zona es requerido"})} 
+                                        isInvalid={(errors?.zone?.message != null) ? true : false}>
                                     {
                                         zones.map((zone: Zone, index: number) => {
                                             return <option key={index} value={zone.encId}>{zone.name}</option>;
@@ -151,34 +199,48 @@ export const SellTicket = () => {
                                     <InputLeftAddon bg={"#0a272e"}>
                                         S/.
                                     </InputLeftAddon>
-                                    <Input type='text' placeholder='Ingrese precio' />
+                                    <Input type='text' 
+                                           placeholder='Ingrese precio' 
+                                           {...sell("price",{
+                                                required: "El precio es requerido",
+                                                onChange: (e) => { handlePrecioChange(e) },
+                                                min: 1
+                                            })} 
+                                           isInvalid={(errors?.price?.message != null) ? true : false}/>
                                 </InputGroup>
                             </GridItem>
                             <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                <Input placeholder="Ingresar butaca"></Input>
+                                <VStack width={"100%"} alignItems={"start"}>
+                                    <Input placeholder="Ingresar butaca"
+                                        {...sell("seat", {maxLength: {value: 100, message: "La butaca no debe ser tener de 100 caracteres"}})}
+                                        isInvalid={(errors?.seat?.message != null) ? true : false} ></Input>
+                                    <Text color={"white.half"} fontSize={"14px"}>La butaca no es obligatorio, pero siempre es bueno especificarlo</Text>
+                                </VStack>
                             </GridItem>
                         </Grid>
                     </MyContainer>
                     <MyContainer>
-                        <Text fontSize={"20px"}>Subir entrada (PDF)</Text>
-                        <Text color={"white.half"} fontSize={"16px"}>Sube la entrada E-Ticket para poder validar que tengas la entrada</Text>
+                        <Text fontSize={"20px"}>Subir entrada (formato PDF)</Text>
+                        <Text color={"white.half"} fontSize={"16px"}>Sube la entrada E-Ticket para poder validar que tengas la entrada </Text>
                         <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
                             <FileUploader 
                                 acceptFiles={{"application/pdf": [".pdf"]}}
                                 maxFiles={1}
                                 onChange={(files) => {setFiles(files)}}
                                 backgroundColor="primary.moreLight" 
-                                description="Selecciona o arrastra aquí el archivo de tu entrada"/>
+                                description="Selecciona o arrastra aquí el archivo de tu entrada en formato PDF"/>
                         </Box>
                     </MyContainer>
-                    <Box textAlign={"center"}>
+                    <VStack textAlign={"center"}>
                         <MyButton textColor="white" 
                                 backgroundColor="secondary.default" 
                                 backgroundColorHover="secondary.dark" 
                                 title={"Crear anuncio!"}
                                 fontSize="18px"
-                                padding="14px"></MyButton>
-                    </Box>
+                                padding="14px"
+                                onClick={sellTicket}></MyButton>
+                        <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>{errorMessage}</Text>
+                    </VStack>
                 </VStack>
             </Box> 
         </>

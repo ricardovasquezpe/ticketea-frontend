@@ -56,7 +56,7 @@ export const ValidatePhoneModal = (props: Props) => {
                                     {...phoneValidation("phone", {required: "El numero celular es obligatorio", 
                                                                   pattern: { value: /^\d{9}$/, message: "El numero telefonico debe tener 9 digitos" }
                                                                   })} 
-                                                        isInvalid={(errors?.name?.message != null) ? true : false}/>
+                                                        isInvalid={(errors?.phone?.message != null) ? true : false}/>
                         </InputGroup>
                         <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
