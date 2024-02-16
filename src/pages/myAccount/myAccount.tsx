@@ -12,6 +12,7 @@ import { getMyUserData, updateMyUserData } from "../../services/user.service";
 import { User } from "../../services/models/user.model";
 import { useForm } from "react-hook-form";
 import moment from 'moment/min/moment-with-locales';
+import { UserValidationType } from "../../utils/enums/userValidationType.enum";
 
 export const MyAccount = () => {
     const toast = useToast();
@@ -138,6 +139,9 @@ export const MyAccount = () => {
                     setLoadingUserUpdate(false);
                     return;
                 }
+                
+                var res = await getMyUserData();
+                setUser(res.data);
 
                 setLoadingUserUpdate(false);
                 toast({
@@ -179,7 +183,8 @@ export const MyAccount = () => {
                                         onClick={changeProfilePhoto}
                                         fontSize="14px"
                                         padding="5px 10px"
-                                        size="xs"></MyButton>
+                                        size="xs"
+                                        isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PhotoVerified && val.count == 2)?true:false)}></MyButton>
                                 </VStack>
                             </Box>
                             <Box width={"100%"}>
@@ -207,7 +212,8 @@ export const MyAccount = () => {
                                             fontSize="18px"
                                             padding="14px"
                                             onClick={confirmUserUpdate}
-                                            isLoading={loadingUserUpdate}></MyButton>
+                                            isLoading={loadingUserUpdate}
+                                            isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.ProfileUpdated && val.count == 2)?true:false)}></MyButton>
                                 <Text color={"red.default"} marginTop={"15px"} textAlign={"left"} fontSize={"14px"}>{errorMessage}</Text>
                             </Box>
                         </VStack>
