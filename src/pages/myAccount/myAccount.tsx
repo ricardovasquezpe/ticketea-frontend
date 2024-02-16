@@ -1,4 +1,4 @@
-import { Avatar, Box, Grid, GridItem, HStack, Input, Select, Text, VStack } from "@chakra-ui/react";
+import { Avatar, Box, Grid, GridItem, HStack, Input, Text, VStack } from "@chakra-ui/react";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { MyButton } from "../../components/myButton/myButton";
@@ -47,6 +47,16 @@ export const MyAccount = () => {
                 var res = await getMyUserData();
                 setUser(res.data);
                 changeProfilePhotoModal.close();
+                toast({
+                    title: 'Foto guardada correctamente',
+                    description: "",
+                    status: 'success',
+                    containerStyle: {
+                        fontSize: "16px"
+                    },
+                    duration: 9000,
+                    isClosable: true,
+                });
             },
             onClose: () => {
                 console.log("onClose");
@@ -66,6 +76,16 @@ export const MyAccount = () => {
             var res = await getMyUserData();
             setUser(res.data);
             validatePhoneModal.close();
+            toast({
+                title: 'Celular validado correctamente',
+                description: "",
+                status: 'success',
+                containerStyle: {
+                    fontSize: "16px"
+                },
+                duration: 9000,
+                isClosable: true,
+            });
           },
           onClose: () => {
             console.log("onClose");
@@ -85,6 +105,16 @@ export const MyAccount = () => {
             var res = await getMyUserData();
             setUser(res.data);
             validateEmailModal.close();
+            toast({
+                title: 'Correo Electronico validado correctamente',
+                description: "",
+                status: 'success',
+                containerStyle: {
+                    fontSize: "16px"
+                },
+                duration: 9000,
+                isClosable: true,
+            });
           },
           onClose: () => {
             console.log("onClose");
@@ -104,6 +134,16 @@ export const MyAccount = () => {
             var res = await getMyUserData();
             setUser(res.data);
             validatePersonalDocModal.close();
+            toast({
+                title: 'Documento de idenfiticación validado correctamente',
+                description: "",
+                status: 'success',
+                containerStyle: {
+                    fontSize: "16px"
+                },
+                duration: 9000,
+                isClosable: true,
+            });
           },
           onClose: () => {
             console.log("onClose");
