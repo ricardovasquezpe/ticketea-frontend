@@ -7,9 +7,37 @@ import { faCircleCheck, faCircleXmark } from "@fortawesome/free-solid-svg-icons"
 import { EventCardSearch } from "../../components/eventCardSearch/eventCardSearch";
 import { FileUploader } from "../../components/fileUploader/fileUploader";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useModal } from "../../config/modal/use-modal";
+import { Modals } from "../../config/modal/modal-config";
+import { getMyUserData } from "../../services/user.service";
+import { User } from "../../services/models/user.model";
+import { Event } from "../../services/models/event.model";
+import { getEventsAvailable } from "../../services/event.service";
+import { UserValidationType } from "../../utils/enums/userValidationType.enum";
 
 export const SellTicket = () => {
     const navigate = useNavigate();
+    const [files, setFiles] = useState([] as File[]);
+    const [user, setUser] = useState({} as User);
+    const [events, setEvents] = useState([] as Event[]);
+    const loadingModal = useModal<any>(Modals.LoadingModal);
+
+    useEffect(() => {
+        loadingModal.open({title: "Cargando informacion de pago"});
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        onLoadData();
+    }, []);
+
+    const onLoadData = async () => {
+        var userRes = await getMyUserData();
+        setUser(userRes.data);
+
+        var eventRes = await getEventsAvailable();
+        setEvents(eventRes.data);
+
+        loadingModal.close();
+    }
 
     return (
         <>
@@ -31,20 +59,44 @@ export const SellTicket = () => {
                         <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
                             <table>
                                 <tr>
+                                    <td><Text paddingRight={"20px"}>Foto de perfil</Text></td>
+                                    {
+                                        (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PhotoVerified)) ? 
+                                        <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                        <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                    }
+                                </tr>
+                                <tr>
                                     <td><Text paddingRight={"20px"}>Datos Completos</Text></td>
-                                    <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td>
+                                    {
+                                        (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.ProfileUpdated)) ? 
+                                        <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                        <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                    }
                                 </tr>
                                 <tr>
-                                    <td><Text>DNI sin verificar</Text></td>
-                                    <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                    <td><Text>Numero celular</Text></td>
+                                    {
+                                        (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PhoneVerified)) ? 
+                                        <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                        <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                    }
                                 </tr>
                                 <tr>
-                                    <td><Text>Celular Verificado</Text></td>
-                                    <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td>
+                                    <td><Text>Correo Electronico</Text></td>
+                                    {
+                                        (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.EmailVerified)) ? 
+                                        <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                        <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                    }
                                 </tr>
                                 <tr>
-                                    <td><Text>Email Verificado</Text></td>
-                                    <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td>
+                                    <td><Text marginRight={"10px"}>Documento de Identificación</Text></td>
+                                    {
+                                        (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PersonalDocumentVerified)) ? 
+                                        <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                        <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                    }
                                 </tr>
                             </table>
                         </Box>
@@ -92,7 +144,12 @@ export const SellTicket = () => {
                         <Text fontSize={"20px"}>Subir entrada (PDF)</Text>
                         <Text color={"white.half"} fontSize={"16px"}>Sube la entrada E-Ticket para poder validar que tengas la entrada</Text>
                         <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
-                            <FileUploader backgroundColor="primary.moreLight" description="Selecciona o arrastra aquí el archivo de tu entrada"/>
+                            <FileUploader 
+                                acceptFiles={{"application/pdf": [".pdf"]}}
+                                maxFiles={1}
+                                onChange={(files) => {setFiles(files)}}
+                                backgroundColor="primary.moreLight" 
+                                description="Selecciona o arrastra aquí el archivo de tu entrada"/>
                         </Box>
                     </MyContainer>
                     <Box textAlign={"center"}>

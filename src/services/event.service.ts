@@ -1,4 +1,4 @@
-import { EVENTS_SEARCH_URL, EVENT_BY_ID } from "../utils/constants";
+import { EVENTS_AVAILABLE_URL, EVENTS_SEARCH_URL, EVENT_BY_ID } from "../utils/constants";
 import httpClient from "./config/httpClient";
 
 export function searchEvents(searchText: string, orderBy: string, order: string): Promise<any[]>{
@@ -7,4 +7,8 @@ export function searchEvents(searchText: string, orderBy: string, order: string)
 
 export async function getEventById(eventId: any): Promise<any>{
     return httpClient.get(EVENT_BY_ID + "/" + eventId);
+}
+
+export async function getEventsAvailable(): Promise<any>{
+    return httpClient.get(EVENTS_AVAILABLE_URL);
 }
