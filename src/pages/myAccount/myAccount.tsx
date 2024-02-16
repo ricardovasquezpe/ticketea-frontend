@@ -100,8 +100,10 @@ export const MyAccount = () => {
     const validatePersonalDocModal = useModal<any>(Modals.ValidatePersonalDocModal);
     const validatePersonalDoc = () => {
         validatePersonalDocModal.open({
-          onSave: () => {
-            console.log("OnSave");
+          onSave: async () => {
+            var res = await getMyUserData();
+            setUser(res.data);
+            validatePersonalDocModal.close();
           },
           onClose: () => {
             console.log("onClose");
@@ -265,7 +267,12 @@ export const MyAccount = () => {
                         </MyContainer>
                         <MyContainer>
                             <HStack justifyContent={"space-between"}>
-                                <Text fontSize={"16px"}>Documento de identificación</Text>
+                                <HStack>
+                                    <Text fontSize={"16px"}>Documento de identificación</Text>
+                                    {(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.validated)) ? 
+                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
+                                        <></>}
+                                </HStack>
                                 <MyButton textColor="white" 
                                             backgroundColor="secondary.default" 
                                             backgroundColorHover="secondary.dark" 
@@ -273,30 +280,35 @@ export const MyAccount = () => {
                                             fontSize="14px"
                                             padding="5px 10px"
                                             size="xs"
-                                            onClick={validatePersonalDoc}></MyButton>
+                                            onClick={validatePersonalDoc}
+                                            isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.count == 2)?true:false)}></MyButton>
                             </HStack>
                         </MyContainer>
                         </VStack>
                     </Box>
-                    <SectionTitle title="Cuenta bancaria"/>
-                    <MyContainer>
-                        <Text marginTop={"10px"} marginBottom={"10px"} color={"white.half"} fontSize={"16px"}>Tu cuenta bancaria es importante para saber donde depositarte el monto de las ventas de tus entradas</Text>
-                        <VStack alignItems={"start"}>
-                            <Select placeholder='Seleccione el banco'>
-                                <option value='option1'>BCP</option>
-                                <option value='option1'>Interbank</option>
-                                <option value='option1'>BBVA</option>
-                            </Select>
-                            <Input placeholder="Ingresar N° cuenta bancaria"></Input>
-                            <Input placeholder="Ingresar N° CCI"></Input>
-                            <MyButton textColor="white" 
-                                    backgroundColor="secondary.default" 
-                                    backgroundColorHover="secondary.dark" 
-                                    title={"Guardar"}
-                                    fontSize="18px"
-                                    padding="14px"></MyButton>
-                        </VStack>
-                    </MyContainer>
+                    {
+                        /* 
+                            <SectionTitle title="Cuenta bancaria"/>
+                            <MyContainer>
+                                <Text marginTop={"10px"} marginBottom={"10px"} color={"white.half"} fontSize={"16px"}>Tu cuenta bancaria es importante para saber donde depositarte el monto de las ventas de tus entradas</Text>
+                                <VStack alignItems={"start"}>
+                                    <Select placeholder='Seleccione el banco'>
+                                        <option value='option1'>BCP</option>
+                                        <option value='option1'>Interbank</option>
+                                        <option value='option1'>BBVA</option>
+                                    </Select>
+                                    <Input placeholder="Ingresar N° cuenta bancaria"></Input>
+                                    <Input placeholder="Ingresar N° CCI"></Input>
+                                    <MyButton textColor="white" 
+                                            backgroundColor="secondary.default" 
+                                            backgroundColorHover="secondary.dark" 
+                                            title={"Guardar"}
+                                            fontSize="18px"
+                                            padding="14px"></MyButton>
+                                </VStack>
+                            </MyContainer>
+                        */
+                    }
                 </VStack>  
             </Box>
         </>

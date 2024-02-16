@@ -1,4 +1,4 @@
-import { Center, HStack, Input, PinInput, PinInputField, Text, VStack } from "@chakra-ui/react";
+import { HStack, Input, PinInput, PinInputField, Text, VStack } from "@chakra-ui/react";
 import { MyModal } from "../myModal";
 import { MyButton } from "../../myButton/myButton";
 import { useForm } from "react-hook-form";

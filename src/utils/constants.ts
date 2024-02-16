@@ -13,6 +13,7 @@ export const SEND_VALIDATION_MY_PHONE = "/validate/me/phoneSend";
 export const VALIDATE_MY_PHONE = "/validate/me/phoneVerify";
 export const SEND_VALIDATION_MY_EMAIL = "/validate/me/emailSend";
 export const VALIDATE_MY_EMAIL = "validate/me/emailVerify";
+export const VALIDATE_MY_PERSONAL_DOCUMENT = "validate/me/personalDocument";
 
 export const PAYMENT_METHOD_BANK_ACCOUNT = "1";
 export const PAYMENT_METHOD_CREDIT_CARD = "2";
