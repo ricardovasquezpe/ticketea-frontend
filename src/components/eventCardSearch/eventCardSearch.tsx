@@ -1,7 +1,10 @@
 import { Box, HStack, Image, Show, Text } from "@chakra-ui/react";
 import styles from "./eventCardSearch.module.css";
+import moment from 'moment/min/moment-with-locales';
 
 export const EventCardSearch = (props: Props) => {
+    const formattedTime = moment(props.eventDate * 1000).format("DD MMMM. YYYY h:mm A");
+
     return (
         <Box className={styles.parent} onClick={props.onClick}>
             <HStack justifyContent="space-between">
@@ -17,7 +20,7 @@ export const EventCardSearch = (props: Props) => {
                     </Box>
                 </HStack>
                 <Box textAlign={"end"}>
-                    <Text className={styles.eventDate}>{props.eventDate}</Text>
+                    <Text className={styles.eventDate}>{formattedTime}</Text>
                 </Box>
             </HStack>
         </Box>
@@ -28,7 +31,6 @@ type Props = {
     eventName: string,
     artistName: string,
     eventImage: string,
-    eventDate: string,
-    eventId: number,
+    eventDate: number,
     onClick?: () => void
 };

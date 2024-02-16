@@ -15,12 +15,17 @@ import { User } from "../../services/models/user.model";
 import { Event } from "../../services/models/event.model";
 import { getEventsAvailable } from "../../services/event.service";
 import { UserValidationType } from "../../utils/enums/userValidationType.enum";
+import moment from 'moment/min/moment-with-locales';
+import { Zone } from "../../services/models/zone.model";
+import { getZonesByEventId } from "../../services/zone.service";
 
 export const SellTicket = () => {
     const navigate = useNavigate();
     const [files, setFiles] = useState([] as File[]);
     const [user, setUser] = useState({} as User);
     const [events, setEvents] = useState([] as Event[]);
+    const [eventSelected, setEventSelected] = useState({} as Event);
+    const [zones, setZones] = useState([] as Zone[]);
     const loadingModal = useModal<any>(Modals.LoadingModal);
 
     useEffect(() => {
@@ -32,11 +37,21 @@ export const SellTicket = () => {
     const onLoadData = async () => {
         var userRes = await getMyUserData();
         setUser(userRes.data);
-
         var eventRes = await getEventsAvailable();
         setEvents(eventRes.data);
-
         loadingModal.close();
+    }
+
+    const onSelectEvent = async(event: any) => {
+        var eventId = event.target.value;
+        if(eventId){
+            setEventSelected(events.find((ev) => ev.encId == eventId)!);
+            var zonesResp = await getZonesByEventId(eventId);
+            setZones(zonesResp.data);
+        } else {
+            setEventSelected({} as Event);
+            setZones([]);
+        }
     }
 
     return (
@@ -58,63 +73,65 @@ export const SellTicket = () => {
                         </HStack>
                         <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
                             <table>
-                                <tr>
-                                    <td><Text paddingRight={"20px"}>Foto de perfil</Text></td>
-                                    {
-                                        (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PhotoVerified)) ? 
-                                        <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
-                                        <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
-                                    }
-                                </tr>
-                                <tr>
-                                    <td><Text paddingRight={"20px"}>Datos Completos</Text></td>
-                                    {
-                                        (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.ProfileUpdated)) ? 
-                                        <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
-                                        <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
-                                    }
-                                </tr>
-                                <tr>
-                                    <td><Text>Numero celular</Text></td>
-                                    {
-                                        (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PhoneVerified)) ? 
-                                        <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
-                                        <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
-                                    }
-                                </tr>
-                                <tr>
-                                    <td><Text>Correo Electronico</Text></td>
-                                    {
-                                        (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.EmailVerified)) ? 
-                                        <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
-                                        <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
-                                    }
-                                </tr>
-                                <tr>
-                                    <td><Text marginRight={"10px"}>Documento de Identificación</Text></td>
-                                    {
-                                        (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PersonalDocumentVerified)) ? 
-                                        <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
-                                        <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
-                                    }
-                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td><Text paddingRight={"20px"}>Foto de perfil</Text></td>
+                                        {
+                                            (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PhotoVerified)) ? 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td><Text paddingRight={"20px"}>Datos Completos</Text></td>
+                                        {
+                                            (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.ProfileUpdated)) ? 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td><Text>Numero Celular</Text></td>
+                                        {
+                                            (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PhoneVerified)) ? 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td><Text>Correo Electronico</Text></td>
+                                        {
+                                            (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.EmailVerified)) ? 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td><Text marginRight={"10px"}>Documento de Identificación</Text></td>
+                                        {
+                                            (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PersonalDocumentVerified)) ? 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
+                                            <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                        }
+                                    </tr>
+                                </tbody>
                             </table>
                         </Box>
                     </MyContainer>
                     <MyContainer>
                         <Text fontSize={"20px"}>Seleccionar evento</Text>
                         <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
-                            <Select marginBottom={"15px"} placeholder='Seleccione el evento'>
-                                <option value='option1'>World Hottest Tour - Bad Bunny - 19 Feb. 2024</option>
-                                <option value='option2'>Martin Garrix en Lima - Martin Garrix - 20 Mar. 2024</option>
-                                <option value='option3'>Luis Miguel en Lima - Luis Miguel - 30 Abr. 2024</option>
+                            <Select marginBottom={"15px"} placeholder='Seleccione el evento' onChange={(e)=>{onSelectEvent(e)}}>
+                                {events.map((event: Event, index: number) => {
+                                    return <option key={index} value={event.encId}> {event.title} / {event.artist.name} / {moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</option>
+                                })}
                             </Select>
-                            <EventCardSearch 
-                                            eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
-                                            eventName={"World Hottest Tour"}
-                                            artistName={"Bad Bunny"}
-                                            eventDate={"19 feb 2024"}
-                                            eventId={1}></EventCardSearch>
+                            {
+                                (eventSelected.encId) ? <EventCardSearch eventImage={eventSelected.image_url}
+                                                                    eventName={eventSelected.title}
+                                                                    artistName={eventSelected.artist.name}
+                                                                    eventDate={eventSelected.date}></EventCardSearch> : <></>
+                            }
                         </Box>
                     </MyContainer>
                     <MyContainer>
@@ -122,9 +139,11 @@ export const SellTicket = () => {
                         <Grid templateColumns="repeat(4, 1fr)" gap={3} margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}> 
                             <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
                                 <Select placeholder='Seleccione la zona'>
-                                    <option value='option1'>Zona A</option>
-                                    <option value='option2'>Zona B</option>
-                                    <option value='option3'>Zona VIP</option>
+                                    {
+                                        zones.map((zone: Zone, index: number) => {
+                                            return <option key={index} value={zone.encId}>{zone.name}</option>;
+                                        })
+                                    }
                                 </Select>
                             </GridItem>
                             <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
