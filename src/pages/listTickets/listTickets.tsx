@@ -15,6 +15,7 @@ import moment from 'moment/min/moment-with-locales';
 import { getTicketsByEventId } from "../../services/ticket.service";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
+import Session from "../../utils/session";
 
 export const ListTickets = () => {
     const [tickets, setTickets] = useState([] as any);
@@ -22,6 +23,7 @@ export const ListTickets = () => {
     const { eventId } = useParams();
     const navigate = useNavigate();
     const loadingModal = useModal<any>(Modals.LoadingModal);
+    const loginModal = useModal<any>(Modals.LoginModal);
 
     useEffect(() => {
         loadingModal.open({title: "Cargando los tickets"});
@@ -40,6 +42,26 @@ export const ListTickets = () => {
     const orderBy = (active: boolean) => {
         var res:any = getTicketsByEventId(eventId, "price", (active)?ASC_ORDER_BY:DESC_ORDER_BY);
         setTickets(res.data);
+    }
+
+    const onClickSell = () => {
+        if(Session.isLoggedIn()){
+            navigate("/sell-ticket");
+            return;
+        }
+
+        loginModal.open({
+            onSave: () => {
+                loginModal.close();
+                navigate("/sell-ticket");
+            },
+            onClose: () => {
+                loginModal.close();
+            },
+            onCancel: () => {
+                loginModal.close();
+            },
+        });
     }
 
     return (
@@ -108,7 +130,7 @@ export const ListTickets = () => {
                                     title={"Vende aqui"}
                                     fontSize="18px"
                                     padding="14px"
-                                    onClick={()=>{navigate("/sell-ticket")}}></MyButton>
+                                    onClick={onClickSell}></MyButton>
                             </VStack>
                         </Box>
                     </>
