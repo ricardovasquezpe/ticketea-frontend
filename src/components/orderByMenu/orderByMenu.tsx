@@ -3,7 +3,7 @@ import styles from "./orderByMenu.module.css";
 import { useState } from "react";
 
 export const OrderByMenu = (props: Props) => {
-    const [active, setActive] = useState(false);
+    const [active, setActive] = useState(props.default);
 
     const click = () => {
         setActive(!active);
@@ -19,5 +19,6 @@ export const OrderByMenu = (props: Props) => {
 
 type Props = {
     text: string,
-    onChange: (active: boolean) => void
+    onChange: (active: boolean) => void,
+    default: boolean
 };
