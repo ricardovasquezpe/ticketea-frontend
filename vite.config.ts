@@ -7,9 +7,19 @@ import { defineConfig } from "vite";
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react()],
-    test: {
-    globals: true,
-    environment: "jsdom",
-    setupFiles: ["src/setupTest.ts"],
+    preview: {
+        port: 8080,
+        strictPort: true,
     },
+    test: {
+        globals: true,
+        environment: "jsdom",
+        setupFiles: ["src/setupTest.ts"],
+    },
+    server: {
+        port: 8080,
+        strictPort: true,
+        host: true,
+        origin: "http://0.0.0.0:8080",
+    }
 });
