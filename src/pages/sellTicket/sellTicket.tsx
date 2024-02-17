@@ -35,7 +35,7 @@ export const SellTicket = () => {
     const toast = useToast();
 
     useEffect(() => {
-        loadingModal.open({title: "Cargando informacion de pago"});
+        loadingModal.open({title: "Cargando información"});
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         onLoadData();
     }, []);
