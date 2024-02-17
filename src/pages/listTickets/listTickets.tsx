@@ -39,8 +39,8 @@ export const ListTickets = () => {
         loadingModal.close();
     }
 
-    const orderBy = (active: boolean) => {
-        var res:any = getTicketsByEventId(eventId, "price", (active)?ASC_ORDER_BY:DESC_ORDER_BY);
+    const orderBy = async (active: boolean) => {
+        var res:any = await getTicketsByEventId(eventId, "price", (active)?ASC_ORDER_BY:DESC_ORDER_BY);
         setTickets(res.data);
     }
 
@@ -96,7 +96,9 @@ export const ListTickets = () => {
                         <Box className={styles.containerTitle}>
                             <HStack justify={"space-between"}>
                                 <SectionTitle title="Tickets del evento"></SectionTitle>
-                                <OrderByMenu text="Ordenar por: Precio" onChange={(active)=>{orderBy(active)}}></OrderByMenu>
+                                <OrderByMenu text="Ordenar por: Precio" 
+                                             onChange={(active)=>{orderBy(active)}}
+                                             default={true}></OrderByMenu>
                             </HStack>
                         </Box>
                         <Box>

@@ -88,7 +88,9 @@ export const SearchEvent = () => {
                         <Box className={styles.containerTitle}>
                             <HStack justify={"space-between"}>
                                 <SectionTitle title="Eventos encontrados"></SectionTitle>
-                                <OrderByMenu onChange={(active)=>{orderBy(active)}} text="Ordenar por: Fecha"></OrderByMenu>
+                                <OrderByMenu onChange={(active)=>{orderBy(active)}} 
+                                             text="Ordenar por: Fecha"
+                                             default={true}></OrderByMenu>
                             </HStack>
                         </Box>
                         <Box>
