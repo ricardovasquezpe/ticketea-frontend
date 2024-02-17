@@ -93,7 +93,7 @@ export const MyTickets = () => {
                                     <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
                                             eventName={"World Hottest Tour"}
                                             artistName={"Bad Bunny"}
-                                            eventDate={"19 feb 2024"}
+                                            eventDate={1234}
                                             ticketZone="Zona Playa"
                                             ticketPrice={200}
                                             seat="45D"></EventTicketCard>
@@ -120,7 +120,7 @@ export const MyTickets = () => {
                                     <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
                                             eventName={"World Hottest Tour"}
                                             artistName={"Bad Bunny"}
-                                            eventDate={"19 feb 2024"}
+                                            eventDate={123}
                                             ticketZone="Zona Playa"
                                             ticketPrice={200}
                                             seat="45D"></EventTicketCard>
@@ -138,7 +138,7 @@ export const MyTickets = () => {
                                     <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
                                             eventName={"World Hottest Tour"}
                                             artistName={"Bad Bunny"}
-                                            eventDate={"19 feb 2024"}
+                                            eventDate={123}
                                             ticketZone="Zona Playa"
                                             ticketPrice={200}
                                             seat="45D"></EventTicketCard>
@@ -160,7 +160,7 @@ export const MyTickets = () => {
                                     <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
                                             eventName={"World Hottest Tour"}
                                             artistName={"Bad Bunny"}
-                                            eventDate={"19 feb 2024"}
+                                            eventDate={123}
                                             ticketZone="Zona Playa"
                                             ticketPrice={200}
                                             ratingNumber={5}
@@ -189,7 +189,7 @@ export const MyTickets = () => {
                                     <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
                                             eventName={"World Hottest Tour"}
                                             artistName={"Bad Bunny"}
-                                            eventDate={"19 feb 2024"}
+                                            eventDate={123}
                                             ticketZone="Zona Playa"
                                             ticketPrice={200}
                                             ratingNumber={5}

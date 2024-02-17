@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { store } from '../../store/store';
 import { onLogout } from '../../store/auth/authAction';
-import Session from '../../utils/session';
 
 export const Header = () => {
     const dispatch = useDispatch();

@@ -78,7 +78,11 @@ export const PaymentMethodSection = (props: Props) => {
                     </MyContainer>
                     <MyContainer>
                         <Text fontSize={16} marginBottom={"15px"} color={"white.half"}>Deberá subir el comprobante del pago para validar que el abono se haya realizado correctamente</Text>
-                        <FileUploader description="Selecciona o arrastra aquí el archivo del comprobante de pago"/>
+                        <FileUploader 
+                            description="Selecciona o arrastra aquí el archivo del comprobante de pago"
+                            acceptFiles={{"application/pdf": [".pdf"]}}
+                            maxFiles={1}
+                            onChange={(files) => {console.log(files);}}/>
                     </MyContainer>
                 </VStack> : <></>}
                 {(methodSelected == PAYMENT_METHOD_CREDIT_CARD) ? <MyContainer>
@@ -104,7 +108,11 @@ export const PaymentMethodSection = (props: Props) => {
                 </MyContainer>
                 <MyContainer>
                         <Text fontSize={16} marginBottom={"15px"} color={"white.half"}>Deberá subir el comprobante del pago para validar que el abono se haya realizado correctamente</Text>
-                        <FileUploader description="Selecciona o arrastra aquí el archivo del comprobante de pago"/>
+                        <FileUploader 
+                            description="Selecciona o arrastra aquí el archivo del comprobante de pago"
+                            acceptFiles={{"application/pdf": [".pdf"]}}
+                                maxFiles={1}
+                                onChange={(files) => {console.log(files);}}/>
                     </MyContainer>
                 </VStack> : <></>}
                 {(methodSelected == PAYMENT_METHOD_PLIN) ? <VStack width={"100%"} gap={3} alignItems={"start"}>
@@ -119,7 +127,11 @@ export const PaymentMethodSection = (props: Props) => {
                 </MyContainer>
                 <MyContainer>
                         <Text fontSize={16} marginBottom={"15px"} color={"white.half"}>Deberá subir el comprobante del pago para validar que el abono se haya realizado correctamente</Text>
-                        <FileUploader description="Selecciona o arrastra aquí el archivo del comprobante de pago"/>
+                        <FileUploader 
+                            description="Selecciona o arrastra aquí el archivo del comprobante de pago"
+                            acceptFiles={{"application/pdf": [".pdf"]}}
+                            maxFiles={1}
+                            onChange={(files) => {console.log(files);}}/>
                     </MyContainer>
                 </VStack> : <></>}
             </VStack>
