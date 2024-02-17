@@ -5,6 +5,6 @@ const updateHeaderInterceptor = (axiosInstance: any) => {
         if(Session.isLoggedIn()) config.headers["Authorization"] = "Bearer " + Session.getUserToken();
         
         return config;
-    },(error: any) => {});
+    },(_: any) => {});
 };
 export default updateHeaderInterceptor;

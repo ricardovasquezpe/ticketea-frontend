@@ -1,4 +1,4 @@
-import { Box, Text, VStack } from "@chakra-ui/react";
+import { Text, VStack } from "@chakra-ui/react";
 import { MyDialog } from "../myDialog";
 
 export const ConfirmUserUpdateDialog = (props: Props) => {
