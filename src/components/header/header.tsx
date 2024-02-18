@@ -1,6 +1,6 @@
 import styles from './header.module.css'
 import {  Image, Flex,  HStack , chakra, Hide, Text, Box, useToast } from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Route, Link, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { MobileDrawer } from './mobile-drawer';
 import { useModal } from '../../config/modal/use-modal';
 import { Modals } from '../../config/modal/modal-config';
@@ -15,6 +15,7 @@ export const Header = () => {
     const [isLogin, setIsLogin] = useState(store.getState().auth.isLoggedIn);
     const navigate = useNavigate();
     const toast = useToast();
+    const { hash, pathname, search } = location;
 
     useEffect(() => {
         const unsubscribe = store.subscribe(() => {
@@ -118,7 +119,9 @@ export const Header = () => {
             label: "Salir",
             onClick: () => {
                 dispatch(onLogout());
-                navigate("/");
+                if(pathname == "/sell-ticket" || pathname == "/my-account" || pathname == "/my-tickets"){
+                    navigate("/");
+                }
             }, 
             type: "linkButton"
         }
