@@ -1,4 +1,3 @@
-import { Artist } from "./artist.model";
 import { Event } from "./event.model";
 
 export class EventDate {
