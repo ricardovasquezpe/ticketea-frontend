@@ -12,7 +12,6 @@ import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import { getMyUserData } from "../../services/user.service";
 import { User } from "../../services/models/user.model";
-import { Event } from "../../services/models/event.model";
 import { getEventsAvailable } from "../../services/event.service";
 import { UserValidationType } from "../../utils/enums/userValidationType.enum";
 import moment from 'moment/min/moment-with-locales';
@@ -20,13 +19,14 @@ import { Zone } from "../../services/models/zone.model";
 import { getZonesByEventId } from "../../services/zone.service";
 import { useForm } from "react-hook-form";
 import { createTicket } from "../../services/ticket.service";
+import { EventDate } from "../../services/models/eventDate.model";
 
 export const SellTicket = () => {
     const navigate = useNavigate();
     const [files, setFiles] = useState([] as File[]);
     const [user, setUser] = useState({} as User);
-    const [events, setEvents] = useState([] as Event[]);
-    const [eventSelected, setEventSelected] = useState({} as Event);
+    const [events, setEvents] = useState([] as EventDate[]);
+    const [eventSelected, setEventSelected] = useState({} as EventDate);
     const [zones, setZones] = useState([] as Zone[]);
     const { register: sell, trigger: sellTrigger, getValues: sellGetValues, formState: { errors }, setValue: sellSetValue  } = useForm();
     const loadingModal = useModal<any>(Modals.LoadingModal);
@@ -51,11 +51,12 @@ export const SellTicket = () => {
     const onSelectEvent = async(event: any) => {
         var eventId = event.target.value;
         if(eventId){
-            setEventSelected(events.find((ev) => ev.encId == eventId)!);
-            var zonesResp = await getZonesByEventId(eventId);
+            var eventDateFound = events.find((ev) => ev.encId == eventId)!;
+            setEventSelected(eventDateFound);
+            var zonesResp = await getZonesByEventId(eventDateFound.event.encId);
             setZones(zonesResp.data);
         } else {
-            setEventSelected({} as Event);
+            setEventSelected({} as EventDate);
             setZones([]);
         }
     }
@@ -79,7 +80,8 @@ export const SellTicket = () => {
 
         setLoading(true);
         var formData = new FormData();
-        formData.append("eventId", eventSelected.encId);
+        formData.append("eventDateId", eventSelected.encId);
+        formData.append("eventId", eventSelected.event.encId);
         formData.append("zoneId", sellGetValues().zone);
         formData.append("price", sellGetValues().price);
         formData.append("seat", sellGetValues().seat);
@@ -189,14 +191,14 @@ export const SellTicket = () => {
                                             onChange: (e) => { onSelectEvent(e) }
                                         })} 
                                     isInvalid={(errors?.event?.message != null) ? true : false}>
-                                {events.map((event: Event, index: number) => {
-                                    return <option key={index} value={event.encId}> {event.title} / {event.artist.name} / {moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</option>
+                                {events.map((event: EventDate, index: number) => {
+                                    return <option key={index} value={event.encId}> {event.event.title} / {event.event.artist.name} / {moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</option>
                                 })}
                             </Select>
                             {
-                                (eventSelected.encId) ? <EventCardSearch eventImage={eventSelected.image_url}
-                                                                    eventName={eventSelected.title}
-                                                                    artistName={eventSelected.artist.name}
+                                (eventSelected.encId) ? <EventCardSearch eventImage={eventSelected.event.image_url}
+                                                                    eventName={eventSelected.event.title}
+                                                                    artistName={eventSelected.event.artist.name}
                                                                     eventDate={eventSelected.date}></EventCardSearch> : <></>
                             }
                         </Box>

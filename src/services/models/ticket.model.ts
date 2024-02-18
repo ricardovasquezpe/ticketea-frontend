@@ -9,8 +9,9 @@ export class Ticket {
     public userSellerIdEnc: string;
     public userSeller?: User;
     public eventIdEnc: string;
+    public eventDateIdEnc?: string;
 
-    constructor(encId: string, price: number, seat:string, zone: Zone, userSellerIdEnc: string, userSeller: User, eventIdEnc: string){
+    constructor(encId: string, price: number, seat:string, zone: Zone, userSellerIdEnc: string, userSeller: User, eventIdEnc: string, eventDateIdEnc: string){
         this.encId = encId;
         this.price = price;
         this.seat = seat;
@@ -18,5 +19,6 @@ export class Ticket {
         this.userSellerIdEnc = userSellerIdEnc;
         this.userSeller = userSeller;
         this.eventIdEnc = eventIdEnc;
+        this.eventDateIdEnc = eventDateIdEnc;
     }
 }

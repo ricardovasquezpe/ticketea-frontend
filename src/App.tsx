@@ -19,7 +19,7 @@ function App() {
         <Header></Header>
         <Routes>
           <Route path='/' element={<SearchEvent></SearchEvent>}></Route>
-          <Route path='/tickets/:eventId' element={<ListTickets></ListTickets>}></Route>
+          <Route path='/tickets/:eventDateId' element={<ListTickets></ListTickets>}></Route>
           <Route path='/ticket-detail/:ticketId' element={<TicketDetail></TicketDetail>}></Route>
           <Route path='/ticket-buy/:ticketId' element={<Checkout></Checkout>}></Route>
           <Route path="/sell-ticket" element={<AuthGuard><SellTicket></SellTicket></AuthGuard>}/>

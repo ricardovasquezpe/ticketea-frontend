@@ -8,17 +8,18 @@ import { ReturnButton } from "../../components/returnButton/returnButton";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import { useNavigate, useParams } from "react-router-dom";
-import { getEventById } from "../../services/event.service";
+import { getEventByEventDateId, getEventById } from "../../services/event.service";
 import { PAYMENT_METHOD_BANK_ACCOUNT } from "../../utils/constants";
 import { Ticket } from "../../services/models/ticket.model";
 import { Event } from "../../services/models/event.model";
 import { getTicketById } from "../../services/ticket.service";
 import { User } from "../../services/models/user.model";
 import { getUserById } from "../../services/user.service";
+import { EventDate } from "../../services/models/eventDate.model";
 
 export const Checkout = () => {
     const navigate = useNavigate();
-    const [event, setEvent] = useState({} as Event);
+    const [event, setEvent] = useState({} as EventDate);
     const [ticket, setTicket] = useState({} as Ticket);
     const [user, setUser] = useState({} as User);
     const [_, setPaymentMethod] = useState(PAYMENT_METHOD_BANK_ACCOUNT);
@@ -36,7 +37,7 @@ export const Checkout = () => {
         var ticketObj: Ticket = ticketRes.data;
         setTicket(ticketObj);
 
-        var eventRes:any = await getEventById(ticketObj.eventIdEnc);
+        var eventRes:any = await getEventByEventDateId(ticketObj.eventDateIdEnc);
         setEvent(eventRes.data);
 
         var userRes:any = await getUserById(ticketObj.userSellerIdEnc);
@@ -68,9 +69,9 @@ export const Checkout = () => {
                 <VStack align='stretch' gap={5}>
                     <ReturnButton route="/ticket-detail"></ReturnButton>
                     <SectionTitle title="Ticket"/>
-                    <EventTicketCard eventImage={event.image_url}
-                                    eventName={event.title}
-                                    artistName={(event.artist)?event.artist.name:""}
+                    <EventTicketCard eventImage={(event.event)?event.event.image_url:""}
+                                    eventName={(event.event)?event.event.title:""}
+                                    artistName={(event.event)?event.event.artist.name:""}
                                     eventDate={event.date}
                                     ratingNumber={user.avgRating!}
                                     sellerImage={user.profile_photo_url}
