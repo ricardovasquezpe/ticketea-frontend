@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 import { onSearch } from "../../store/search/searchAction";
 import { searchEvents } from "../../services/event.service";
 import { useNavigate } from "react-router-dom";
-import { Event } from "../../services/models/event.model";
 import { ASC_ORDER_BY, DESC_ORDER_BY } from "../../utils/constants";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
