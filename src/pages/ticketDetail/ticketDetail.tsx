@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Modals } from "../../config/modal/modal-config";
 import { useModal } from "../../config/modal/use-modal";
 import { useNavigate, useParams } from "react-router-dom";
-import { getEventById } from "../../services/event.service";
+import { getEventByEventDateId, getEventById } from "../../services/event.service";
 import { RatingBadge } from "../../components/ratingBadge/ratingBadge";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleXmark, faShieldHeart } from "@fortawesome/free-solid-svg-icons";
@@ -25,10 +25,11 @@ import { User } from "../../services/models/user.model";
 import { getUserById } from "../../services/user.service";
 import { getRatingsByUserId } from "../../services/rating.service";
 import { UserValidationType } from "../../utils/enums/userValidationType.enum";
+import { EventDate } from "../../services/models/eventDate.model";
 
 export const TicketDetail = () => {
     const navigate = useNavigate();
-    const [event, setEvent] = useState({} as Event);
+    const [event, setEvent] = useState({} as EventDate);
     const [ticket, setTicket] = useState({} as Ticket);
     const [user, setUser] = useState({} as User);
     const { ticketId } = useParams();
@@ -59,7 +60,7 @@ export const TicketDetail = () => {
         var ticketObj: Ticket = ticketRes.data;
         setTicket(ticketObj);
 
-        var eventRes:any = await getEventById(ticketObj.eventIdEnc);
+        var eventRes:any = await getEventByEventDateId(ticketObj.eventDateIdEnc);
         setEvent(eventRes.data);
 
         var userRes:any = await getUserById(ticketObj.userSellerIdEnc);
@@ -107,24 +108,24 @@ export const TicketDetail = () => {
     return (
         <>
             <Box className={styles.parent}>
-                <Box className={styles.background} style={{backgroundImage: "url("+event.image_url+")"}}></Box>
+                <Box className={styles.background} style={{backgroundImage: "url("+((event.event) ? event.event.image_url : "")+")"}}></Box>
                 <Box paddingBottom={5} paddingTop={5}>
                     <Center>
                         <Grid templateColumns="repeat(5, 1fr)" gap={5}> 
                             <GridItem colSpan={{base: 5, sm: 5, md: 1}}>
                                 <Center>
-                                    <Image className={styles.eventImage} src={event.image_url} fallbackSrc='https://via.placeholder.com/150'></Image>
+                                    <Image className={styles.eventImage} src={((event.event) ? event.event.image_url : "")} fallbackSrc='https://via.placeholder.com/150'></Image>
                                 </Center>
                             </GridItem>
                             <GridItem colSpan={{base: 5, sm: 5, md: 4}}>
                                 <Box textAlign={{base: "center", sm: "center", md: "left"}}>
-                                    <Text fontSize={30} fontFamily={"robotoBold"} marginBottom={2}>{event.title}</Text>
+                                    <Text fontSize={30} fontFamily={"robotoBold"} marginBottom={2}>{(event.event)?event.event.title:""}</Text>
                                     <HStack>
-                                        <Text>{(event.artist)?event.artist.name:""}</Text>
+                                        <Text>{(event.event)?event.event.artist.name:""}</Text>
                                         <Text fontWeight={"bold"}>|</Text>
                                         <Text>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
                                         <Text fontWeight={"bold"}>|</Text>
-                                        <Text>{event.place}</Text>
+                                        <Text>{(event.event)?event.event.place:""}</Text>
                                     </HStack>
                                 </Box>
                             </GridItem>
@@ -158,7 +159,7 @@ export const TicketDetail = () => {
                         </HStack>
                     </HStack>
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
-                    <Link color='teal.500' href={event.url} isExternal>
+                    <Link color='teal.500' href={(event.event)?event.event.url:""} isExternal>
                         Link de la pagina oficial <ExternalLinkIcon mx='2px' />
                     </Link>
                 </MyContainer>

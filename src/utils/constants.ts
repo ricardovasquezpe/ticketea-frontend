@@ -1,6 +1,8 @@
 export const EVENTS_SEARCH_URL = "/events/search";
 export const TICKETS_BY_EVENT_URL = "/tickets/getByEvent";
+export const TICKETS_BY_EVENT_DATE_URL = "/tickets/getByEventDate";
 export const EVENT_BY_ID = "/events";
+export const EVENT_BY_EVENT_DATE_ID = "/events/getByEventDate";
 export const TICKET_BY_ID = "/tickets";
 export const USER_BY_ID = "/users";
 export const RATING_BY_USER_ID = "/ratings/byUser";

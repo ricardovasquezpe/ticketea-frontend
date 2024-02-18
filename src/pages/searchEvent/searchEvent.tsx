@@ -13,11 +13,12 @@ import { Event } from "../../services/models/event.model";
 import { ASC_ORDER_BY, DESC_ORDER_BY } from "../../utils/constants";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
+import { EventDate } from "../../services/models/eventDate.model";
 
 export const SearchEvent = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [events, setEvents] = useState([] as any[]);
+    const [events, setEvents] = useState([] as EventDate[]);
     const [search, setSearch] = useState("");
     const [orderByDate, setOrderByDate] = useState(false);
     const [timer, setTimer] = useState(null as any);
@@ -96,12 +97,12 @@ export const SearchEvent = () => {
                         <Box>
                             <VStack align='stretch' spacing={3}>
                                 {
-                                    events.map((event: Event, index: any) => (
+                                    events.map((event: EventDate, index: any) => (
                                         <EventCard key={index} 
-                                            eventImage={event.image_url}
-                                            eventName={event.title}
-                                            artistName={event.artist.name}
-                                            ticketsNumber={event.ticketsCount}
+                                            eventImage={event.event.image_url}
+                                            eventName={event.event.title}
+                                            artistName={event.event.artist.name}
+                                            ticketsNumber={event.event.ticketsCount}
                                             eventDate={event.date}
                                             eventId={event.encId}
                                             onClick={()=>{navigate("/tickets/" + event.encId)}}></EventCard>

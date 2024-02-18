@@ -1,4 +1,4 @@
-import { CREATE_TICKET, TICKETS_BY_EVENT_URL, TICKET_BY_ID } from "../utils/constants";
+import { CREATE_TICKET, TICKETS_BY_EVENT_DATE_URL, TICKETS_BY_EVENT_URL, TICKET_BY_ID } from "../utils/constants";
 import httpClient from "./config/httpClient";
 
 export async function getTicketsByEventId(eventId: any, orderBy: string, order: string): Promise<any>{
@@ -11,4 +11,8 @@ export async function getTicketById(ticketId: any): Promise<any>{
 
 export async function createTicket(payload: any): Promise<any>{
     return httpClient.post(CREATE_TICKET, payload);
+}
+
+export async function getTicketsByEventDateId(eventDateId: any, orderBy: string, order: string): Promise<any>{
+    return httpClient.get(TICKETS_BY_EVENT_DATE_URL + "/" + eventDateId, { params: { orderBy: orderBy, order: order } });   
 }

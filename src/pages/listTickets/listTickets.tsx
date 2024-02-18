@@ -5,22 +5,22 @@ import { OrderByMenu } from "../../components/orderByMenu/orderByMenu";
 import { TicketCard } from "../../components/ticketCard/ticketCard";
 import { ReturnButton } from "../../components/returnButton/returnButton";
 import { useEffect, useState } from "react";
-import { getEventById } from "../../services/event.service";
+import { getEventByEventDateId } from "../../services/event.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { MyButton } from "../../components/myButton/myButton";
 import { ASC_ORDER_BY, DESC_ORDER_BY } from "../../utils/constants";
 import { Ticket } from "../../services/models/ticket.model";
-import { Event } from "../../services/models/event.model";
 import moment from 'moment/min/moment-with-locales';
-import { getTicketsByEventId } from "../../services/ticket.service";
+import { getTicketsByEventDateId } from "../../services/ticket.service";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import Session from "../../utils/session";
+import { EventDate } from "../../services/models/eventDate.model";
 
 export const ListTickets = () => {
-    const [tickets, setTickets] = useState([] as any);
-    const [event, setEvent] = useState({} as Event);
-    const { eventId } = useParams();
+    const [tickets, setTickets] = useState([] as Ticket[]);
+    const [event, setEvent] = useState({} as EventDate);
+    const { eventDateId } = useParams();
     const navigate = useNavigate();
     const loadingModal = useModal<any>(Modals.LoadingModal);
     const loginModal = useModal<any>(Modals.LoginModal);
@@ -32,15 +32,15 @@ export const ListTickets = () => {
     }, []);
 
     const onLoadData = async() => {
-        var ticketsRes = await getTicketsByEventId(eventId, "price", DESC_ORDER_BY);
+        var ticketsRes = await getTicketsByEventDateId(eventDateId, "price", DESC_ORDER_BY);
         setTickets(ticketsRes.data);
-        var eventRes = await getEventById(eventId);
+        var eventRes = await getEventByEventDateId(eventDateId);
         setEvent(eventRes.data);
         loadingModal.close();
     }
 
     const orderBy = async (active: boolean) => {
-        var res:any = await getTicketsByEventId(eventId, "price", (active)?ASC_ORDER_BY:DESC_ORDER_BY);
+        var res:any = await getTicketsByEventDateId(eventDateId, "price", (active)?ASC_ORDER_BY:DESC_ORDER_BY);
         setTickets(res.data);
     }
 
@@ -67,20 +67,20 @@ export const ListTickets = () => {
     return (
         <>
             <Box className={styles.parent}>
-                <Box className={styles.background} style={{backgroundImage: "url("+event.image_url+")"}}></Box>
+                <Box className={styles.background} style={{backgroundImage: "url("+((event.event) ? event.event.image_url : "")+")"}}></Box>
                 <Box paddingBottom={5} paddingTop={5}>
                     <Center>
                         <VStack spacing={3}>
                             <Image className={styles.eventImage} 
-                                   src={event.image_url}
+                                   src={(event.event)?event.event.image_url:""}
                                    fallbackSrc='https://via.placeholder.com/150'></Image>
-                            <Text fontSize={30} fontFamily={"robotoBold"}>{event.title}</Text>
+                            <Text fontSize={30} fontFamily={"robotoBold"}>{(event.event)?event.event.title:""}</Text>
                             <HStack gap={2}>
-                                <Text>{(event.artist) ? event.artist.name : ""}</Text>
+                                <Text>{(event.event) ? event.event.artist.name : ""}</Text>
                                 <Text fontWeight={"bold"}>|</Text>
                                 <Text>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
                                 <Text fontWeight={"bold"}>|</Text>
-                                <Text>{event.place}</Text>
+                                <Text>{(event.event)?event.event.place:""}</Text>
                             </HStack>
                         </VStack>
                     </Center>
