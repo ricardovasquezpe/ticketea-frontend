@@ -19,6 +19,7 @@ export const VALIDATE_MY_PERSONAL_DOCUMENT = "/validate/me/personalDocument";
 export const EVENTS_AVAILABLE_URL = "/events/getAllAvailable";
 export const ZONES_BY_EVENT_URL = "/zones/getByEvent";
 export const CREATE_TICKET = "/tickets";
+export const MY_TICKETS_URL = "/tickets/users/me";
 
 export const PAYMENT_METHOD_BANK_ACCOUNT = "1";
 export const PAYMENT_METHOD_CREDIT_CARD = "2";

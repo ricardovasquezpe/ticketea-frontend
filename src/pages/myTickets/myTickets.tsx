@@ -3,9 +3,27 @@ import { EventTicketCard } from "../../components/eventTicketCard/eventTicketCar
 import { MyButton } from "../../components/myButton/myButton";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
+import { useEffect, useState } from "react";
+import { getMySoldTickets } from "../../services/ticket.service";
+import { Ticket } from "../../services/models/ticket.model";
 
 export const MyTickets = () => {
     const confirmTicketModal = useModal<any>(Modals.ConfirmTicketModal);
+    const loadingModal = useModal<any>(Modals.LoadingModal);
+    const [tickets, setTickets] = useState([] as Ticket[]);
+
+    useEffect(() => {
+      loadingModal.open({title: "Cargando informacion de pago"});
+      window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+      onLoadData();
+    }, []);
+
+    const onLoadData = async () => {
+      var res = await getMySoldTickets();
+      setTickets(res.data);
+      loadingModal.close();
+    }
+
     const confirmTicket = () => {
         confirmTicketModal.open({
           onSave: () => {
@@ -57,8 +75,10 @@ export const MyTickets = () => {
     }
 
     const editTicketPriceModal = useModal<any>(Modals.EditTicketPriceModal);
-    const editTicketPrice = () => {
+    const editTicketPrice = (ticketId: string, actualPrice: number) => {
       editTicketPriceModal.open({
+          ticketId: ticketId,
+          actualPrice: actualPrice,
           onSave: () => {
             console.log("OnSave");
           },
@@ -79,7 +99,7 @@ export const MyTickets = () => {
                 <Tabs variant="unstyled">
                     <TabList>
                         <Tab>Mis entradas vendidas</Tab>
-                        <Tab>Mis entradas compradas</Tab>
+                        {/* <Tab>Mis entradas compradas</Tab> */}
                     </TabList>
                     <TabIndicator
                         mt="-1.5px"
@@ -89,7 +109,39 @@ export const MyTickets = () => {
                     <TabPanels>
                         <TabPanel>
                             <VStack justifyContent={"stretch"}>
-                                <HStack width={"100%"}>
+                                {
+                                  tickets.map((ticket: Ticket, index: number) => {
+                                    return (<HStack width={"100%"}>
+                                                <EventTicketCard eventImage={ticket.eventDate?.event.image_url!}
+                                                        eventName={ticket.eventDate?.event.title!}
+                                                        artistName={ticket.eventDate?.event.artist.name!}
+                                                        eventDate={ticket.eventDate?.date!}
+                                                        ticketZone={ticket.zone.name}
+                                                        ticketPrice={ticket.price}
+                                                        seat={ticket.seat}></EventTicketCard>
+                                                <VStack alignItems={"start"}>
+                                                    <MyButton textColor="white" 
+                                                            backgroundColor="red.default" 
+                                                            backgroundColorHover="red.dark" 
+                                                            title={"Eliminar"}
+                                                            fontSize="14px"
+                                                            padding="0px 5px"
+                                                            onClick={deleteTicket}
+                                                            width="100%"></MyButton>
+                                                    <MyButton textColor="white" 
+                                                            backgroundColor="secondary.default" 
+                                                            backgroundColorHover="secondary.dark" 
+                                                            title={"Editar Precio"}
+                                                            fontSize="14px"
+                                                            padding="0px 5px"
+                                                            onClick={()=>editTicketPrice(ticket.encId, ticket.price)}
+                                                            width="100%"></MyButton>
+                                                </VStack>
+                                            </HStack>);
+                                  })
+                                }
+
+                                {/* <HStack width={"100%"}>
                                     <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
                                             eventName={"World Hottest Tour"}
                                             artistName={"Bad Bunny"}
@@ -151,7 +203,7 @@ export const MyTickets = () => {
                                                 padding="4px"
                                                 border="2px var(--chakra-colors-orange-default) solid"></MyButton>
                                     </VStack>
-                                </HStack>
+                                </HStack>*/}
                             </VStack>
                         </TabPanel>
                         <TabPanel>
