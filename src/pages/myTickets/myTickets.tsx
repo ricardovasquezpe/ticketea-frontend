@@ -13,7 +13,7 @@ export const MyTickets = () => {
     const [tickets, setTickets] = useState([] as Ticket[]);
 
     useEffect(() => {
-      loadingModal.open({title: "Cargando informacion de pago"});
+      loadingModal.open({title: "Cargando tus entradas"});
       window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
       onLoadData();
     }, []);
@@ -79,15 +79,15 @@ export const MyTickets = () => {
       editTicketPriceModal.open({
           ticketId: ticketId,
           actualPrice: actualPrice,
-          onSave: () => {
-            console.log("OnSave");
+          onSave: async () => {
+            var res = await getMySoldTickets();
+            setTickets(res.data);
+            editTicketPriceModal.close();
           },
           onClose: () => {
-            console.log("onClose");
             editTicketPriceModal.close();
           },
           onCancel: () => {
-            console.log("onCancel");
             editTicketPriceModal.close();
           },
         });

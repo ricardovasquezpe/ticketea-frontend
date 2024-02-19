@@ -20,6 +20,7 @@ export const EVENTS_AVAILABLE_URL = "/events/getAllAvailable";
 export const ZONES_BY_EVENT_URL = "/zones/getByEvent";
 export const CREATE_TICKET = "/tickets";
 export const MY_TICKETS_URL = "/tickets/users/me";
+export const UPDATE_TICKET_PRICE_URL = "/tickets/:ticketId/updatePrice";
 
 export const PAYMENT_METHOD_BANK_ACCOUNT = "1";
 export const PAYMENT_METHOD_CREDIT_CARD = "2";
