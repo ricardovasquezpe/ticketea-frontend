@@ -8,7 +8,6 @@ import { getMySoldTickets } from "../../services/ticket.service";
 import { Ticket } from "../../services/models/ticket.model";
 
 export const MyTickets = () => {
-    const confirmTicketModal = useModal<any>(Modals.ConfirmTicketModal);
     const loadingModal = useModal<any>(Modals.LoadingModal);
     const [tickets, setTickets] = useState([] as Ticket[]);
 
@@ -24,6 +23,7 @@ export const MyTickets = () => {
       loadingModal.close();
     }
 
+    const confirmTicketModal = useModal<any>(Modals.ConfirmTicketModal);
     const confirmTicket = () => {
         confirmTicketModal.open({
           onSave: () => {
@@ -41,17 +41,18 @@ export const MyTickets = () => {
     }
 
     const deleteTicketDialog = useModal<any>(Modals.DeleteTicketDialog);
-    const deleteTicket = () => {
+    const deleteTicket = (ticketId: string) => {
         deleteTicketDialog.open({
-          onSave: () => {
-            console.log("OnSave");
+          ticketId: ticketId,
+          onSave: async () => {
+            var res = await getMySoldTickets();
+            setTickets(res.data);
+            deleteTicketDialog.close();
           },
           onClose: () => {
-            console.log("onClose");
             deleteTicketDialog.close();
           },
           onCancel: () => {
-            console.log("onCancel");
             deleteTicketDialog.close();
           },
         });
@@ -111,7 +112,7 @@ export const MyTickets = () => {
                             <VStack justifyContent={"stretch"}>
                                 {
                                   tickets.map((ticket: Ticket, index: number) => {
-                                    return (<HStack width={"100%"}>
+                                    return (<HStack width={"100%"} key={index}>
                                                 <EventTicketCard eventImage={ticket.eventDate?.event.image_url!}
                                                         eventName={ticket.eventDate?.event.title!}
                                                         artistName={ticket.eventDate?.event.artist.name!}
@@ -126,7 +127,7 @@ export const MyTickets = () => {
                                                             title={"Eliminar"}
                                                             fontSize="14px"
                                                             padding="0px 5px"
-                                                            onClick={deleteTicket}
+                                                            onClick={()=>deleteTicket(ticket.encId)}
                                                             width="100%"></MyButton>
                                                     <MyButton textColor="white" 
                                                             backgroundColor="secondary.default" 
