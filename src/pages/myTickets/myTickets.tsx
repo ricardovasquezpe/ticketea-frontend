@@ -99,7 +99,7 @@ export const MyTickets = () => {
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <Tabs variant="unstyled">
                     <TabList>
-                        <Tab>Mis entradas vendidas</Tab>
+                        <Tab>Mis entradas anunciadas</Tab>
                         {/* <Tab>Mis entradas compradas</Tab> */}
                     </TabList>
                     <TabIndicator
@@ -119,7 +119,8 @@ export const MyTickets = () => {
                                                         eventDate={ticket.eventDate?.date!}
                                                         ticketZone={ticket.zone.name}
                                                         ticketPrice={ticket.price}
-                                                        seat={ticket.seat}></EventTicketCard>
+                                                        seat={ticket.seat}
+                                                        state={ticket.state}></EventTicketCard>
                                                 <VStack alignItems={"start"}>
                                                     <MyButton textColor="white" 
                                                             backgroundColor="red.default" 

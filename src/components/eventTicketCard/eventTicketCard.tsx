@@ -3,6 +3,7 @@ import styles from "./eventiTicketCard.module.css";
 import { RatingBadge } from "../ratingBadge/ratingBadge";
 import Utils from "../../utils/utils";
 import moment from 'moment/min/moment-with-locales';
+import { TicketState, TicketStateString } from "../../utils/enums/TicketState.enum";
 
 export const EventTicketCard = (props: Props) => {
     return (
@@ -34,7 +35,11 @@ export const EventTicketCard = (props: Props) => {
                     <RatingBadge id="mybadge" rating={props.ratingNumber!}></RatingBadge>
                 </HStack>
             </> : <></>}
-            
+            {
+                (props.state != TicketState.Active) ? <div className={styles.arrowRight}>
+                                                            <span>{TicketStateString[props.state!]}</span>
+                                                        </div> : <></>
+            }
         </Box>
     );
 };
@@ -49,5 +54,6 @@ type Props = {
     sellerName?: string,
     sellerImage?: string,
     ratingNumber?: number,
-    seat: string
+    seat: string,
+    state?: TicketState
 };

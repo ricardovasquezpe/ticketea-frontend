@@ -1,3 +1,4 @@
+import { TicketState } from "../../utils/enums/TicketState.enum";
 import { EventDate } from "./eventDate.model";
 import { User } from "./user.model";
 import { Zone } from "./zone.model";
@@ -12,8 +13,9 @@ export class Ticket {
     public eventIdEnc: string;
     public eventDateIdEnc?: string;
     public eventDate?: EventDate;
+    public state: TicketState;
 
-    constructor(encId: string, price: number, seat:string, zone: Zone, userSellerIdEnc: string, userSeller: User, eventIdEnc: string, eventDateIdEnc: string, eventDate: EventDate){
+    constructor(encId: string, price: number, seat:string, zone: Zone, userSellerIdEnc: string, userSeller: User, eventIdEnc: string, eventDateIdEnc: string, eventDate: EventDate, state: TicketState){
         this.encId = encId;
         this.price = price;
         this.seat = seat;
@@ -23,5 +25,6 @@ export class Ticket {
         this.eventIdEnc = eventIdEnc;
         this.eventDateIdEnc = eventDateIdEnc;
         this.eventDate = eventDate;
+        this.state = state;
     }
 }
