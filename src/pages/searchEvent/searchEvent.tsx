@@ -80,7 +80,7 @@ export const SearchEvent = () => {
                     </Center>
                 </Box>
             </Box>
-            <Box marginTop={"-90px"} padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
+            <Box marginTop={{"base": "-75px", "sm": "-75px", "customMd": "-90px"}} padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <MyBigInputSearch value={search} setValue={inputChanged}></MyBigInputSearch>
                 {
                     (events.length) ? 
@@ -101,7 +101,7 @@ export const SearchEvent = () => {
                                             eventImage={event.event.image_url}
                                             eventName={event.event.title}
                                             artistName={event.event.artist.name}
-                                            ticketsNumber={event.event.ticketsCount}
+                                            ticketsNumber={event.ticketsCount}
                                             eventDate={event.date}
                                             eventId={event.encId}
                                             onClick={()=>{navigate("/tickets/" + event.encId)}}></EventCard>

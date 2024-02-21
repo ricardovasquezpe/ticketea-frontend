@@ -8,9 +8,8 @@ export class Event {
     public url: string;
     public date: number;
     public artist: Artist;
-    public ticketsCount: number;
 
-    constructor(encId: string, title: string, place: string, image_url: string, url: string, date: number, artist: Artist, ticketsCount: number){
+    constructor(encId: string, title: string, place: string, image_url: string, url: string, date: number, artist: Artist){
         this.encId = encId;
         this.title = title;
         this.place = place;
@@ -18,6 +17,5 @@ export class Event {
         this.url = url;
         this.date = date;
         this.artist = artist;
-        this.ticketsCount = ticketsCount;
     }
 }
