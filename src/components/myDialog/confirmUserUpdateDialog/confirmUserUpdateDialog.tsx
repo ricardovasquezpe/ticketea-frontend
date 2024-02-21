@@ -4,10 +4,11 @@ import { MyDialog } from "../myDialog";
 export const ConfirmUserUpdateDialog = (props: Props) => {
     return (
         <MyDialog description={<VStack>
-                                <Text>¿Estas seguro de actualizar tu información?</Text> 
+                                <Text>- Tendrás que volver a hacer la validacion de tu documento de identificación</Text>
+                                <Text>- Tus entradas que esten a la venta estarán en pausa hasta que termines de hacer la validacion nuevamente</Text>
                                 <Text fontSize={"16px"} color={"white.half"}>* Recuerda que solo podrás cambiar tu información 2 vecez máximo</Text>
                                 </VStack>}
-                  title="Actualizar tu información"
+                  title="¿Estas seguro de actualizar tu información?"
                   onAcceptButtonText="Guardar"
                   onCancelButtonText="Cerrar"
                   onClose={props.onClose}
