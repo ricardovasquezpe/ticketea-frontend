@@ -35,7 +35,8 @@ export const MyAccount = () => {
             "name": res.data.name,
             "lastNameFather": res.data.last_name_father,
             "lastNameMother": res.data.last_name_mother,
-            "birthDate": moment(res.data.birth_date, "DD/MM/YYYY").toISOString().substr(0, 10)
+            "birthDate": moment(res.data.birth_date, "DD/MM/YYYY").toISOString().substr(0, 10),
+            "personalDocument": res.data.personal_document
         });
         loadingModal.close();
     }
@@ -158,7 +159,7 @@ export const MyAccount = () => {
 
     const confirmUserUpdateDailog = useModal<any>(Modals.ConfirmUserUpdateDailog);
     const confirmUserUpdate = async () => {
-        const isValid = await userDataTrigger(["name", "lastNameFather", "lastNameMother", "birthDate"], { shouldFocus: true });
+        const isValid = await userDataTrigger(["name", "lastNameFather", "lastNameMother", "birthDate", "personalDocument"], { shouldFocus: true });
         if(!isValid){
             setErrorMessage(Object.values(errors)[0]?.message);
             return;
@@ -246,6 +247,9 @@ export const MyAccount = () => {
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
                                         <Input placeholder="Fecha de nacimiento" type="date" {...userData("birthDate", {required: "La Fecha de nacimiento es obligatorio"})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
+                                    </GridItem>
+                                    <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
+                                        <Input placeholder="DNI" {...userData("personalDocument", {required: "El DNI es obligatorio", maxLength: {value: 8, message: "El apellido materno no debe tener mas de 8 caracteres"}})} isInvalid={(errors?.personalDocument?.message != null) ? true : false}></Input>
                                     </GridItem>
                                 </Grid>
                                 <Text marginTop={"10px"} color={"white.half"} fontSize={"14px"}>* Recuerda que solo podras editar tus datos 1 sola vez</Text>
