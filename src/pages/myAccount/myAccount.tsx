@@ -272,62 +272,62 @@ export const MyAccount = () => {
                     <Box>
                         <VStack gap={2}>
                             <MyContainer>
-                            <HStack justifyContent={"space-between"}>
-                                <HStack>
-                                    <Text fontSize={"16px"}>Celular</Text>
-                                    {(user.userValidations?.find((val) => val.type == UserValidationType.PhoneVerified && val.validated)) ? 
-                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
-                                        <></>}
+                                <HStack justifyContent={"space-between"}>
+                                    <HStack>
+                                        <Text fontSize={"16px"}>Celular</Text>
+                                        {(user.userValidations?.find((val) => val.type == UserValidationType.PhoneVerified && val.validated)) ? 
+                                            <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
+                                            <></>}
+                                    </HStack>
+                                    <MyButton textColor="white" 
+                                                backgroundColor="secondary.default" 
+                                                backgroundColorHover="secondary.dark" 
+                                                title={"Verificar"}
+                                                fontSize="14px"
+                                                padding="5px 10px"
+                                                size="xs"
+                                                onClick={validatePhone}
+                                                isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PhoneVerified && val.count == 2)?true:false)}></MyButton>
                                 </HStack>
-                                <MyButton textColor="white" 
-                                            backgroundColor="secondary.default" 
-                                            backgroundColorHover="secondary.dark" 
-                                            title={"Verificar"}
-                                            fontSize="14px"
-                                            padding="5px 10px"
-                                            size="xs"
-                                            onClick={validatePhone}
-                                            isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PhoneVerified && val.count == 2)?true:false)}></MyButton>
-                            </HStack>
-                        </MyContainer>
-                        <MyContainer>
-                            <HStack justifyContent={"space-between"}>
-                                <HStack>
-                                    <Text fontSize={"16px"}>Correo Electronico</Text>
-                                    {(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.validated)) ? 
-                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
-                                        <></>}
+                            </MyContainer>
+                            <MyContainer>
+                                <HStack justifyContent={"space-between"}>
+                                    <HStack>
+                                        <Text fontSize={"16px"}>Correo Electronico</Text>
+                                        {(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.validated)) ? 
+                                            <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
+                                            <></>}
+                                    </HStack>
+                                    <MyButton textColor="white" 
+                                                backgroundColor="secondary.default" 
+                                                backgroundColorHover="secondary.dark" 
+                                                title={"Verificar"}
+                                                fontSize="14px"
+                                                padding="5px 10px"
+                                                size="xs"
+                                                onClick={validateEmail}
+                                                isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.count == 2)?true:false)}></MyButton>
                                 </HStack>
-                                <MyButton textColor="white" 
-                                            backgroundColor="secondary.default" 
-                                            backgroundColorHover="secondary.dark" 
-                                            title={"Verificar"}
-                                            fontSize="14px"
-                                            padding="5px 10px"
-                                            size="xs"
-                                            onClick={validateEmail}
-                                            isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.count == 2)?true:false)}></MyButton>
-                            </HStack>
-                        </MyContainer>
-                        <MyContainer>
-                            <HStack justifyContent={"space-between"}>
-                                <HStack>
-                                    <Text fontSize={"16px"}>Documento de identificación</Text>
-                                    {(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.validated)) ? 
-                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
-                                        <></>}
+                            </MyContainer>
+                            <MyContainer>
+                                <HStack justifyContent={"space-between"}>
+                                    <HStack>
+                                        <Text fontSize={"16px"}>Documento de identificación</Text>
+                                        {(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.validated)) ? 
+                                            <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
+                                            <></>}
+                                    </HStack>
+                                    <MyButton textColor="white" 
+                                                backgroundColor="secondary.default" 
+                                                backgroundColorHover="secondary.dark" 
+                                                title={"Verificar"}
+                                                fontSize="14px"
+                                                padding="5px 10px"
+                                                size="xs"
+                                                onClick={validatePersonalDoc}
+                                                isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.count == 2)?true:false)}></MyButton>
                                 </HStack>
-                                <MyButton textColor="white" 
-                                            backgroundColor="secondary.default" 
-                                            backgroundColorHover="secondary.dark" 
-                                            title={"Verificar"}
-                                            fontSize="14px"
-                                            padding="5px 10px"
-                                            size="xs"
-                                            onClick={validatePersonalDoc}
-                                            isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.count == 2)?true:false)}></MyButton>
-                            </HStack>
-                        </MyContainer>
+                            </MyContainer>
                         </VStack>
                     </Box>
                     {

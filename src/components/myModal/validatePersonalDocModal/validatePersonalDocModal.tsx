@@ -60,7 +60,7 @@ export const ValidatePersonalDocModal = (props: Props) => {
                                 onChange={(files) => {setBackFile(files)}}/>
                         </VStack>
                     </Center>
-                    <Text color={"white.half"} fontSize={"14px"}>*Asegurate de haber llenado tus datos basicos, compararemos los datos de tu documento de identidad con tus datos basicos</Text>
+                    <Text color={"white.half"} fontSize={"14px"}>* Compararemos los datos de tu documento de identidad con tus datos basicos y con el servicio de RENIEC</Text>
                     <VStack width={"100%"}>
                         <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
