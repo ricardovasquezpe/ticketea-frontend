@@ -36,7 +36,7 @@ export const EventTicketCard = (props: Props) => {
                 </HStack>
             </> : <></>}
             {
-                (props.state != TicketState.Active) ? <div className={styles.arrowRight}>
+                (props.state != null && props.state != TicketState.Active) ? <div className={styles.arrowRight}>
                                                             <span>{TicketStateString[props.state!]}</span>
                                                         </div> : <></>
             }
