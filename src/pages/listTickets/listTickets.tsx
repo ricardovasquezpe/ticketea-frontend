@@ -32,7 +32,7 @@ export const ListTickets = () => {
     }, []);
 
     const onLoadData = async() => {
-        var ticketsRes = await getTicketsByEventDateId(eventDateId, "price", DESC_ORDER_BY);
+        var ticketsRes = await getTicketsByEventDateId(eventDateId, "price", ASC_ORDER_BY);
         setTickets(ticketsRes.data);
         var eventRes = await getEventByEventDateId(eventDateId);
         setEvent(eventRes.data);
@@ -40,7 +40,7 @@ export const ListTickets = () => {
     }
 
     const orderBy = async (active: boolean) => {
-        var res:any = await getTicketsByEventDateId(eventDateId, "price", (active)?DESC_ORDER_BY:ASC_ORDER_BY);
+        var res:any = await getTicketsByEventDateId(eventDateId, (active)?"price":"createdAt", (active)?ASC_ORDER_BY:DESC_ORDER_BY);
         setTickets(res.data);
     }
 
