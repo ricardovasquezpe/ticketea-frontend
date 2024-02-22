@@ -49,15 +49,15 @@ export const Checkout = () => {
     const click = () => {
         FinishPaymentModal.open({
             onSave: () => {
-              console.log("OnSave");
+                FinishPaymentModal.close();
+                navigate("/");
             },
             onClose: () => {
-              FinishPaymentModal.close();
-              navigate("/");
+                FinishPaymentModal.close();
+                navigate("/");
             },
             onCancel: () => {
-              console.log("onCancel");
-              FinishPaymentModal.close();
+                FinishPaymentModal.close();
             },
           });
     }

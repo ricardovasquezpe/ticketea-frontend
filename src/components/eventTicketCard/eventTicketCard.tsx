@@ -3,6 +3,7 @@ import styles from "./eventiTicketCard.module.css";
 import { RatingBadge } from "../ratingBadge/ratingBadge";
 import Utils from "../../utils/utils";
 import moment from 'moment/min/moment-with-locales';
+import { TicketState, TicketStateString } from "../../utils/enums/ticketState.enum";
 
 export const EventTicketCard = (props: Props) => {
     return (
@@ -23,7 +24,7 @@ export const EventTicketCard = (props: Props) => {
                 <Box textAlign={"end"}>
                     <Text className={styles.ticketPrice}>S/. {(props.ticketPrice!=null)?Utils.currencyFormat(props.ticketPrice):0}</Text>
                     <Text className={styles.ticketZone}>{props.ticketZone}</Text>
-                    {(props.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca {props.seat}</Text>:<></>}
+                    {(props.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca: {props.seat}</Text>:<></>}
                 </Box>
             </HStack>
             {(props.sellerName != null) ? <>
@@ -31,10 +32,14 @@ export const EventTicketCard = (props: Props) => {
                 <HStack gap={3}>
                     <Avatar size='sm' name={props.sellerName} src={props.sellerImage} />
                     <Text>{props.sellerName}</Text>
-                    <RatingBadge id="mybadge" rating={props.ratingNumber!}></RatingBadge>
+                    <RatingBadge id="mybadge" rating={props.ratingNumber!} showLabel={false}></RatingBadge>
                 </HStack>
             </> : <></>}
-            
+            {
+                (props.state != null && props.state != TicketState.Active) ? <div className={styles.arrowRight}>
+                                                            <span>{TicketStateString[props.state!]}</span>
+                                                        </div> : <></>
+            }
         </Box>
     );
 };
@@ -49,5 +54,6 @@ type Props = {
     sellerName?: string,
     sellerImage?: string,
     ratingNumber?: number,
-    seat: string
+    seat: string,
+    state?: TicketState
 };

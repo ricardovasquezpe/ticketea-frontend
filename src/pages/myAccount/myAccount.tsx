@@ -13,6 +13,7 @@ import { User } from "../../services/models/user.model";
 import { useForm } from "react-hook-form";
 import moment from 'moment/min/moment-with-locales';
 import { UserValidationType } from "../../utils/enums/userValidationType.enum";
+import { ErrorType } from "../../utils/enums/errorType.enum";
 
 export const MyAccount = () => {
     const toast = useToast();
@@ -35,7 +36,8 @@ export const MyAccount = () => {
             "name": res.data.name,
             "lastNameFather": res.data.last_name_father,
             "lastNameMother": res.data.last_name_mother,
-            "birthDate": moment(res.data.birth_date, "DD/MM/YYYY").toISOString().substr(0, 10)
+            "birthDate": moment(res.data.birth_date, "DD/MM/YYYY").toISOString().substr(0, 10),
+            "personalDocument": (res.data.personal_document) ? res.data.personal_document : ""
         });
         loadingModal.close();
     }
@@ -59,11 +61,9 @@ export const MyAccount = () => {
                 });
             },
             onClose: () => {
-                console.log("onClose");
                 changeProfilePhotoModal.close();
             },
             onCancel: () => {
-                console.log("onCancel");
                 changeProfilePhotoModal.close();
             },
         });
@@ -88,11 +88,9 @@ export const MyAccount = () => {
             });
           },
           onClose: () => {
-            console.log("onClose");
             validatePhoneModal.close();
           },
           onCancel: () => {
-            console.log("onCancel");
             validatePhoneModal.close();
           },
         });
@@ -101,7 +99,8 @@ export const MyAccount = () => {
     const validateEmailModal = useModal<any>(Modals.ValidateEmailModal);
     const validateEmail = () => {
         validateEmailModal.open({
-          onSave: async () => {
+            currentEmail: user.email,
+            onSave: async () => {
             var res = await getMyUserData();
             setUser(res.data);
             validateEmailModal.close();
@@ -115,15 +114,13 @@ export const MyAccount = () => {
                 duration: 9000,
                 isClosable: true,
             });
-          },
-          onClose: () => {
-            console.log("onClose");
+            },
+            onClose: () => {
             validateEmailModal.close();
-          },
-          onCancel: () => {
-            console.log("onCancel");
+            },
+            onCancel: () => {
             validateEmailModal.close();
-          },
+            },
         });
     }
 
@@ -146,11 +143,9 @@ export const MyAccount = () => {
             });
           },
           onClose: () => {
-            console.log("onClose");
             validatePersonalDocModal.close();
           },
           onCancel: () => {
-            console.log("onCancel");
             validatePersonalDocModal.close();
           },
         });
@@ -158,7 +153,7 @@ export const MyAccount = () => {
 
     const confirmUserUpdateDailog = useModal<any>(Modals.ConfirmUserUpdateDailog);
     const confirmUserUpdate = async () => {
-        const isValid = await userDataTrigger(["name", "lastNameFather", "lastNameMother", "birthDate"], { shouldFocus: true });
+        const isValid = await userDataTrigger(["name", "lastNameFather", "lastNameMother", "birthDate", "personalDocument"], { shouldFocus: true });
         if(!isValid){
             setErrorMessage(Object.values(errors)[0]?.message);
             return;
@@ -179,17 +174,23 @@ export const MyAccount = () => {
                 setLoadingUserUpdate(true);
 
                 var payload = {...userDataGetValues(), birthDate: birthDateMoment.format("DD/MM/YYYY")}
-                var res = await updateMyUserData(payload);
-                if(res.data.message != null){
-                    setErrorMessage(res.data.message);
+                var response = await updateMyUserData(payload);
+                if(response.data.errorType == ErrorType.Validation){
                     setLoadingUserUpdate(false);
+                    setErrorMessage("Falta llenar algunos campos");
+                    return;
+                }
+
+                if(response.data.errorType  == ErrorType.Simple){
+                    setLoadingUserUpdate(false);
+                    setErrorMessage(response.data.message);
                     return;
                 }
                 
                 var res = await getMyUserData();
                 setUser(res.data);
-
                 setLoadingUserUpdate(false);
+
                 toast({
                     title: 'Información guardada correctamente',
                     description: "",
@@ -202,11 +203,9 @@ export const MyAccount = () => {
                 });
             },
             onClose: () => {
-                console.log("onClose");
                 confirmUserUpdateDailog.close();
             },
             onCancel: () => {
-                console.log("onCancel");
                 confirmUserUpdateDailog.close();
             },
         });
@@ -236,19 +235,22 @@ export const MyAccount = () => {
                             <Box width={"100%"}>
                                 <Grid templateColumns="repeat(4, 1fr)" gap={3}> 
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Nombres" {...userData("name", {required: "Los Nombres es obligatorio", maxLength: {value: 100, message: "Los Nombres no debe ser tener de 100 caracteres"}})} isInvalid={(errors?.name?.message != null) ? true : false}></Input>
+                                        <Input placeholder="Nombres" {...userData("name", {required: "Los Nombres es obligatorio", maxLength: {value: 100, message: "Los Nombres no debe ser tener de 100 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.name?.message != null) ? true : false}></Input>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Apellido Paterno" {...userData("lastNameFather", {required: "El apellido paterno es obligatorio", maxLength: {value: 100, message: "El apellido paterno no debe tener mas de 100 caracteres"}})} isInvalid={(errors?.lastNameFather?.message != null) ? true : false}></Input>
+                                        <Input placeholder="Apellido Paterno" {...userData("lastNameFather", {required: "El apellido paterno es obligatorio", maxLength: {value: 100, message: "El apellido paterno no debe tener mas de 100 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameFather?.message != null) ? true : false}></Input>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Apellido Materno" {...userData("lastNameMother", {required: "El apellido materno es obligatorio", maxLength: {value: 100, message: "El apellido materno no debe tener mas de 100 caracteres"}})} isInvalid={(errors?.lastNameMother?.message != null) ? true : false}></Input>
+                                        <Input placeholder="Apellido Materno" {...userData("lastNameMother", {required: "El apellido materno es obligatorio", maxLength: {value: 100, message: "El apellido materno no debe tener mas de 100 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameMother?.message != null) ? true : false}></Input>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Fecha de nacimiento" type="date" {...userData("birthDate", {required: "La Fecha de nacimiento es obligatorio"})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
+                                        <Input placeholder="Fecha de nacimiento" type="date" {...userData("birthDate", {required: "La Fecha de nacimiento es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
+                                    </GridItem>
+                                    <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
+                                        <Input placeholder="DNI" {...userData("personalDocument", {required: "El DNI es obligatorio", pattern: { value: /^\d{8}$/, message: "El DNI debe tener 8 digitos" }, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.personalDocument?.message != null) ? true : false}></Input>
                                     </GridItem>
                                 </Grid>
-                                <Text marginTop={"10px"} color={"white.half"} fontSize={"14px"}>* Recuerda que solo podras editar tus datos 1 sola vez</Text>
+                                <Text marginTop={"10px"} color={"white.half"} fontSize={"14px"}>* Recuerda que solo podras editar tus datos 2 vecez</Text>
                             </Box>
                             <Box width={"100%"}>
                                 <MyButton textColor="white" 
@@ -268,62 +270,62 @@ export const MyAccount = () => {
                     <Box>
                         <VStack gap={2}>
                             <MyContainer>
-                            <HStack justifyContent={"space-between"}>
-                                <HStack>
-                                    <Text fontSize={"16px"}>Celular</Text>
-                                    {(user.userValidations?.find((val) => val.type == UserValidationType.PhoneVerified && val.validated)) ? 
-                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
-                                        <></>}
+                                <HStack justifyContent={"space-between"}>
+                                    <HStack>
+                                        <Text fontSize={"16px"}>Celular</Text>
+                                        {(user.userValidations?.find((val) => val.type == UserValidationType.PhoneVerified && val.validated)) ? 
+                                            <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
+                                            <></>}
+                                    </HStack>
+                                    <MyButton textColor="white" 
+                                                backgroundColor="secondary.default" 
+                                                backgroundColorHover="secondary.dark" 
+                                                title={"Verificar"}
+                                                fontSize="14px"
+                                                padding="5px 10px"
+                                                size="xs"
+                                                onClick={validatePhone}
+                                                isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PhoneVerified && val.count == 2)?true:false)}></MyButton>
                                 </HStack>
-                                <MyButton textColor="white" 
-                                            backgroundColor="secondary.default" 
-                                            backgroundColorHover="secondary.dark" 
-                                            title={"Verificar"}
-                                            fontSize="14px"
-                                            padding="5px 10px"
-                                            size="xs"
-                                            onClick={validatePhone}
-                                            isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PhoneVerified && val.count == 2)?true:false)}></MyButton>
-                            </HStack>
-                        </MyContainer>
-                        <MyContainer>
-                            <HStack justifyContent={"space-between"}>
-                                <HStack>
-                                    <Text fontSize={"16px"}>Correo Electronico</Text>
-                                    {(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.validated)) ? 
-                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
-                                        <></>}
+                            </MyContainer>
+                            <MyContainer>
+                                <HStack justifyContent={"space-between"}>
+                                    <HStack>
+                                        <Text fontSize={"16px"}>Correo Electronico</Text>
+                                        {(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.validated)) ? 
+                                            <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
+                                            <></>}
+                                    </HStack>
+                                    <MyButton textColor="white" 
+                                                backgroundColor="secondary.default" 
+                                                backgroundColorHover="secondary.dark" 
+                                                title={"Verificar"}
+                                                fontSize="14px"
+                                                padding="5px 10px"
+                                                size="xs"
+                                                onClick={validateEmail}
+                                                isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.count == 1)?true:false)}></MyButton>
                                 </HStack>
-                                <MyButton textColor="white" 
-                                            backgroundColor="secondary.default" 
-                                            backgroundColorHover="secondary.dark" 
-                                            title={"Verificar"}
-                                            fontSize="14px"
-                                            padding="5px 10px"
-                                            size="xs"
-                                            onClick={validateEmail}
-                                            isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.count == 2)?true:false)}></MyButton>
-                            </HStack>
-                        </MyContainer>
-                        <MyContainer>
-                            <HStack justifyContent={"space-between"}>
-                                <HStack>
-                                    <Text fontSize={"16px"}>Documento de identificación</Text>
-                                    {(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.validated)) ? 
-                                        <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
-                                        <></>}
+                            </MyContainer>
+                            <MyContainer>
+                                <HStack justifyContent={"space-between"}>
+                                    <HStack>
+                                        <Text fontSize={"16px"}>Documento de identificación</Text>
+                                        {(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.validated)) ? 
+                                            <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
+                                            <></>}
+                                    </HStack>
+                                    <MyButton textColor="white" 
+                                                backgroundColor="secondary.default" 
+                                                backgroundColorHover="secondary.dark" 
+                                                title={"Verificar"}
+                                                fontSize="14px"
+                                                padding="5px 10px"
+                                                size="xs"
+                                                onClick={validatePersonalDoc}
+                                                isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.count == 2)?true:false)}></MyButton>
                                 </HStack>
-                                <MyButton textColor="white" 
-                                            backgroundColor="secondary.default" 
-                                            backgroundColorHover="secondary.dark" 
-                                            title={"Verificar"}
-                                            fontSize="14px"
-                                            padding="5px 10px"
-                                            size="xs"
-                                            onClick={validatePersonalDoc}
-                                            isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.count == 2)?true:false)}></MyButton>
-                            </HStack>
-                        </MyContainer>
+                            </MyContainer>
                         </VStack>
                     </Box>
                     {

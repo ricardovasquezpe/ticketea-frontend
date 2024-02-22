@@ -15,6 +15,7 @@ export const Header = () => {
     const [isLogin, setIsLogin] = useState(store.getState().auth.isLoggedIn);
     const navigate = useNavigate();
     const toast = useToast();
+    const { pathname } = location;
 
     useEffect(() => {
         const unsubscribe = store.subscribe(() => {
@@ -118,7 +119,9 @@ export const Header = () => {
             label: "Salir",
             onClick: () => {
                 dispatch(onLogout());
-                navigate("/");
+                if(pathname == "/sell-ticket" || pathname == "/my-account" || pathname == "/my-tickets"){
+                    navigate("/");
+                }
             }, 
             type: "linkButton"
         }
@@ -156,15 +159,12 @@ export const Header = () => {
 
     return (
         <chakra.header id="header" className={styles.header} padding={{"md": "0px 10px"}}>
-            <Flex 
-                w="100%"
-                px="6"
-                py="5"
-                align="center"
-                justify="space-between">
+            <Flex w="100%" px="6" py="5" align="center" justify="space-between">
                 <Box>
                     <HStack cursor={"pointer"} onClick={()=>navigate("/")}>
-                        <Image src={"/images/logo.png"} h="32px"/>
+                        <Hide below='sm'>
+                            <Image src={"/images/logo.png"} h="32px"/>
+                        </Hide>
                         <Text fontSize={"26px"} fontFamily={"MontserratBold"}>ticketea</Text>
                     </HStack>
                 </Box>

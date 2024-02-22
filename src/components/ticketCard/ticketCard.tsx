@@ -19,12 +19,12 @@ export const TicketCard = (props: Props) => {
                     </Show>
                     <Box textAlign={"start"}>
                         <Text className={styles.ticketZoneName}>{props.zoneName}</Text>
-                        <RatingBadge rating={props.ratingNumber}></RatingBadge>
+                        <RatingBadge rating={props.ratingNumber} showLabel={true}></RatingBadge>
                     </Box>
                 </HStack>
                 <Box textAlign={"end"}>
                     <Text className={styles.ticketPrice}>S/. {Utils.currencyFormat(props.ticketPrice)}</Text>
-                    {(props.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca {props.seat}</Text>:<></>}
+                    {(props.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca: {props.seat}</Text>:<></>}
                 </Box>
             </HStack>
         </Box>

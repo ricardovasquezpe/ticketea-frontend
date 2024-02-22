@@ -5,6 +5,7 @@ import { MyButton } from "../../myButton/myButton";
 import { useState } from "react";
 import Utils from "../../../utils/utils";
 import { validateMyPersonalDocument } from "../../../services/validate.service";
+import { ErrorType } from "../../../utils/enums/errorType.enum";
 
 export const ValidatePersonalDocModal = (props: Props) => {
     const [frontFile, setFrontFile] = useState([] as File[]);
@@ -30,9 +31,16 @@ export const ValidatePersonalDocModal = (props: Props) => {
         var formData = new FormData();
         formData.append("front", frontFile[0]);
         formData.append("back", backFile[0]);
-        var res = await validateMyPersonalDocument(formData);
-        if(res.data.message != null){
-            setErrorMessage(res.data.message);
+        var response = await validateMyPersonalDocument(formData);
+
+        if(response.data.errorType == ErrorType.Validation){
+            setErrorMessage("Falta llenar algunos campos");
+            setLoading(false);
+            return;
+        }
+
+        if(response.data.errorType  == ErrorType.Simple){
+            setErrorMessage(response.data.message);
             setLoading(false);
             return;
         }
@@ -60,7 +68,7 @@ export const ValidatePersonalDocModal = (props: Props) => {
                                 onChange={(files) => {setBackFile(files)}}/>
                         </VStack>
                     </Center>
-                    <Text color={"white.half"} fontSize={"14px"}>*Asegurate de haber llenado tus datos basicos, compararemos los datos de tu documento de identidad con tus datos basicos</Text>
+                    <Text color={"white.half"} fontSize={"14px"}>* Compararemos los datos de tu documento de identidad con tus datos basicos y con el servicio de RENIEC</Text>
                     <VStack width={"100%"}>
                         <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
@@ -82,7 +90,7 @@ export const ValidatePersonalDocModal = (props: Props) => {
             closeButton={true}
             onClose={props.onClose} 
             closeOnOverlay={true}
-            titleComponent={<Text textAlign={"left"} fontSize={"18px"}>Verificar Documento de Identificacion</Text>}
+            titleComponent={<Text textAlign={"left"} fontSize={"18px"}>Verificar Documento de Identidad</Text>}
             bodyComponent={bodyComponents()}/>
     );
 };

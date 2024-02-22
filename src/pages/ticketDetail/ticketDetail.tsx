@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Center, Divider, Grid, GridItem, HStack, Highlight, Image, Link, Text, VStack } from "@chakra-ui/react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Center, Divider, Grid, GridItem, HStack, Highlight, Image, Link, Show, Text, VStack } from "@chakra-ui/react";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { MyButton } from "../../components/myButton/myButton";
@@ -74,14 +74,11 @@ export const TicketDetail = () => {
         ratingDetailModal.open({
             ratings: ratings.data,
             onSave: () => {
-                console.log("OnSave");
             },
             onClose: () => {
-                console.log("onClose");
                 ratingDetailModal.close();
             },
             onCancel: () => {
-                console.log("onCancel");
                 ratingDetailModal.close();
             },
         });
@@ -91,14 +88,11 @@ export const TicketDetail = () => {
     const openTickeaProtect = () => {
         ticketeaProtectModal.open({
             onSave: () => {
-              console.log("OnSave");
             },
             onClose: () => {
-              console.log("onClose");
               ticketeaProtectModal.close();
             },
             onCancel: () => {
-              console.log("onCancel");
               ticketeaProtectModal.close();
             },
           });
@@ -118,14 +112,23 @@ export const TicketDetail = () => {
                             </GridItem>
                             <GridItem colSpan={{base: 5, sm: 5, md: 4}}>
                                 <Box textAlign={{base: "center", sm: "center", md: "left"}}>
-                                    <Text fontSize={30} fontFamily={"robotoBold"} marginBottom={2}>{(event.event)?event.event.title:""}</Text>
-                                    <HStack>
-                                        <Text>{(event.event)?event.event.artist.name:""}</Text>
-                                        <Text fontWeight={"bold"}>|</Text>
-                                        <Text>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
-                                        <Text fontWeight={"bold"}>|</Text>
-                                        <Text>{(event.event)?event.event.place:""}</Text>
-                                    </HStack>
+                                    <Text lineHeight={"30px"} fontSize={30} marginLeft={"20px"} marginRight={"20px"} fontFamily={"robotoBold"} marginBottom={2}>{(event.event)?event.event.title:""}</Text>
+                                    <Show below='sm'>
+                                        <VStack gap={0}>
+                                            <Text textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
+                                            <Text textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
+                                            <Text textAlign={"center"}>{(event.event)?event.event.place:""}</Text>
+                                        </VStack>
+                                    </Show>
+                                    <Show above='sm'>
+                                        <HStack gap={2}>
+                                            <Text textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
+                                            <Text fontWeight={"bold"}>|</Text>
+                                            <Text textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
+                                            <Text fontWeight={"bold"}>|</Text>
+                                            <Text textAlign={"center"}>{(event.event)?event.event.place:""}</Text>
+                                        </HStack>
+                                    </Show>
                                 </Box>
                             </GridItem>
                         </Grid>
@@ -143,19 +146,25 @@ export const TicketDetail = () => {
                     <HStack justifyContent={"space-between"}>
                         <Box>
                             <Text fontFamily={"robotoBold"} fontSize={"22px"}>{(ticket.zone)?ticket.zone.name:""}</Text>
-                            {(ticket.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca {ticket.seat}</Text>:<></>}
+                            {(ticket.seat)?<Text fontSize={"16px"} color={"white.half"} wordBreak={"break-all"}>Butaca: {ticket.seat}</Text>:<></>}
                         </Box>
-                        <HStack id="buy">
-                            <Text fontSize={"14px"} color={"white.half"}>({Utils.calculatePercentageAdd(ticket.price, (ticket.zone) ? ticket.zone.price : 0)}% del precio original)</Text>
-                            <Text marginRight={4}>S/. {(ticket.price!=null)?Utils.currencyFormat(ticket.price):0}</Text>
-                            <MyButton textColor="white" 
-                                    backgroundColor="secondary.default" 
-                                    backgroundColorHover="secondary.dark" 
-                                    title={"Comprar"}
-                                    fontSize="18px"
-                                    padding="14px"
-                                    onClick={click}></MyButton>
-                        </HStack>
+                        <VStack id="buy" align={"end"}>
+                            <Grid templateColumns="repeat(2, 1fr)" gap={2}>
+                                <GridItem colSpan={{base: 2, sm: 1, customMd: 1}} style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                    <Text>S/. {(ticket.price!=null)?Utils.currencyFormat(ticket.price):0}</Text>
+                                </GridItem>
+                                <GridItem colSpan={{base: 2, sm: 1, customMd: 1}}>
+                                    <MyButton textColor="white" 
+                                            backgroundColor="secondary.default" 
+                                            backgroundColorHover="secondary.dark" 
+                                            title={"Comprar"}
+                                            fontSize="18px"
+                                            padding="14px"
+                                            onClick={click}></MyButton>
+                                </GridItem>
+                            </Grid>
+                            <Text marginTop={"5px"} fontSize={"14px"} color={"white.half"}>({Utils.calculatePercentageAdd(ticket.price, (ticket.zone) ? ticket.zone.price : 0)}% del precio original)</Text>
+                        </VStack>
                     </HStack>
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
                     <Link color='teal.500' href={(event.event)?event.event.url:""} isExternal>
@@ -173,7 +182,10 @@ export const TicketDetail = () => {
                                 <Box textAlign={"center"}>
                                     <Text lineHeight={"20px"} fontFamily={"robotoBold"} fontSize={"22px"}>{user.fullName}</Text>
                                 </Box>
-                                <RatingBadge id="mybadge" rating={user.avgRating!} onClick={displayRatingDetailModal}></RatingBadge>
+                                <RatingBadge id="mybadge" 
+                                             rating={user.avgRating!} 
+                                             onClick={displayRatingDetailModal}
+                                             showLabel={true}></RatingBadge>
                                 <Box marginTop={1}></Box>
                                 <VStack gap={1} width={"100%"} paddingLeft={30} paddingRight={30}>
                                     <HStack justifyContent={"space-between"} width={"100%"}>
@@ -210,13 +222,21 @@ export const TicketDetail = () => {
                                     </HStack>
                                     
                                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
-                                    <HStack id="ticketeaSecure">
-                                        <Text>Validado por</Text>
-                                        <Link color='#4CAF50' onClick={openTickeaProtect}>
-                                            TicketeaProtect
-                                        </Link>
-                                        <FontAwesomeIcon color='#4CAF50' style={{marginTop: "-5px"}} icon={faShieldHeart} size="xl"/>
-                                    </HStack>
+                                    <Box id="ticketeaSecure">
+                                        <Grid templateColumns='repeat(2, 1fr)'>
+                                            <GridItem colSpan={{base: 2, sm: 2, customMd: 1, customLg: 1, customXl: 1}} textAlign={"center"}>
+                                                <Text>Validado por</Text>
+                                            </GridItem>
+                                            <GridItem colSpan={{base: 2, sm: 2, customMd: 2, customLg: 1, customXl: 1}} textAlign={"center"}>
+                                                <HStack>
+                                                    <Link color='#4CAF50' onClick={openTickeaProtect}>
+                                                        TicketeaProtect
+                                                    </Link>
+                                                    <FontAwesomeIcon color='#4CAF50' style={{marginTop: "-5px"}} icon={faShieldHeart} size="xl"/>
+                                                </HStack>
+                                            </GridItem>
+                                        </Grid>
+                                    </Box>
                                 </VStack>
                             </VStack>
                         </MyContainer>

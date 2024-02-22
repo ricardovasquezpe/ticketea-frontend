@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, HStack, Input, InputGroup, InputLeftAddon, Select, Text, VStack, useToast } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Input, InputGroup, InputLeftAddon, Select, Text, VStack, useToast } from "@chakra-ui/react";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { MyButton } from "../../components/myButton/myButton";
@@ -20,6 +20,7 @@ import { getZonesByEventId } from "../../services/zone.service";
 import { useForm } from "react-hook-form";
 import { createTicket } from "../../services/ticket.service";
 import { EventDate } from "../../services/models/eventDate.model";
+import { ErrorType } from "../../utils/enums/errorType.enum";
 
 export const SellTicket = () => {
     const navigate = useNavigate();
@@ -55,6 +56,7 @@ export const SellTicket = () => {
             setEventSelected(eventDateFound);
             var zonesResp = await getZonesByEventId(eventDateFound.event.encId);
             setZones(zonesResp.data);
+            sellSetValue("zone", "0");
         } else {
             setEventSelected({} as EventDate);
             setZones([]);
@@ -86,9 +88,15 @@ export const SellTicket = () => {
         formData.append("price", sellGetValues().price);
         formData.append("seat", sellGetValues().seat);
         formData.append("file", files[0]);
-        var res = await createTicket(formData);
-        if(res.data.message != null){
-            setErrorMessage(res.data.message);
+        var response = await createTicket(formData);
+        if(response.data.errorType == ErrorType.Validation){
+            setErrorMessage("Falta llenar algunos campos");
+            setLoading(false);
+            return;
+        }
+
+        if(response.data.errorType  == ErrorType.Simple){
+            setErrorMessage(response.data.message);
             setLoading(false);
             return;
         }
@@ -123,22 +131,26 @@ export const SellTicket = () => {
                 <VStack align='stretch' gap={5}>
                     <SectionTitle title="Vende tu entrada"/>
                     <MyContainer>
-                        <HStack justifyContent="space-between">
-                            <Text fontSize={"20px"}>Verificar identidad</Text>
-                            <MyButton textColor="white" 
-                                        backgroundColor="secondary.default" 
-                                        backgroundColorHover="secondary.dark" 
-                                        title={"Completar verificación"}
-                                        fontSize="14px"
-                                        padding="5px 10px"
-                                        onClick={()=>navigate("/my-account")}
-                                        size="xs"></MyButton>
-                        </HStack>
+                        <Grid templateColumns='repeat(2, 1fr)' gap={2} width={"100%"}>
+                            <GridItem colSpan={{base: 2, sm: 1}}>
+                                <Text fontSize={"20px"}>Verificar identidad</Text>
+                            </GridItem>
+                            {(user.userValidations?.length != 5) ? <GridItem colSpan={{base: 2, sm: 1}} textAlign={{base: "left", sm: "end"}}>
+                                <MyButton textColor="white" 
+                                            backgroundColor="secondary.default" 
+                                            backgroundColorHover="secondary.dark" 
+                                            title={"Completar verificación"}
+                                            fontSize="14px"
+                                            padding="5px 10px"
+                                            onClick={()=>navigate("/my-account")}
+                                            size="xs"></MyButton>
+                            </GridItem> : <></>}
+                        </Grid>
                         <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td><Text paddingRight={"20px"}>Foto de perfil</Text></td>
+                                        <td><Text color={"white.half"} fontSize={"16px"} paddingRight={"20px"}>Foto de perfil</Text></td>
                                         {
                                             (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PhotoVerified)) ? 
                                             <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
@@ -146,7 +158,7 @@ export const SellTicket = () => {
                                         }
                                     </tr>
                                     <tr>
-                                        <td><Text paddingRight={"20px"}>Datos Completos</Text></td>
+                                        <td><Text color={"white.half"} fontSize={"16px"} paddingRight={"20px"}>Datos Completos</Text></td>
                                         {
                                             (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.ProfileUpdated)) ? 
                                             <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
@@ -154,7 +166,7 @@ export const SellTicket = () => {
                                         }
                                     </tr>
                                     <tr>
-                                        <td><Text>Numero Celular</Text></td>
+                                        <td><Text color={"white.half"} fontSize={"16px"}>Numero Celular</Text></td>
                                         {
                                             (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PhoneVerified)) ? 
                                             <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
@@ -162,7 +174,7 @@ export const SellTicket = () => {
                                         }
                                     </tr>
                                     <tr>
-                                        <td><Text>Correo Electronico</Text></td>
+                                        <td><Text color={"white.half"} fontSize={"16px"}>Correo Electronico</Text></td>
                                         {
                                             (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.EmailVerified)) ? 
                                             <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
@@ -170,7 +182,7 @@ export const SellTicket = () => {
                                         }
                                     </tr>
                                     <tr>
-                                        <td><Text marginRight={"10px"}>Documento de Identificación</Text></td>
+                                        <td><Text color={"white.half"} fontSize={"16px"} marginRight={"10px"}>Documento de Identificación</Text></td>
                                         {
                                             (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PersonalDocumentVerified)) ? 
                                             <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
@@ -235,7 +247,7 @@ export const SellTicket = () => {
                             <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
                                 <VStack width={"100%"} alignItems={"start"}>
                                     <Input placeholder="Ingresar butaca"
-                                        {...sell("seat", {maxLength: {value: 100, message: "La butaca no debe ser tener de 100 caracteres"}})}
+                                        {...sell("seat", {maxLength: {value: 15, message: "La butaca no debe ser tener de 15 caracteres"}})}
                                         isInvalid={(errors?.seat?.message != null) ? true : false} ></Input>
                                     <Text color={"white.half"} fontSize={"14px"}>La butaca no es obligatorio, pero siempre es bueno especificarlo</Text>
                                 </VStack>

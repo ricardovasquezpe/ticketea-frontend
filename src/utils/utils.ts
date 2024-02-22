@@ -6,7 +6,8 @@ export default class Utils {
     static calculatePercentageAdd = (price: number, originalPrice: number) => {
         var calculated = (((price * 100) / originalPrice) - 100).toFixed(0);
         if (calculated == "-0") return 0;
-        return  (Number(calculated) < originalPrice) ? "-" + calculated : "+" + calculated;
+        
+        return  (price > originalPrice) ? "+" + calculated : "-" + -(calculated);
     }
 
     static validateImageFileType = (type: string) => {

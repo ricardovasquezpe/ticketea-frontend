@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, HStack, Image, Show, Text, VStack } from "@chakra-ui/react";
 import styles from "./listTickets.module.css";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { OrderByMenu } from "../../components/orderByMenu/orderByMenu";
@@ -32,7 +32,7 @@ export const ListTickets = () => {
     }, []);
 
     const onLoadData = async() => {
-        var ticketsRes = await getTicketsByEventDateId(eventDateId, "price", DESC_ORDER_BY);
+        var ticketsRes = await getTicketsByEventDateId(eventDateId, "price", ASC_ORDER_BY);
         setTickets(ticketsRes.data);
         var eventRes = await getEventByEventDateId(eventDateId);
         setEvent(eventRes.data);
@@ -40,7 +40,7 @@ export const ListTickets = () => {
     }
 
     const orderBy = async (active: boolean) => {
-        var res:any = await getTicketsByEventDateId(eventDateId, "price", (active)?DESC_ORDER_BY:ASC_ORDER_BY);
+        var res:any = await getTicketsByEventDateId(eventDateId, (active)?"price":"createdAt", (active)?ASC_ORDER_BY:DESC_ORDER_BY);
         setTickets(res.data);
     }
 
@@ -74,14 +74,23 @@ export const ListTickets = () => {
                             <Image className={styles.eventImage} 
                                    src={(event.event)?event.event.image_url:""}
                                    fallbackSrc='https://via.placeholder.com/150'></Image>
-                            <Text fontSize={30} fontFamily={"robotoBold"}>{(event.event)?event.event.title:""}</Text>
-                            <HStack gap={2}>
-                                <Text>{(event.event) ? event.event.artist.name : ""}</Text>
-                                <Text fontWeight={"bold"}>|</Text>
-                                <Text>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
-                                <Text fontWeight={"bold"}>|</Text>
-                                <Text>{(event.event)?event.event.place:""}</Text>
-                            </HStack>
+                            <Text lineHeight={"30px"} fontSize={30} fontFamily={"robotoBold"} textAlign={"center"}>{(event.event)?event.event.title:""}</Text>
+                            <Show below='sm'>
+                                <VStack gap={0}>
+                                    <Text textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
+                                    <Text textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
+                                    <Text textAlign={"center"}>{(event.event)?event.event.place:""}</Text>
+                                </VStack>
+                            </Show>
+                            <Show above='sm'>
+                                <HStack gap={2}>
+                                    <Text textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
+                                    <Text fontWeight={"bold"}>|</Text>
+                                    <Text textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
+                                    <Text fontWeight={"bold"}>|</Text>
+                                    <Text textAlign={"center"}>{(event.event)?event.event.place:""}</Text>
+                                </HStack>
+                            </Show>
                         </VStack>
                     </Center>
                 </Box>

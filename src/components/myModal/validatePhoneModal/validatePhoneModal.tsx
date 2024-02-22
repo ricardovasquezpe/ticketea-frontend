@@ -1,9 +1,10 @@
-import { HStack, Input, InputGroup, InputLeftAddon, PinInput, PinInputField, Text, VStack } from "@chakra-ui/react";
+import { Grid, GridItem, HStack, Input, InputGroup, InputLeftAddon, PinInput, PinInputField, Text, VStack } from "@chakra-ui/react";
 import { MyModal } from "../myModal";
 import { MyButton } from "../../myButton/myButton";
 import { sendMyPhoneValidation, validateMyPhone } from "../../../services/validate.service";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { ErrorType } from "../../../utils/enums/errorType.enum";
 
 export const ValidatePhoneModal = (props: Props) => {
     const { register: phoneValidation, trigger: phoneValidationTrigger, getValues: phoneValidationGetValues, formState: { errors } } = useForm();
@@ -20,9 +21,20 @@ export const ValidatePhoneModal = (props: Props) => {
         }
 
         setLoadingSendPhoneValidation(true);
-        await sendMyPhoneValidation(phoneValidationGetValues());
-        setLoadingSendPhoneValidation(false);
+        var response = await sendMyPhoneValidation(phoneValidationGetValues());
+        if(response.data.errorType == ErrorType.Validation){
+            setLoadingSendPhoneValidation(false);
+            setErrorMessage("Falta llenar algunos campos");
+            return;
+        }
 
+        if(response.data.errorType  == ErrorType.Simple){
+            setLoadingSendPhoneValidation(false);
+            setErrorMessage(response.data.message);
+            return;
+        }
+
+        setLoadingSendPhoneValidation(false);
         setDisableSendPhoneValidation(true);
         setTimeout(function(){
             setDisableSendPhoneValidation(false);
@@ -30,12 +42,21 @@ export const ValidatePhoneModal = (props: Props) => {
     }
 
     const validatePhone = async () => {
-        if(pin.length != 4) return;
+        if(pin.length != 4){
+            setErrorMessage("Ingrese el código para validar su celular")
+            return;
+        }
         setLoadingValidatePhone(true);
         setErrorMessage("");
-        var res = await validateMyPhone({"otp": pin});
-        if(res.data.message != null){
-            setErrorMessage(res.data.message);
+        var response = await validateMyPhone({"otp": pin});
+        if(response.data.errorType == ErrorType.Validation){
+            setErrorMessage("Falta llenar algunos campos");
+            setLoadingValidatePhone(false);
+            return;
+        }
+
+        if(response.data.errorType  == ErrorType.Simple){
+            setErrorMessage(response.data.message);
             setLoadingValidatePhone(false);
             return;
         }
@@ -46,28 +67,32 @@ export const ValidatePhoneModal = (props: Props) => {
     const bodyComponents = () => {
         return  <VStack justifyContent={"stretch"} alignItems={"start"} gap={3} marginBottom={"10px"}>
                     <Text color={"white.half"} fontSize={"14px"}>Podrás enviar un nuevo codigo cada 30 segundos</Text>
-                    <HStack width={"100%"}>
-                        <InputGroup>
-                            <InputLeftAddon bg={"#0a272e"}>
-                            +51
-                            </InputLeftAddon>
-                            <Input type='tel' 
-                                    placeholder='Numero Celular' 
-                                    {...phoneValidation("phone", {required: "El numero celular es obligatorio", 
-                                                                  pattern: { value: /^\d{9}$/, message: "El numero telefonico debe tener 9 digitos" }
-                                                                  })} 
-                                                        isInvalid={(errors?.phone?.message != null) ? true : false}/>
-                        </InputGroup>
-                        <MyButton textColor="white" 
-                                    backgroundColor="secondary.default" 
-                                    backgroundColorHover="secondary.dark" 
-                                    title={"Enviar SMS"}
-                                    fontSize="16px"
-                                    padding="18px"
-                                    isLoading={loadingSendPhoneValidation}
-                                    isDisabled={disableSendPhoneValidation}
-                                    onClick={sendPhoneValidation}></MyButton>
-                    </HStack>
+                    <Grid templateColumns='repeat(4, 1fr)' gap={3} width={"100%"}>
+                        <GridItem colSpan={{base: 4, sm: 3}}>
+                            <InputGroup>
+                                <InputLeftAddon bg={"#0a272e"}>
+                                +51
+                                </InputLeftAddon>
+                                <Input type='tel' 
+                                        placeholder='Numero Celular' 
+                                        {...phoneValidation("phone", {required: "El numero celular es obligatorio", 
+                                                                      pattern: { value: /^\d{9}$/, message: "El numero telefonico debe tener 9 digitos" }
+                                                                    })} 
+                                                            isInvalid={(errors?.phone?.message != null) ? true : false}/>
+                            </InputGroup>
+                        </GridItem>
+                        <GridItem colSpan={{base: 4, sm: 1}} textAlign={"center"}>
+                            <MyButton textColor="white" 
+                                        backgroundColor="secondary.default" 
+                                        backgroundColorHover="secondary.dark" 
+                                        title={"Enviar SMS"}
+                                        fontSize="16px"
+                                        padding="18px"
+                                        isLoading={loadingSendPhoneValidation}
+                                        isDisabled={disableSendPhoneValidation}
+                                        onClick={sendPhoneValidation}></MyButton>
+                        </GridItem>
+                    </Grid>
                     <Text color={"white.half"} fontSize={"14px"}>*Te llegará un sms con un código que debes ingresar</Text>
                     <Text fontSize={"16px"}>Ingresar Código</Text>
                     <HStack>
@@ -78,7 +103,7 @@ export const ValidatePhoneModal = (props: Props) => {
                             <PinInputField bg={"primary.moreLight"} borderColor={"primary.moreLight"}/>
                         </PinInput>
                     </HStack>
-                    <VStack width={"100%"}>
+                    <VStack width={"100%"} marginTop={"10px"}>
                         <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
                                     backgroundColorHover="secondary.dark" 
@@ -98,7 +123,7 @@ export const ValidatePhoneModal = (props: Props) => {
             maxWidth={"var(--chakra-sizes-md)"}
             closeButton={true}
             onClose={props.onClose} 
-            closeOnOverlay={true}
+            closeOnOverlay={false}
             titleComponent={<Text textAlign={"left"} fontSize={"18px"}>Verificar Celular</Text>}
             bodyComponent={bodyComponents()}/>
     );
