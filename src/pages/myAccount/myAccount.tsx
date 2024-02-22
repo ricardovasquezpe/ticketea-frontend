@@ -37,7 +37,7 @@ export const MyAccount = () => {
             "lastNameFather": res.data.last_name_father,
             "lastNameMother": res.data.last_name_mother,
             "birthDate": moment(res.data.birth_date, "DD/MM/YYYY").toISOString().substr(0, 10),
-            "personalDocument": res.data.personal_document
+            "personalDocument": (res.data.personal_document) ? res.data.personal_document : ""
         });
         loadingModal.close();
     }
@@ -234,19 +234,19 @@ export const MyAccount = () => {
                             <Box width={"100%"}>
                                 <Grid templateColumns="repeat(4, 1fr)" gap={3}> 
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Nombres" {...userData("name", {required: "Los Nombres es obligatorio", maxLength: {value: 100, message: "Los Nombres no debe ser tener de 100 caracteres"}})} isInvalid={(errors?.name?.message != null) ? true : false}></Input>
+                                        <Input placeholder="Nombres" {...userData("name", {required: "Los Nombres es obligatorio", maxLength: {value: 100, message: "Los Nombres no debe ser tener de 100 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.name?.message != null) ? true : false}></Input>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Apellido Paterno" {...userData("lastNameFather", {required: "El apellido paterno es obligatorio", maxLength: {value: 100, message: "El apellido paterno no debe tener mas de 100 caracteres"}})} isInvalid={(errors?.lastNameFather?.message != null) ? true : false}></Input>
+                                        <Input placeholder="Apellido Paterno" {...userData("lastNameFather", {required: "El apellido paterno es obligatorio", maxLength: {value: 100, message: "El apellido paterno no debe tener mas de 100 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameFather?.message != null) ? true : false}></Input>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Apellido Materno" {...userData("lastNameMother", {required: "El apellido materno es obligatorio", maxLength: {value: 100, message: "El apellido materno no debe tener mas de 100 caracteres"}})} isInvalid={(errors?.lastNameMother?.message != null) ? true : false}></Input>
+                                        <Input placeholder="Apellido Materno" {...userData("lastNameMother", {required: "El apellido materno es obligatorio", maxLength: {value: 100, message: "El apellido materno no debe tener mas de 100 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameMother?.message != null) ? true : false}></Input>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Fecha de nacimiento" type="date" {...userData("birthDate", {required: "La Fecha de nacimiento es obligatorio"})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
+                                        <Input placeholder="Fecha de nacimiento" type="date" {...userData("birthDate", {required: "La Fecha de nacimiento es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="DNI" {...userData("personalDocument", {required: "El DNI es obligatorio", maxLength: {value: 8, message: "El apellido materno no debe tener mas de 8 caracteres"}})} isInvalid={(errors?.personalDocument?.message != null) ? true : false}></Input>
+                                        <Input placeholder="DNI" {...userData("personalDocument", {required: "El DNI es obligatorio", maxLength: {value: 8, message: "El apellido materno no debe tener mas de 8 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.personalDocument?.message != null) ? true : false}></Input>
                                     </GridItem>
                                 </Grid>
                                 <Text marginTop={"10px"} color={"white.half"} fontSize={"14px"}>* Recuerda que solo podras editar tus datos 1 sola vez</Text>

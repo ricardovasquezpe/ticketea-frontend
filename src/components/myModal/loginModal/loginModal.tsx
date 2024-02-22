@@ -22,14 +22,14 @@ export const LoginModal = (props: Props) => {
     const bodyComponents = () => {
         return <VStack gap={3}>
                     <Input placeholder='Correo Electronico' 
-                            {...login("email", {required: "El Correo electronico es obligatorio", pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electronico debe ser un email valido" }})} 
+                            {...login("email", {required: "El Correo electronico es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim(), pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electronico debe ser un email valido" }})} 
                             isInvalid={(errors?.email?.message != null) ? true : false}/>
                     <InputGroup size='md'>
                         <Input
                             pr='4.5rem'
                             type={showPassword ? 'text' : 'password'}
                             placeholder='Contraseña'
-                            {...login("password", {required: "La Contraseña es obligatorio"})} 
+                            {...login("password", {required: "La Contraseña es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} 
                             isInvalid={(errors?.password?.message != null) ? true : false}/>
                         <InputRightElement width='3rem'>
                             <FontAwesomeIcon color={"var(--chakra-colors-grey-default)"} cursor={"pointer"} onClick={clickShowPassword} icon={(showPassword ? faEyeSlash : faEye)} size="1x"/>
