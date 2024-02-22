@@ -1,13 +1,12 @@
-import { Box, Grid, GridItem, HStack, Input, PinInput, PinInputField, Text, VStack } from "@chakra-ui/react";
+import { HStack, PinInput, PinInputField, Text, VStack } from "@chakra-ui/react";
 import { MyModal } from "../myModal";
 import { MyButton } from "../../myButton/myButton";
-import { useForm } from "react-hook-form";
 import { sendMyEmailValidation, validateMyEmail } from "../../../services/validate.service";
 import { useEffect, useState } from "react";
 import { ErrorType } from "../../../utils/enums/errorType.enum";
 
 export const ValidateEmailModal = (props: Props) => {
-    const { register: emailValidation, trigger: emailValidationTrigger, getValues: emailValidationGetValues, formState: { errors }, reset } = useForm();
+    //const { register: emailValidation, trigger: emailValidationTrigger, getValues: emailValidationGetValues, formState: { errors }, reset } = useForm();
     const [loadingSendEmailValidation, setLoadingSendEmailValidation] = useState(false);
     const [disableSendEmailValidation, setDisableSendEmailValidation] = useState(false);
     const [errorMessage, setErrorMessage] = useState("" as any);
@@ -15,9 +14,9 @@ export const ValidateEmailModal = (props: Props) => {
     const [pin, setPin] = useState('');
 
     useEffect(() => {
-        reset({
+        /*reset({
             "email": props.currentEmail
-        });
+        });*/
     }, []);
 
     const sendEmailValidation = async () => {
