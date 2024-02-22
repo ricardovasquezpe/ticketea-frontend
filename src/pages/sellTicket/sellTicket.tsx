@@ -20,6 +20,7 @@ import { getZonesByEventId } from "../../services/zone.service";
 import { useForm } from "react-hook-form";
 import { createTicket } from "../../services/ticket.service";
 import { EventDate } from "../../services/models/eventDate.model";
+import { ErrorType } from "../../utils/enums/errorType.enum";
 
 export const SellTicket = () => {
     const navigate = useNavigate();
@@ -86,9 +87,15 @@ export const SellTicket = () => {
         formData.append("price", sellGetValues().price);
         formData.append("seat", sellGetValues().seat);
         formData.append("file", files[0]);
-        var res = await createTicket(formData);
-        if(res.data.message != null){
-            setErrorMessage(res.data.message);
+        var response = await createTicket(formData);
+        if(response.data.errorType == ErrorType.Validation){
+            setErrorMessage("Falta llenar algunos campos");
+            setLoading(false);
+            return;
+        }
+
+        if(response.data.errorType  == ErrorType.Simple){
+            setErrorMessage(response.data.message);
             setLoading(false);
             return;
         }
