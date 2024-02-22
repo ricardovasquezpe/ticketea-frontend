@@ -1,4 +1,4 @@
-import { TicketState } from "../../utils/enums/TicketState.enum";
+import { TicketState } from "../../utils/enums/ticketState.enum";
 import { EventDate } from "./eventDate.model";
 import { User } from "./user.model";
 import { Zone } from "./zone.model";

@@ -8,6 +8,7 @@ import moment from 'moment/min/moment-with-locales';
 import Session from "../../../utils/session";
 import { useDispatch } from "react-redux";
 import { onLogin } from "../../../store/auth/authAction";
+import { ErrorType } from "../../../utils/enums/errorType.enum";
 
 export const RegisterModal = (props: Props) => {
     const { register, trigger: registerTrigger, getValues: registerGetValues, formState: { errors } } = useForm();
@@ -66,9 +67,16 @@ export const RegisterModal = (props: Props) => {
         setLoading(true);
         var payload = {...registerGetValues(), birthDate: birthDateMoment.format("DD/MM/YYYY")}
         var response = await registerUser(payload);
-        if(response.data.message){
+
+        if(response.data.type == ErrorType.Validation){
             setLoading(false);
-            setErrorMessage("El usuario ya existe");
+            setErrorMessage("Falta llenar algunos campos");
+            return;
+        }
+
+        if(response.data.type  == ErrorType.Simple){
+            setLoading(false);
+            setErrorMessage(response.data.message);
             return;
         }
 
