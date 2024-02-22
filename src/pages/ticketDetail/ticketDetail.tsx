@@ -112,7 +112,7 @@ export const TicketDetail = () => {
                             </GridItem>
                             <GridItem colSpan={{base: 5, sm: 5, md: 4}}>
                                 <Box textAlign={{base: "center", sm: "center", md: "left"}}>
-                                    <Text fontSize={30} marginLeft={"20px"} marginRight={"20px"} fontFamily={"robotoBold"} marginBottom={2}>{(event.event)?event.event.title:""}</Text>
+                                    <Text lineHeight={"30px"} fontSize={30} marginLeft={"20px"} marginRight={"20px"} fontFamily={"robotoBold"} marginBottom={2}>{(event.event)?event.event.title:""}</Text>
                                     <Show below='sm'>
                                         <VStack gap={0}>
                                             <Text textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
@@ -146,7 +146,7 @@ export const TicketDetail = () => {
                     <HStack justifyContent={"space-between"}>
                         <Box>
                             <Text fontFamily={"robotoBold"} fontSize={"22px"}>{(ticket.zone)?ticket.zone.name:""}</Text>
-                            {(ticket.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca: {ticket.seat}</Text>:<></>}
+                            {(ticket.seat)?<Text fontSize={"16px"} color={"white.half"} wordBreak={"break-all"}>Butaca: {ticket.seat}</Text>:<></>}
                         </Box>
                         <VStack id="buy" align={"end"}>
                             <Grid templateColumns="repeat(2, 1fr)" gap={2}>
@@ -182,7 +182,10 @@ export const TicketDetail = () => {
                                 <Box textAlign={"center"}>
                                     <Text lineHeight={"20px"} fontFamily={"robotoBold"} fontSize={"22px"}>{user.fullName}</Text>
                                 </Box>
-                                <RatingBadge id="mybadge" rating={user.avgRating!} onClick={displayRatingDetailModal}></RatingBadge>
+                                <RatingBadge id="mybadge" 
+                                             rating={user.avgRating!} 
+                                             onClick={displayRatingDetailModal}
+                                             showLabel={true}></RatingBadge>
                                 <Box marginTop={1}></Box>
                                 <VStack gap={1} width={"100%"} paddingLeft={30} paddingRight={30}>
                                     <HStack justifyContent={"space-between"} width={"100%"}>

@@ -32,7 +32,7 @@ export const EventTicketCard = (props: Props) => {
                 <HStack gap={3}>
                     <Avatar size='sm' name={props.sellerName} src={props.sellerImage} />
                     <Text>{props.sellerName}</Text>
-                    <RatingBadge id="mybadge" rating={props.ratingNumber!}></RatingBadge>
+                    <RatingBadge id="mybadge" rating={props.ratingNumber!} showLabel={false}></RatingBadge>
                 </HStack>
             </> : <></>}
             {

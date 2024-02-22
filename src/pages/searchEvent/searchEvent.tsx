@@ -46,7 +46,9 @@ export const SearchEvent = () => {
         loadingModal.close();
     }
 
-    const inputChanged = (text:any) => {
+    const inputChanged = (text: any) => {
+        text = String(text).trim();
+        
         setSearch(text);
         clearTimeout(timer);
 
@@ -55,7 +57,7 @@ export const SearchEvent = () => {
             searchEvents(text, "date", (orderByDate) ? ASC_ORDER_BY : DESC_ORDER_BY).then((res:any) => {
                 setEvents(res.data);
             })
-        }, 800);
+        }, 500);
 
         setTimer(newTimer);
     }

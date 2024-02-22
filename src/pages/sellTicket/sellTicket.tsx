@@ -246,7 +246,7 @@ export const SellTicket = () => {
                             <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
                                 <VStack width={"100%"} alignItems={"start"}>
                                     <Input placeholder="Ingresar butaca"
-                                        {...sell("seat", {maxLength: {value: 100, message: "La butaca no debe ser tener de 100 caracteres"}})}
+                                        {...sell("seat", {maxLength: {value: 15, message: "La butaca no debe ser tener de 15 caracteres"}})}
                                         isInvalid={(errors?.seat?.message != null) ? true : false} ></Input>
                                     <Text color={"white.half"} fontSize={"14px"}>La butaca no es obligatorio, pero siempre es bueno especificarlo</Text>
                                 </VStack>

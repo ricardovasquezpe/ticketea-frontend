@@ -19,7 +19,7 @@ export const RatingBadge = (props: Props) => {
                 <>
                     <Text>{props.rating}</Text> 
                     <StarIcon color={"#323232"}/> 
-                    <Text>Valoración</Text>
+                    {(props.showLabel) ? <Text>Valoración</Text> : <></>}
                 </> : <>
                     Nuevo vendedor
                 </>}
@@ -31,5 +31,6 @@ export const RatingBadge = (props: Props) => {
 type Props = {
     rating: number,
     onClick?: () => void,
-    id?: string
+    id?: string,
+    showLabel: boolean
 };

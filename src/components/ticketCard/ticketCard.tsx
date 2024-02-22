@@ -19,7 +19,7 @@ export const TicketCard = (props: Props) => {
                     </Show>
                     <Box textAlign={"start"}>
                         <Text className={styles.ticketZoneName}>{props.zoneName}</Text>
-                        <RatingBadge rating={props.ratingNumber}></RatingBadge>
+                        <RatingBadge rating={props.ratingNumber} showLabel={true}></RatingBadge>
                     </Box>
                 </HStack>
                 <Box textAlign={"end"}>

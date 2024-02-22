@@ -74,7 +74,7 @@ export const ListTickets = () => {
                             <Image className={styles.eventImage} 
                                    src={(event.event)?event.event.image_url:""}
                                    fallbackSrc='https://via.placeholder.com/150'></Image>
-                            <Text fontSize={30} fontFamily={"robotoBold"}>{(event.event)?event.event.title:""}</Text>
+                            <Text lineHeight={"30px"} fontSize={30} fontFamily={"robotoBold"} textAlign={"center"}>{(event.event)?event.event.title:""}</Text>
                             <Show below='sm'>
                                 <VStack gap={0}>
                                     <Text textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
