@@ -146,7 +146,7 @@ export const TicketDetail = () => {
                     <HStack justifyContent={"space-between"}>
                         <Box>
                             <Text fontFamily={"robotoBold"} fontSize={"22px"}>{(ticket.zone)?ticket.zone.name:""}</Text>
-                            {(ticket.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca {ticket.seat}</Text>:<></>}
+                            {(ticket.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca: {ticket.seat}</Text>:<></>}
                         </Box>
                         <VStack id="buy" align={"end"}>
                             <Grid templateColumns="repeat(2, 1fr)" gap={2}>

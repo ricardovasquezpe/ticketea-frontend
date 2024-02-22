@@ -24,7 +24,7 @@ export const EventTicketCard = (props: Props) => {
                 <Box textAlign={"end"}>
                     <Text className={styles.ticketPrice}>S/. {(props.ticketPrice!=null)?Utils.currencyFormat(props.ticketPrice):0}</Text>
                     <Text className={styles.ticketZone}>{props.ticketZone}</Text>
-                    {(props.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca {props.seat}</Text>:<></>}
+                    {(props.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca: {props.seat}</Text>:<></>}
                 </Box>
             </HStack>
             {(props.sellerName != null) ? <>

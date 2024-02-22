@@ -24,7 +24,7 @@ export const TicketCard = (props: Props) => {
                 </HStack>
                 <Box textAlign={"end"}>
                     <Text className={styles.ticketPrice}>S/. {Utils.currencyFormat(props.ticketPrice)}</Text>
-                    {(props.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca {props.seat}</Text>:<></>}
+                    {(props.seat)?<Text fontSize={"16px"} color={"white.half"}>Butaca: {props.seat}</Text>:<></>}
                 </Box>
             </HStack>
         </Box>
