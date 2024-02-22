@@ -4,6 +4,7 @@ import { MyButton } from "../../myButton/myButton";
 import { ChangeEvent, useState } from "react";
 import Utils from "../../../utils/utils";
 import { updateMyUserPhoto } from "../../../services/user.service";
+import { ErrorType } from "../../../utils/enums/errorType.enum";
 
 export const changeProfilePhotoModal = (props: Props) => {
     const [loading, setLoading] = useState(false);
@@ -29,10 +30,16 @@ export const changeProfilePhotoModal = (props: Props) => {
 
             var formData = new FormData();
             formData.append("image", file);
-            var res = await updateMyUserPhoto(formData);
-            if(res.data.message != null){
-                setErrorMessage(res.data.message);
+            var response = await updateMyUserPhoto(formData);
+            if(response.data.errorType == ErrorType.Validation){
                 setLoading(false);
+                setErrorMessage("Falta llenar algunos campos");
+                return;
+            }
+
+            if(response.data.errorType  == ErrorType.Simple){
+                setLoading(false);
+                setErrorMessage(response.data.message);
                 return;
             }
 
