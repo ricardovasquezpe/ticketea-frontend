@@ -56,6 +56,7 @@ export const SellTicket = () => {
             setEventSelected(eventDateFound);
             var zonesResp = await getZonesByEventId(eventDateFound.event.encId);
             setZones(zonesResp.data);
+            sellSetValue("zone", "0");
         } else {
             setEventSelected({} as EventDate);
             setZones([]);
@@ -134,7 +135,7 @@ export const SellTicket = () => {
                             <GridItem colSpan={{base: 2, sm: 1}}>
                                 <Text fontSize={"20px"}>Verificar identidad</Text>
                             </GridItem>
-                            <GridItem colSpan={{base: 2, sm: 1}} textAlign={{base: "left", sm: "end"}}>
+                            {(user.userValidations?.length != 5) ? <GridItem colSpan={{base: 2, sm: 1}} textAlign={{base: "left", sm: "end"}}>
                                 <MyButton textColor="white" 
                                             backgroundColor="secondary.default" 
                                             backgroundColorHover="secondary.dark" 
@@ -143,7 +144,7 @@ export const SellTicket = () => {
                                             padding="5px 10px"
                                             onClick={()=>navigate("/my-account")}
                                             size="xs"></MyButton>
-                            </GridItem>
+                            </GridItem> : <></>}
                         </Grid>
                         <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
                             <table>
