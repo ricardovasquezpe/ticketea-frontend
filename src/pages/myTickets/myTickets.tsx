@@ -1,4 +1,4 @@
-import { Box, HStack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, VStack } from "@chakra-ui/react";
+import { Box, Grid, GridItem, HStack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, VStack } from "@chakra-ui/react";
 import { EventTicketCard } from "../../components/eventTicketCard/eventTicketCard";
 import { MyButton } from "../../components/myButton/myButton";
 import { useModal } from "../../config/modal/use-modal";
@@ -112,34 +112,42 @@ export const MyTickets = () => {
                             <VStack justifyContent={"stretch"}>
                                 {
                                   tickets.map((ticket: Ticket, index: number) => {
-                                    return (<HStack width={"100%"} key={index}>
-                                                <EventTicketCard eventImage={ticket.eventDate?.event.image_url!}
-                                                        eventName={ticket.eventDate?.event.title!}
-                                                        artistName={ticket.eventDate?.event.artist.name!}
-                                                        eventDate={ticket.eventDate?.date!}
-                                                        ticketZone={ticket.zone.name}
-                                                        ticketPrice={ticket.price}
-                                                        seat={ticket.seat}
-                                                        state={ticket.state}></EventTicketCard>
-                                                <VStack alignItems={"start"}>
-                                                    <MyButton textColor="white" 
-                                                            backgroundColor="red.default" 
-                                                            backgroundColorHover="red.dark" 
-                                                            title={"Eliminar"}
-                                                            fontSize="14px"
-                                                            padding="0px 5px"
-                                                            onClick={()=>deleteTicket(ticket.encId)}
-                                                            width="100%"></MyButton>
-                                                    <MyButton textColor="white" 
-                                                            backgroundColor="secondary.default" 
-                                                            backgroundColorHover="secondary.dark" 
-                                                            title={"Editar Precio"}
-                                                            fontSize="14px"
-                                                            padding="0px 5px"
-                                                            onClick={()=>editTicketPrice(ticket.encId, ticket.price)}
-                                                            width="100%"></MyButton>
-                                                </VStack>
-                                            </HStack>);
+                                    return (<Grid key={index} templateColumns='repeat(7, 1fr)' gap={2} width={"100%"}>
+                                                <GridItem colSpan={{base: 7, sm:7, customMd: 6}}>
+                                                  <EventTicketCard eventImage={ticket.eventDate?.event.image_url!}
+                                                          eventName={ticket.eventDate?.event.title!}
+                                                          artistName={ticket.eventDate?.event.artist.name!}
+                                                          eventDate={ticket.eventDate?.date!}
+                                                          ticketZone={ticket.zone.name}
+                                                          ticketPrice={ticket.price}
+                                                          seat={ticket.seat}
+                                                          state={ticket.state}></EventTicketCard>
+                                                </GridItem>
+                                                <GridItem colSpan={{base: 7, sm: 7, customMd: 1}} style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                                  <Grid key={index} templateColumns='repeat(2, 1fr)' gap={2} width={"100%"}>
+                                                      <GridItem colSpan={{base: 1, sm: 1, customMd: 2}}>
+                                                        <MyButton textColor="white" 
+                                                                backgroundColor="red.default" 
+                                                                backgroundColorHover="red.dark" 
+                                                                title={"Eliminar"}
+                                                                fontSize="14px"
+                                                                padding="0px 5px"
+                                                                onClick={()=>deleteTicket(ticket.encId)}
+                                                                width="100%"></MyButton>
+                                                      </GridItem>
+                                                      <GridItem colSpan={{base: 1, sm: 1, customMd: 2}}>
+                                                        <MyButton textColor="white" 
+                                                                backgroundColor="secondary.default" 
+                                                                backgroundColorHover="secondary.dark" 
+                                                                title={"Editar"}
+                                                                fontSize="14px"
+                                                                padding="0px 5px"
+                                                                onClick={()=>editTicketPrice(ticket.encId, ticket.price)}
+                                                                width="100%"></MyButton>
+                                                      </GridItem>
+                                                  </Grid>
+                                                </GridItem>
+                                            </Grid>);
                                   })
                                 }
 

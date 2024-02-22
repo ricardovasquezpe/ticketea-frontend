@@ -123,22 +123,26 @@ export const SellTicket = () => {
                 <VStack align='stretch' gap={5}>
                     <SectionTitle title="Vende tu entrada"/>
                     <MyContainer>
-                        <HStack justifyContent="space-between">
-                            <Text fontSize={"20px"}>Verificar identidad</Text>
-                            <MyButton textColor="white" 
-                                        backgroundColor="secondary.default" 
-                                        backgroundColorHover="secondary.dark" 
-                                        title={"Completar verificación"}
-                                        fontSize="14px"
-                                        padding="5px 10px"
-                                        onClick={()=>navigate("/my-account")}
-                                        size="xs"></MyButton>
-                        </HStack>
+                        <Grid templateColumns='repeat(2, 1fr)' gap={2} width={"100%"}>
+                            <GridItem colSpan={{base: 2, sm: 1}}>
+                                <Text fontSize={"20px"}>Verificar identidad</Text>
+                            </GridItem>
+                            <GridItem colSpan={{base: 2, sm: 1}} textAlign={{base: "left", sm: "end"}}>
+                                <MyButton textColor="white" 
+                                            backgroundColor="secondary.default" 
+                                            backgroundColorHover="secondary.dark" 
+                                            title={"Completar verificación"}
+                                            fontSize="14px"
+                                            padding="5px 10px"
+                                            onClick={()=>navigate("/my-account")}
+                                            size="xs"></MyButton>
+                            </GridItem>
+                        </Grid>
                         <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td><Text paddingRight={"20px"}>Foto de perfil</Text></td>
+                                        <td><Text color={"white.half"} fontSize={"16px"} paddingRight={"20px"}>Foto de perfil</Text></td>
                                         {
                                             (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PhotoVerified)) ? 
                                             <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
@@ -146,7 +150,7 @@ export const SellTicket = () => {
                                         }
                                     </tr>
                                     <tr>
-                                        <td><Text paddingRight={"20px"}>Datos Completos</Text></td>
+                                        <td><Text color={"white.half"} fontSize={"16px"} paddingRight={"20px"}>Datos Completos</Text></td>
                                         {
                                             (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.ProfileUpdated)) ? 
                                             <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
@@ -154,7 +158,7 @@ export const SellTicket = () => {
                                         }
                                     </tr>
                                     <tr>
-                                        <td><Text>Numero Celular</Text></td>
+                                        <td><Text color={"white.half"} fontSize={"16px"}>Numero Celular</Text></td>
                                         {
                                             (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PhoneVerified)) ? 
                                             <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
@@ -162,7 +166,7 @@ export const SellTicket = () => {
                                         }
                                     </tr>
                                     <tr>
-                                        <td><Text>Correo Electronico</Text></td>
+                                        <td><Text color={"white.half"} fontSize={"16px"}>Correo Electronico</Text></td>
                                         {
                                             (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.EmailVerified)) ? 
                                             <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
@@ -170,7 +174,7 @@ export const SellTicket = () => {
                                         }
                                     </tr>
                                     <tr>
-                                        <td><Text marginRight={"10px"}>Documento de Identificación</Text></td>
+                                        <td><Text color={"white.half"} fontSize={"16px"} marginRight={"10px"}>Documento de Identificación</Text></td>
                                         {
                                             (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PersonalDocumentVerified)) ? 
                                             <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 

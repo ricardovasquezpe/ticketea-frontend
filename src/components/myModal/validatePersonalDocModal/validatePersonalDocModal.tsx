@@ -82,7 +82,7 @@ export const ValidatePersonalDocModal = (props: Props) => {
             closeButton={true}
             onClose={props.onClose} 
             closeOnOverlay={true}
-            titleComponent={<Text textAlign={"left"} fontSize={"18px"}>Verificar Documento de Identificacion</Text>}
+            titleComponent={<Text textAlign={"left"} fontSize={"18px"}>Verificar Documento de Identidad</Text>}
             bodyComponent={bodyComponents()}/>
     );
 };
