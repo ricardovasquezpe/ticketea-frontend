@@ -5,6 +5,7 @@ import Utils from "../../../utils/utils";
 import { updateTicketPrice } from "../../../services/ticket.service";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { ErrorType } from "../../../utils/enums/errorType.enum";
 
 export const EditTicketPriceModal = (props: Props) => {
     const [loading, setLoading] = useState(false);
@@ -61,10 +62,16 @@ export const EditTicketPriceModal = (props: Props) => {
         }
 
         setLoading(true);
-        var res = await updateTicketPrice(props.ticketId, editPriceGetValues());
-        if(res.data.message != null){
-            setErrorMessage(res.data.message);
+        var response = await updateTicketPrice(props.ticketId, editPriceGetValues());
+        if(response.data.errorType == ErrorType.Validation){
+            setErrorMessage("Falta llenar algunos campos");
             setLoading(false);
+            return;
+        }
+
+        if(response.data.errorType  == ErrorType.Simple){
+            setLoading(false);
+            setErrorMessage(response.data.message);
             return;
         }
 
