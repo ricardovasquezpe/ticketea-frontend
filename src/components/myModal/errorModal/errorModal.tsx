@@ -5,7 +5,7 @@ import { MyButton } from "../../myButton/myButton";
 export const ErrorModal = (props: Props) => {
     const bodyComponents = () => {
         return <Box textAlign={"center"}>
-                <Text>Hubo un error con nuestros servidores, porfavor recargar la página e intentar nuevamente, gracias</Text>
+                <Text>{props.description}</Text>
             </Box>;
     }
 
@@ -32,7 +32,7 @@ export const ErrorModal = (props: Props) => {
             closeButton={false}
             onClose={props.onClose} 
             closeOnOverlay={false}
-            titleComponent={<Text fontSize={20}>Algo esta pasando</Text>}
+            titleComponent={<Text fontSize={20}>{props.title}</Text>}
             bodyComponent={bodyComponents()}
             footerComponent={footerComponents()}/>
     );
@@ -42,4 +42,6 @@ type Props = {
     onClose: () => void,
     onSave: () => void,
     onCancel: () => void,
+    title: string,
+    description: string
 };

@@ -11,7 +11,10 @@ const errorInterceptor = (axiosInstance: any) => {
             window.location.href = '/';
         } else if(error.response.status != 200 || error.response.status != 201){
             const errorModal = useModal<any>(Modals.ErrorModal);
-            errorModal.open({});
+            errorModal.open({
+                title: "Algo esta pasando",
+                description: "Hubo un error con nuestros servidores, porfavor recargar la página e intentar nuevamente, gracias"
+            });
         }
     });
 };
