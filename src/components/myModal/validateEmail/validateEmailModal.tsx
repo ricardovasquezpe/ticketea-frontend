@@ -4,6 +4,7 @@ import { MyButton } from "../../myButton/myButton";
 import { useForm } from "react-hook-form";
 import { sendMyEmailValidation, validateMyEmail } from "../../../services/validate.service";
 import { useState } from "react";
+import { ErrorType } from "../../../utils/enums/errorType.enum";
 
 export const ValidateEmailModal = (props: Props) => {
     const { register: emailValidation, trigger: emailValidationTrigger, getValues: emailValidationGetValues, formState: { errors } } = useForm();
@@ -20,7 +21,19 @@ export const ValidateEmailModal = (props: Props) => {
         }
 
         setLoadingSendEmailValidation(true);
-        await sendMyEmailValidation(emailValidationGetValues());
+        var response = await sendMyEmailValidation(emailValidationGetValues());
+        if(response.data.errorType == ErrorType.Validation){
+            setLoadingSendEmailValidation(false);
+            setErrorMessage("Falta llenar algunos campos");
+            return;
+        }
+
+        if(response.data.errorType  == ErrorType.Simple){
+            setLoadingSendEmailValidation(false);
+            setErrorMessage(response.data.message);
+            return;
+        }
+
         setLoadingSendEmailValidation(false);
 
         setDisableSendEmailValidation(true);
@@ -34,9 +47,15 @@ export const ValidateEmailModal = (props: Props) => {
         setLoadingValidateEmail(true);
         setErrorMessage("");
 
-        var res = await validateMyEmail({"otp": pin});
-        if(res.data.message != null){
-            setErrorMessage(res.data.message);
+        var response = await validateMyEmail({"otp": pin});
+        if(response.data.errorType == ErrorType.Validation){
+            setErrorMessage("Falta llenar algunos campos");
+            setLoadingValidateEmail(false);
+            return;
+        }
+
+        if(response.data.errorType  == ErrorType.Simple){
+            setErrorMessage(response.data.message);
             setLoadingValidateEmail(false);
             return;
         }

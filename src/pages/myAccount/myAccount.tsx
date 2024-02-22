@@ -13,6 +13,7 @@ import { User } from "../../services/models/user.model";
 import { useForm } from "react-hook-form";
 import moment from 'moment/min/moment-with-locales';
 import { UserValidationType } from "../../utils/enums/userValidationType.enum";
+import { ErrorType } from "../../utils/enums/errorType.enum";
 
 export const MyAccount = () => {
     const toast = useToast();
@@ -180,17 +181,23 @@ export const MyAccount = () => {
                 setLoadingUserUpdate(true);
 
                 var payload = {...userDataGetValues(), birthDate: birthDateMoment.format("DD/MM/YYYY")}
-                var res = await updateMyUserData(payload);
-                if(res.data.message != null){
-                    setErrorMessage(res.data.message);
+                var response = await updateMyUserData(payload);
+                if(response.data.errorType == ErrorType.Validation){
                     setLoadingUserUpdate(false);
+                    setErrorMessage("Falta llenar algunos campos");
+                    return;
+                }
+
+                if(response.data.errorType  == ErrorType.Simple){
+                    setLoadingUserUpdate(false);
+                    setErrorMessage(response.data.message);
                     return;
                 }
                 
                 var res = await getMyUserData();
                 setUser(res.data);
-
                 setLoadingUserUpdate(false);
+
                 toast({
                     title: 'Información guardada correctamente',
                     description: "",
@@ -203,11 +210,9 @@ export const MyAccount = () => {
                 });
             },
             onClose: () => {
-                console.log("onClose");
                 confirmUserUpdateDailog.close();
             },
             onCancel: () => {
-                console.log("onCancel");
                 confirmUserUpdateDailog.close();
             },
         });

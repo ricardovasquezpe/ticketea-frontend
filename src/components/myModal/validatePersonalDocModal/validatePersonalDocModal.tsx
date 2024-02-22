@@ -5,6 +5,7 @@ import { MyButton } from "../../myButton/myButton";
 import { useState } from "react";
 import Utils from "../../../utils/utils";
 import { validateMyPersonalDocument } from "../../../services/validate.service";
+import { ErrorType } from "../../../utils/enums/errorType.enum";
 
 export const ValidatePersonalDocModal = (props: Props) => {
     const [frontFile, setFrontFile] = useState([] as File[]);
@@ -30,9 +31,16 @@ export const ValidatePersonalDocModal = (props: Props) => {
         var formData = new FormData();
         formData.append("front", frontFile[0]);
         formData.append("back", backFile[0]);
-        var res = await validateMyPersonalDocument(formData);
-        if(res.data.message != null){
-            setErrorMessage(res.data.message);
+        var response = await validateMyPersonalDocument(formData);
+
+        if(response.data.errorType == ErrorType.Validation){
+            setErrorMessage("Falta llenar algunos campos");
+            setLoading(false);
+            return;
+        }
+
+        if(response.data.errorType  == ErrorType.Simple){
+            setErrorMessage(response.data.message);
             setLoading(false);
             return;
         }

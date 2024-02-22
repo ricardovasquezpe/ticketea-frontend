@@ -63,13 +63,13 @@ export const LoginModal = (props: Props) => {
         setErrorMessage("");
         
         var response = await loginUser(loginGetValues());
-        if(response.data.type == ErrorType.Validation){
+        if(response.data.errorType == ErrorType.Validation){
             setLoading(false);
             setErrorMessage("Falta llenar algunos campos");
             return;
         }
 
-        if(response.data.type  == ErrorType.Simple){
+        if(response.data.errorType  == ErrorType.Simple){
             setLoading(false);
             setErrorMessage(response.data.message);
             return;

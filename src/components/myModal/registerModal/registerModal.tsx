@@ -68,13 +68,13 @@ export const RegisterModal = (props: Props) => {
         var payload = {...registerGetValues(), birthDate: birthDateMoment.format("DD/MM/YYYY")}
         var response = await registerUser(payload);
 
-        if(response.data.type == ErrorType.Validation){
+        if(response.data.errorType == ErrorType.Validation){
             setLoading(false);
             setErrorMessage("Falta llenar algunos campos");
             return;
         }
 
-        if(response.data.type  == ErrorType.Simple){
+        if(response.data.errorType  == ErrorType.Simple){
             setLoading(false);
             setErrorMessage(response.data.message);
             return;

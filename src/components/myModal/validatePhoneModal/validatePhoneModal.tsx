@@ -4,6 +4,7 @@ import { MyButton } from "../../myButton/myButton";
 import { sendMyPhoneValidation, validateMyPhone } from "../../../services/validate.service";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { ErrorType } from "../../../utils/enums/errorType.enum";
 
 export const ValidatePhoneModal = (props: Props) => {
     const { register: phoneValidation, trigger: phoneValidationTrigger, getValues: phoneValidationGetValues, formState: { errors } } = useForm();
@@ -20,9 +21,20 @@ export const ValidatePhoneModal = (props: Props) => {
         }
 
         setLoadingSendPhoneValidation(true);
-        await sendMyPhoneValidation(phoneValidationGetValues());
-        setLoadingSendPhoneValidation(false);
+        var response = await sendMyPhoneValidation(phoneValidationGetValues());
+        if(response.data.errorType == ErrorType.Validation){
+            setLoadingSendPhoneValidation(false);
+            setErrorMessage("Falta llenar algunos campos");
+            return;
+        }
 
+        if(response.data.errorType  == ErrorType.Simple){
+            setLoadingSendPhoneValidation(false);
+            setErrorMessage(response.data.message);
+            return;
+        }
+
+        setLoadingSendPhoneValidation(false);
         setDisableSendPhoneValidation(true);
         setTimeout(function(){
             setDisableSendPhoneValidation(false);
@@ -36,9 +48,15 @@ export const ValidatePhoneModal = (props: Props) => {
         }
         setLoadingValidatePhone(true);
         setErrorMessage("");
-        var res = await validateMyPhone({"otp": pin});
-        if(res.data.message != null){
-            setErrorMessage(res.data.message);
+        var response = await validateMyPhone({"otp": pin});
+        if(response.data.errorType == ErrorType.Validation){
+            setErrorMessage("Falta llenar algunos campos");
+            setLoadingValidatePhone(false);
+            return;
+        }
+
+        if(response.data.errorType  == ErrorType.Simple){
+            setErrorMessage(response.data.message);
             setLoadingValidatePhone(false);
             return;
         }
