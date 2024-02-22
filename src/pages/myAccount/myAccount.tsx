@@ -99,7 +99,8 @@ export const MyAccount = () => {
     const validateEmailModal = useModal<any>(Modals.ValidateEmailModal);
     const validateEmail = () => {
         validateEmailModal.open({
-          onSave: async () => {
+            currentEmail: user.email,
+            onSave: async () => {
             var res = await getMyUserData();
             setUser(res.data);
             validateEmailModal.close();
@@ -113,13 +114,13 @@ export const MyAccount = () => {
                 duration: 9000,
                 isClosable: true,
             });
-          },
-          onClose: () => {
+            },
+            onClose: () => {
             validateEmailModal.close();
-          },
-          onCancel: () => {
+            },
+            onCancel: () => {
             validateEmailModal.close();
-          },
+            },
         });
     }
 
@@ -246,10 +247,10 @@ export const MyAccount = () => {
                                         <Input placeholder="Fecha de nacimiento" type="date" {...userData("birthDate", {required: "La Fecha de nacimiento es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="DNI" {...userData("personalDocument", {required: "El DNI es obligatorio", maxLength: {value: 8, message: "El apellido materno no debe tener mas de 8 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.personalDocument?.message != null) ? true : false}></Input>
+                                        <Input placeholder="DNI" {...userData("personalDocument", {required: "El DNI es obligatorio", pattern: { value: /^\d{8}$/, message: "El DNI debe tener 8 digitos" }, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.personalDocument?.message != null) ? true : false}></Input>
                                     </GridItem>
                                 </Grid>
-                                <Text marginTop={"10px"} color={"white.half"} fontSize={"14px"}>* Recuerda que solo podras editar tus datos 1 sola vez</Text>
+                                <Text marginTop={"10px"} color={"white.half"} fontSize={"14px"}>* Recuerda que solo podras editar tus datos 2 vecez</Text>
                             </Box>
                             <Box width={"100%"}>
                                 <MyButton textColor="white" 
@@ -303,7 +304,7 @@ export const MyAccount = () => {
                                                 padding="5px 10px"
                                                 size="xs"
                                                 onClick={validateEmail}
-                                                isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.count == 2)?true:false)}></MyButton>
+                                                isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.count == 1)?true:false)}></MyButton>
                                 </HStack>
                             </MyContainer>
                             <MyContainer>
