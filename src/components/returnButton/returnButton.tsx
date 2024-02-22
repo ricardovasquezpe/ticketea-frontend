@@ -6,6 +6,7 @@ import styles from "./returnButton.module.css";
 export const ReturnButton = (props: Props) => {
     const navigate = useNavigate();
     const click = () => {
+        console.log(props);
         navigate(-1);
     }
 

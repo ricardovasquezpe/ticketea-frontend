@@ -1,5 +1,5 @@
 import styles from './header.module.css'
-import {  Image, Flex,  HStack , chakra, Hide, Text, Box, useToast, Show } from '@chakra-ui/react';
+import {  Image, Flex,  HStack , chakra, Hide, Text, Box, useToast } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MobileDrawer } from './mobile-drawer';
 import { useModal } from '../../config/modal/use-modal';
