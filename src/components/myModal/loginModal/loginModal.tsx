@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { loginUser } from "../../../services/auth.service";
 import Session from "../../../utils/session";
+import { ErrorType } from "../../../utils/enums/errorType.enum";
 
 export const LoginModal = (props: Props) => {
     const { register: login, trigger: loginTrigger, getValues: loginGetValues, formState: { errors } } = useForm();
@@ -62,9 +63,15 @@ export const LoginModal = (props: Props) => {
         setErrorMessage("");
         
         var response = await loginUser(loginGetValues());
-        if(response.data.message){
+        if(response.data.type == ErrorType.Validation){
             setLoading(false);
-            setErrorMessage("El correo o contraseña invalidos");
+            setErrorMessage("Falta llenar algunos campos");
+            return;
+        }
+
+        if(response.data.type  == ErrorType.Simple){
+            setLoading(false);
+            setErrorMessage(response.data.message);
             return;
         }
         
