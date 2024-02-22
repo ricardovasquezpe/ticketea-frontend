@@ -1,5 +1,5 @@
-import { Box, Center, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Box, Center, HStack, SimpleGrid, Text, VStack, useToast } from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
 import { MyButton } from "../myButton/myButton";
 import styles from "./footer.module.css";
 
@@ -8,20 +8,31 @@ import { faSquareFacebook, faSquareInstagram, faSquareTwitter, faTiktok } from "
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
+import Session from "../../utils/session";
 
 export const Footer = () => {
+    const toast = useToast();
     const registerModal = useModal<any>(Modals.RegisterModal);
+    const navigate = useNavigate();
     const displayRegisterModal = () => {
         registerModal.open({
           onSave: () => {
-            console.log("OnSave");
+            registerModal.close();
+            toast({
+                title: 'Gracias por registrarte! ahora ya puedes anunciar tus entradas y comprar!',
+                description: "",
+                status: 'success',
+                containerStyle: {
+                    fontSize: "16px"
+                },
+                duration: 9000,
+                isClosable: true,
+            })
           },
           onClose: () => {
-            console.log("onClose");
             registerModal.close();
           },
           onCancel: () => {
-            console.log("onCancel");
             registerModal.close();
           },
         });
@@ -64,13 +75,19 @@ export const Footer = () => {
                                   fontSize={"15px"} 
                                   color={"white.half"} 
                                   mb={"10px"}>No pierdas la oportunidad de ver a tu artista favorito</Text>
-                            <MyButton textColor="white" 
+                            {(!Session.isLoggedIn()) ? <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
                                     backgroundColorHover="secondary.dark" 
                                     title={"Registrate Ya!"}
                                     fontSize="22px"
                                     padding="20px 30px 20px 30px"
-                                    onClick={()=>{displayRegisterModal()}}></MyButton>
+                                    onClick={()=>{displayRegisterModal()}}/> : <MyButton textColor="white" 
+                                    backgroundColor="secondary.default" 
+                                    backgroundColorHover="secondary.dark" 
+                                    title={"Vende tu entrada!"}
+                                    fontSize="22px"
+                                    padding="20px 30px 20px 30px"
+                                    onClick={()=>{navigate("/sell-ticket")}}/>}
                         </VStack>
                     </Center>
                 </SimpleGrid>

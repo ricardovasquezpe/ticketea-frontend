@@ -74,14 +74,11 @@ export const TicketDetail = () => {
         ratingDetailModal.open({
             ratings: ratings.data,
             onSave: () => {
-                console.log("OnSave");
             },
             onClose: () => {
-                console.log("onClose");
                 ratingDetailModal.close();
             },
             onCancel: () => {
-                console.log("onCancel");
                 ratingDetailModal.close();
             },
         });
@@ -91,14 +88,11 @@ export const TicketDetail = () => {
     const openTickeaProtect = () => {
         ticketeaProtectModal.open({
             onSave: () => {
-              console.log("OnSave");
             },
             onClose: () => {
-              console.log("onClose");
               ticketeaProtectModal.close();
             },
             onCancel: () => {
-              console.log("onCancel");
               ticketeaProtectModal.close();
             },
           });

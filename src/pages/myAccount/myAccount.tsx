@@ -61,11 +61,9 @@ export const MyAccount = () => {
                 });
             },
             onClose: () => {
-                console.log("onClose");
                 changeProfilePhotoModal.close();
             },
             onCancel: () => {
-                console.log("onCancel");
                 changeProfilePhotoModal.close();
             },
         });
@@ -90,11 +88,9 @@ export const MyAccount = () => {
             });
           },
           onClose: () => {
-            console.log("onClose");
             validatePhoneModal.close();
           },
           onCancel: () => {
-            console.log("onCancel");
             validatePhoneModal.close();
           },
         });
@@ -119,11 +115,9 @@ export const MyAccount = () => {
             });
           },
           onClose: () => {
-            console.log("onClose");
             validateEmailModal.close();
           },
           onCancel: () => {
-            console.log("onCancel");
             validateEmailModal.close();
           },
         });
@@ -148,11 +142,9 @@ export const MyAccount = () => {
             });
           },
           onClose: () => {
-            console.log("onClose");
             validatePersonalDocModal.close();
           },
           onCancel: () => {
-            console.log("onCancel");
             validatePersonalDocModal.close();
           },
         });

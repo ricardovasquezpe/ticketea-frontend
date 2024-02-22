@@ -5,7 +5,7 @@ import { Rating } from "../../rating/rating";
 
 export const ConfirmTicketModal = (props: Props) => {
     const handleRating = (rate: number) => {
-        console.log(rate);
+        //console.log(rate);
     }
 
     const bodyComponents = () => {

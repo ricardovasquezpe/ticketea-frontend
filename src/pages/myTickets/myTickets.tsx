@@ -27,14 +27,12 @@ export const MyTickets = () => {
     const confirmTicket = () => {
         confirmTicketModal.open({
           onSave: () => {
-            console.log("OnSave");
+            confirmTicketModal.close();
           },
           onClose: () => {
-            console.log("onClose");
             confirmTicketModal.close();
           },
           onCancel: () => {
-            console.log("onCancel");
             confirmTicketModal.close();
           },
         });
@@ -62,14 +60,12 @@ export const MyTickets = () => {
     const requestRefund = () => {
         requestRefundModal.open({
           onSave: () => {
-            console.log("OnSave");
+            requestRefundModal.close();
           },
           onClose: () => {
-            console.log("onClose");
             requestRefundModal.close();
           },
           onCancel: () => {
-            console.log("onCancel");
             requestRefundModal.close();
           },
         });
