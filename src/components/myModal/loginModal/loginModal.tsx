@@ -10,6 +10,8 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { loginUser } from "../../../services/auth.service";
 import Session from "../../../utils/session";
 import { ErrorType } from "../../../utils/enums/errorType.enum";
+import { useModal } from "../../../config/modal/use-modal";
+import { Modals } from "../../../config/modal/modal-config";
 
 export const LoginModal = (props: Props) => {
     const { register: login, trigger: loginTrigger, getValues: loginGetValues, formState: { errors } } = useForm();
@@ -17,7 +19,19 @@ export const LoginModal = (props: Props) => {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const clickShowPassword = () => setShowPassword(!showPassword)
+    const clickShowPassword = () => setShowPassword(!showPassword);
+
+    const registerModal = useModal<any>(Modals.RegisterModal);
+    const openRegister = () => {
+        registerModal.open({
+            onSave: () => {
+                registerModal.close();
+            },
+            onClose: () => {
+                registerModal.close();
+            }
+        });
+    }
 
     const bodyComponents = () => {
         return <VStack gap={3}>
@@ -35,6 +49,7 @@ export const LoginModal = (props: Props) => {
                             <FontAwesomeIcon color={"var(--chakra-colors-grey-default)"} cursor={"pointer"} onClick={clickShowPassword} icon={(showPassword ? faEyeSlash : faEye)} size="1x"/>
                         </InputRightElement>
                     </InputGroup>
+                    <Text fontSize={"15px"}>¿Aun no tienes una cuenta? <strong onClick={openRegister} style={{cursor: "pointer"}}>Registrate aquí</strong></Text>
                 </VStack>;
     }
 
@@ -48,14 +63,17 @@ export const LoginModal = (props: Props) => {
                                     padding="14px 28px"
                                     onClick={loginAction}
                                     isLoading={loading}></MyButton>
-                <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>{errorMessage}</Text>
+                <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>
+                    {errorMessage && errorMessage}
+                    {(Object.values(errors).length != 0) && <p>{Object.values(errors)[0]?.message + ""}</p>}
+                </Text>
             </VStack>
     }
 
     const loginAction = async () => {
+        setErrorMessage("");
         const isValid = await loginTrigger(["email", "password"], { shouldFocus: true });
         if(!isValid){
-            setErrorMessage(Object.values(errors)[0]?.message);
             return;
         }
 

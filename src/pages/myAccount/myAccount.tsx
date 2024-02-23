@@ -153,9 +153,9 @@ export const MyAccount = () => {
 
     const confirmUserUpdateDailog = useModal<any>(Modals.ConfirmUserUpdateDailog);
     const confirmUserUpdate = async () => {
+        setErrorMessage("");
         const isValid = await userDataTrigger(["name", "lastNameFather", "lastNameMother", "birthDate", "personalDocument"], { shouldFocus: true });
         if(!isValid){
-            setErrorMessage(Object.values(errors)[0]?.message);
             return;
         }
 
@@ -262,7 +262,10 @@ export const MyAccount = () => {
                                             onClick={confirmUserUpdate}
                                             isLoading={loadingUserUpdate}
                                             isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.ProfileUpdated && val.count == 2)?true:false)}></MyButton>
-                                <Text color={"red.default"} marginTop={"15px"} textAlign={"left"} fontSize={"14px"}>{errorMessage}</Text>
+                                <Text color={"red.default"} marginTop={"15px"} textAlign={"left"} fontSize={"14px"}>
+                                    {errorMessage && errorMessage}
+                                    {(Object.values(errors).length != 0) && <p>{Object.values(errors)[0]?.message + ""}</p>}
+                                </Text>
                             </Box>
                         </VStack>
                     </MyContainer>

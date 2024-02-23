@@ -120,7 +120,7 @@ export const ListTickets = () => {
                                             ratingNumber={ticket.userSeller!.avgRating!}
                                             ticketPrice={ticket.price}
                                             sellerImage={ticket.userSeller!.profile_photo_url}
-                                            sellerName={ticket.userSeller!.name}
+                                            sellerName={ticket.userSeller!.fullName}
                                             seat={ticket.seat}></TicketCard>
                                     ))
                                 }

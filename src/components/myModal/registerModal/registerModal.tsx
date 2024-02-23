@@ -11,10 +11,11 @@ import { onLogin } from "../../../store/auth/authAction";
 import { ErrorType } from "../../../utils/enums/errorType.enum";
 
 export const RegisterModal = (props: Props) => {
-    const { register, trigger: registerTrigger, getValues: registerGetValues, formState: { errors } } = useForm();
+    const { register, trigger: registerTrigger, getValues: registerGetValues, formState: { errors }, clearErrors } = useForm();
     const [errorMessage, setErrorMessage] = useState("" as any);
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
+    //const dateRef = useRef<any>();
 
     const bodyComponents = () => {
         //validate: (value) =>  value.setFullYear(value.getFullYear() + 18)<=new Date() || "Debes ser mayor de edad"
@@ -29,6 +30,23 @@ export const RegisterModal = (props: Props) => {
                 </VStack>;
     }
 
+    /*const onChangeDate = (e: any) => {
+        if(e.currentTarget.value.length != 0){
+            var birthDateMoment = moment(e.currentTarget.value, 'DD/MM/YYYY').format("YYYY-MM-DD");
+            if(birthDateMoment != "Fecha inválida"){
+                e.currentTarget.value = birthDateMoment;
+            }
+        }
+        e.target.type = "date";
+        dateRef.current.showPicker();
+    }
+
+    const onBlurDate = (e: any) => {
+        e.target.type = "text";
+        var birthDateMoment = moment(e.currentTarget.value, 'YYYY-MM-DD').format("DD/MM/YYYY");
+        e.currentTarget.value = birthDateMoment;
+    }*/
+
     const footerComponents = () => {
         return <VStack gap={3}>
                 <MyButton textColor="white" 
@@ -39,14 +57,17 @@ export const RegisterModal = (props: Props) => {
                             padding="14px 28px"
                             onClick={onRegister}
                             isLoading={loading}></MyButton>
-                <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>{errorMessage}</Text>
+                <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>
+                    {errorMessage && errorMessage}
+                    {(Object.values(errors).length != 0) && <p>{Object.values(errors)[0]?.message + ""}</p>}
+                </Text>
             </VStack>
     }
 
     const onRegister = async () => {
+        setErrorMessage("");
         const isValid = await registerTrigger(["name", "lastNameFather", "lastNameMother", "birthDate", "email", "password", "confirmPassword"], { shouldFocus: true });
         if(!isValid){
-            setErrorMessage(Object.values(errors)[0]?.message);
             return;
         }
         
@@ -63,6 +84,7 @@ export const RegisterModal = (props: Props) => {
             return;
         }
 
+        clearErrors();
         setErrorMessage("");
         setLoading(true);
         var payload = {...registerGetValues(), birthDate: birthDateMoment.format("DD/MM/YYYY")}

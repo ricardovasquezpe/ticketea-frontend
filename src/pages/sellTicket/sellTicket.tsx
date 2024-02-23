@@ -56,7 +56,7 @@ export const SellTicket = () => {
             setEventSelected(eventDateFound);
             var zonesResp = await getZonesByEventId(eventDateFound.event.encId);
             setZones(zonesResp.data);
-            sellSetValue("zone", "0");
+            sellSetValue("zone", null);
         } else {
             setEventSelected({} as EventDate);
             setZones([]);
@@ -64,6 +64,7 @@ export const SellTicket = () => {
     }
 
     const sellTicket = async () => {
+        setErrorMessage("");
         if(user.userValidations?.length != 5){
             setErrorMessage("Debes compeltar la verificación de tu perfil");
             return;
@@ -71,7 +72,7 @@ export const SellTicket = () => {
 
         const isValid = await sellTrigger(["event", "price", "zone", "seat"], { shouldFocus: true });
         if(!isValid){
-            setErrorMessage(Object.values(errors)[0]?.message);
+            //setErrorMessage(Object.values(errors)[0]?.message);
             return;
         }
 
@@ -199,7 +200,7 @@ export const SellTicket = () => {
                             <Select marginBottom={"15px"} 
                                     placeholder='Seleccione el evento' 
                                     {...sell("event",{
-                                            required: "La zona es requerido",
+                                            required: "El evento es requerido",
                                             onChange: (e) => { onSelectEvent(e) }
                                         })} 
                                     isInvalid={(errors?.event?.message != null) ? true : false}>
@@ -275,7 +276,10 @@ export const SellTicket = () => {
                                 padding="14px"
                                 onClick={sellTicket}
                                 isLoading={loading}></MyButton>
-                        <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>{errorMessage}</Text>
+                        <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>
+                            {errorMessage && errorMessage}
+                            {(Object.values(errors).length != 0) && <p>{Object.values(errors)[0]?.message + ""}</p>}
+                        </Text>
                     </VStack>
                 </VStack>
             </Box> 
