@@ -9,11 +9,28 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import Session from "../../utils/session";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { store } from "../../store/store";
 
 export const Footer = () => {
     const toast = useToast();
     const registerModal = useModal<any>(Modals.RegisterModal);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [isLogin, setIsLogin] = useState(store.getState().auth.isLoggedIn);
+
+    useEffect(() => {
+        const unsubscribe = store.subscribe(() => {
+            var storeLoggedIn = store.getState().auth.isLoggedIn;
+            setIsLogin(storeLoggedIn);
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, [dispatch]);
+
     const displayRegisterModal = () => {
         registerModal.open({
           onSave: () => {
@@ -75,7 +92,7 @@ export const Footer = () => {
                                   fontSize={"15px"} 
                                   color={"white.half"} 
                                   mb={"10px"}>No pierdas la oportunidad de ver a tu artista favorito</Text>
-                            {(!Session.isLoggedIn()) ? <MyButton textColor="white" 
+                            {(!isLogin) ? <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
                                     backgroundColorHover="secondary.dark" 
                                     title={"Registrate Ya!"}
