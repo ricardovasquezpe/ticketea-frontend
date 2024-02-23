@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Center, Divider, Grid, GridItem, HStack, Highlight, Image, Link, Show, Text, VStack } from "@chakra-ui/react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Center, Divider, Grid, GridItem, HStack, Highlight, Image, Link, Show, Text, VStack, useToast } from "@chakra-ui/react";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { MyButton } from "../../components/myButton/myButton";
@@ -8,7 +8,7 @@ import { ReturnButton } from "../../components/returnButton/returnButton";
 import { useEffect, useState } from "react";
 import { Modals } from "../../config/modal/modal-config";
 import { useModal } from "../../config/modal/use-modal";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getEventByEventDateId } from "../../services/event.service";
 import { RatingBadge } from "../../components/ratingBadge/ratingBadge";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,24 +19,65 @@ import Utils from "../../utils/utils";
 import { Ticket } from "../../services/models/ticket.model";
 import moment from 'moment/min/moment-with-locales';
 import { TICKET_DETAIL_TOUR_STEPS } from "../../utils/constants";
-import { getTicketById } from "../../services/ticket.service";
+import { buyTicket, getTicketById } from "../../services/ticket.service";
 import { User } from "../../services/models/user.model";
 import { getUserById } from "../../services/user.service";
 import { getRatingsByUserId } from "../../services/rating.service";
 import { UserValidationType } from "../../utils/enums/userValidationType.enum";
 import { EventDate } from "../../services/models/eventDate.model";
+import Session from "../../utils/session";
 
 export const TicketDetail = () => {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const [event, setEvent] = useState({} as EventDate);
     const [ticket, setTicket] = useState({} as Ticket);
     const [user, setUser] = useState({} as User);
+    const [loading, setLoading] = useState(false);
     const { ticketId } = useParams();
     const tg = new TourGuideClient({steps: TICKET_DETAIL_TOUR_STEPS, autoScroll:true, nextLabel: "Siguiente", prevLabel: "Atras", finishLabel: "Terminar"});
     const loadingModal = useModal<any>(Modals.LoadingModal);
+    const loginModal = useModal<any>(Modals.LoginModal);
+    const toast = useToast();
 
-    const click = () => {
-        navigate("/ticket-buy/" + ticketId);
+    const click = async () => {
+        //navigate("/ticket-buy/" + ticketId);
+        if(Session.isLoggedIn()){
+            setLoading(true);
+            await buyTicket(String(ticketId));
+            setLoading(false);
+            toast({
+                title: 'Revisa tu correo electronico te hemos enviado la información del vendedor!',
+                description: "",
+                status: 'success',
+                containerStyle: {
+                    fontSize: "16px"
+                },
+                duration: 9000,
+                isClosable: true,
+            })
+        } else {
+            loginModal.open({
+                onSave: async () =>{
+                    loginModal.close();
+                    setLoading(true);
+                    await buyTicket(String(ticketId));
+                    setLoading(false);
+                    toast({
+                        title: 'Revisa tu correo electronico te hemos enviado la información del vendedor!',
+                        description: "",
+                        status: 'success',
+                        containerStyle: {
+                            fontSize: "16px"
+                        },
+                        duration: 9000,
+                        isClosable: true,
+                    });
+                },
+                onClose: ()=>{
+                    loginModal.close();
+                }
+            });
+        }
     }
 
     useEffect(() => {
@@ -148,28 +189,44 @@ export const TicketDetail = () => {
                             <Text fontFamily={"robotoBold"} fontSize={"22px"}>{(ticket.zone)?ticket.zone.name:""}</Text>
                             {(ticket.seat)?<Text fontSize={"16px"} color={"white.half"} wordBreak={"break-all"}>Butaca: {ticket.seat}</Text>:<></>}
                         </Box>
-                        <VStack id="buy" align={"end"}>
+                        <VStack id="buy" align={"end"} gap={1}>
                             <Grid templateColumns="repeat(2, 1fr)" gap={2}>
-                                <GridItem colSpan={{base: 2, sm: 1, customMd: 1}} style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                <GridItem colSpan={{base: 2, sm: 2, customMd: 2}} style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                                     <Text>S/. {(ticket.price!=null)?Utils.currencyFormat(ticket.price):0}</Text>
                                 </GridItem>
-                                <GridItem colSpan={{base: 2, sm: 1, customMd: 1}}>
-                                    <MyButton textColor="white" 
-                                            backgroundColor="secondary.default" 
-                                            backgroundColorHover="secondary.dark" 
-                                            title={"Comprar"}
-                                            fontSize="18px"
-                                            padding="14px"
-                                            onClick={click}></MyButton>
-                                </GridItem>
+                                {
+                                    /* 
+                                        <GridItem colSpan={{base: 2, sm: 1, customMd: 1}}>
+                                            <MyButton textColor="white" 
+                                                    backgroundColor="secondary.default" 
+                                                    backgroundColorHover="secondary.dark" 
+                                                    title={"Contactar"}
+                                                    fontSize="18px"
+                                                    padding="14px"
+                                                    onClick={click}></MyButton>
+                                        </GridItem>
+                                    */
+                                }
                             </Grid>
-                            <Text marginTop={"5px"} fontSize={"14px"} color={"white.half"}>({Utils.calculatePercentageAdd(ticket.price, (ticket.zone) ? ticket.zone.price : 0)}% del precio original)</Text>
+                            <Text fontSize={"14px"} color={"white.half"}>({Utils.calculatePercentageAdd(ticket.price, (ticket.zone) ? ticket.zone.price : 0)}% del precio original)</Text>
                         </VStack>
                     </HStack>
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
                     <Link color='teal.500' href={(event.event)?event.event.url:""} isExternal>
-                        Link de la pagina oficial <ExternalLinkIcon mx='2px' />
+                        Link de la pagina oficial del evento <ExternalLinkIcon mx='2px' />
                     </Link>
+                    <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
+                    <VStack>
+                        <Text textAlign={"center"}>Si deseas adquirir la entrada, ponte en contacto con el vendedor. Al dar click te enviaremos un correo con el nombre y numero celular del vendedor</Text>
+                        <MyButton textColor="white" 
+                                backgroundColor="secondary.default" 
+                                backgroundColorHover="secondary.dark" 
+                                title={"Ponme en contacto con el vendedor"}
+                                fontSize="18px"
+                                padding="14px"
+                                onClick={click}
+                                isLoading={loading}></MyButton>
+                    </VStack>
                 </MyContainer>
                 <Box marginTop={5}></Box>
                 <SectionTitle title="Vendedor"/>
