@@ -3,7 +3,7 @@ import styles from "./eventiTicketCard.module.css";
 import { RatingBadge } from "../ratingBadge/ratingBadge";
 import Utils from "../../utils/utils";
 import moment from 'moment/min/moment-with-locales';
-import { TicketState, TicketStateString } from "../../utils/enums/ticketState.enum";
+import { TicketState, TicketStateString } from "@/utils/enums/ticketState.enum";
 
 export const EventTicketCard = (props: Props) => {
     return (
