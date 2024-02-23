@@ -4,7 +4,7 @@ import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { useEffect } from "react";
 
-export const TermsConditions = () => {
+export const HowItWorks = () => {
     useEffect(() => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }, []);

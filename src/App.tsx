@@ -11,6 +11,7 @@ import { MyTickets } from "./pages/myTickets/myTickets"
 import { MyAccount } from "./pages/myAccount/myAccount"
 import { AuthGuard } from "./utils/authGuard"
 import { TermsConditions } from "./pages/termsConditions/termsConditions"
+import { HowItWorks } from "./pages/howItWorks/howItWorks"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path='/ticket-detail/:ticketId' element={<TicketDetail></TicketDetail>}></Route>
           <Route path='/ticket-buy/:ticketId' element={<Checkout></Checkout>}></Route>
           <Route path='/terms-conditions' element={<TermsConditions></TermsConditions>}></Route>
+          <Route path='/how-works' element={<HowItWorks></HowItWorks>}></Route>
           <Route path="/sell-ticket" element={<AuthGuard><SellTicket></SellTicket></AuthGuard>}/>
           <Route path="/my-tickets" element={<AuthGuard><MyTickets></MyTickets></AuthGuard>}/>
           <Route path="/my-account" element={<AuthGuard><MyAccount></MyAccount></AuthGuard>}/>
