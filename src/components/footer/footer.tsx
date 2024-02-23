@@ -60,7 +60,7 @@ export const Footer = () => {
                         <VStack align={{"base": "center", "sm": "center", "md": "start"}}>
                             <Link to={"/"}>Nosotros</Link>
                             <Link to={"/"}>¿Cómo funciona?</Link>
-                            <Link to={"/"}>Términos y condiciones</Link>
+                            <Link to={"/terms-conditions"}>Términos y condiciones</Link>
                         </VStack>
                     </Box>
                     <Box>
