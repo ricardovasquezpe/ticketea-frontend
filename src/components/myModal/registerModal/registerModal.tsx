@@ -22,11 +22,27 @@ export const RegisterModal = (props: Props) => {
                     <Input placeholder='Nombres' {...register("name", {required: "Los Nombres es obligatorio", validate: (value) => { return !!value.trim()}, maxLength: {value: 100, message: "Los Nombres no debe ser tener de 100 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.name?.message != null) ? true : false}/>
                     <Input placeholder='Apellido Paterno' {...register("lastNameFather", {required: "El apellido paterno es obligatorio", validate: (value) => { return !!value.trim()}, maxLength: {value: 100, message: "El apellido paterno no debe tener mas de 100 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameFather?.message != null) ? true : false}/>
                     <Input placeholder='Apellido Materno' {...register("lastNameMother", {required: "El apellido materno es obligatorio", validate: (value) => { return !!value.trim()}, maxLength: {value: 100, message: "El apellido materno no debe tener mas de 100 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameMother?.message != null) ? true : false}/>
-                    <Input placeholder='Fecha de nacimiento' type="date" {...register("birthDate", {required: "La Fecha de nacimiento es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
+                    <Input placeholder='Fecha de nacimiento' onFocus={(e) => onChangeDate(e)} type="text" {...register("birthDate", {required: "La Fecha de nacimiento es obligatorio", onBlur: (e) => { onBlurDate(e) } , validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
                     <Input placeholder='Correo Electronico' {...register("email", {required: "El Correo electronico es obligatorio", validate: (value) => { return !!value.trim()}, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electronico debe ser un email valido" }, maxLength: {value: 150, message: "El Correo electronico no debe tener mas de 150 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.email?.message != null) ? true : false}/>
                     <Input placeholder='Contraseña' type="password" {...register("password", {required: "La Contraseña es obligatorio", validate: (value) => { return !!value.trim()}, minLength: {value: 8, message: "La Contraseña debe tener minimo 8 caracteres"}, maxLength: {value: 50, message: "La Contraseña debe tener maximo 30 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.password?.message != null) ? true : false}/>
                     <Input placeholder='Confirmar Contraseña' type="password" {...register("confirmPassword", {required: "El Confirmar contraseña es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.confirmPassword?.message != null) ? true : false}/>
                 </VStack>;
+    }
+
+    const onChangeDate = (e: any) => {
+        if(e.currentTarget.value.length != 0){
+            var birthDateMoment = moment(e.currentTarget.value, 'DD/MM/YYYY').format("YYYY-MM-DD");
+            if(birthDateMoment != "Fecha inválida"){
+                e.currentTarget.value = birthDateMoment;
+            }
+        }
+        e.target.type = "date";
+    }
+
+    const onBlurDate = (e: any) => {
+        e.target.type = "text";
+        var birthDateMoment = moment(e.currentTarget.value, 'YYYY-MM-DD').format("DD/MM/YYYY");
+        e.currentTarget.value = birthDateMoment;
     }
 
     const footerComponents = () => {
