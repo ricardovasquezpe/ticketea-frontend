@@ -2,7 +2,7 @@ import { Input, Text, VStack } from "@chakra-ui/react";
 import { MyModal } from "../myModal";
 import { MyButton } from "../../myButton/myButton";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { registerUser } from "../../../services/auth.service";
 import moment from 'moment/min/moment-with-locales';
 import Session from "../../../utils/session";
@@ -11,10 +11,11 @@ import { onLogin } from "../../../store/auth/authAction";
 import { ErrorType } from "../../../utils/enums/errorType.enum";
 
 export const RegisterModal = (props: Props) => {
-    const { register, trigger: registerTrigger, getValues: registerGetValues, formState: { errors } } = useForm();
+    const { register, trigger: registerTrigger, getValues: registerGetValues, formState: { errors }, clearErrors } = useForm();
     const [errorMessage, setErrorMessage] = useState("" as any);
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
+    const dateRef = useRef<any>();
 
     const bodyComponents = () => {
         //validate: (value) =>  value.setFullYear(value.getFullYear() + 18)<=new Date() || "Debes ser mayor de edad"
@@ -22,7 +23,7 @@ export const RegisterModal = (props: Props) => {
                     <Input placeholder='Nombres' {...register("name", {required: "Los Nombres es obligatorio", validate: (value) => { return !!value.trim()}, maxLength: {value: 100, message: "Los Nombres no debe ser tener de 100 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.name?.message != null) ? true : false}/>
                     <Input placeholder='Apellido Paterno' {...register("lastNameFather", {required: "El apellido paterno es obligatorio", validate: (value) => { return !!value.trim()}, maxLength: {value: 100, message: "El apellido paterno no debe tener mas de 100 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameFather?.message != null) ? true : false}/>
                     <Input placeholder='Apellido Materno' {...register("lastNameMother", {required: "El apellido materno es obligatorio", validate: (value) => { return !!value.trim()}, maxLength: {value: 100, message: "El apellido materno no debe tener mas de 100 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameMother?.message != null) ? true : false}/>
-                    <Input placeholder='Fecha de nacimiento' onFocus={(e) => onChangeDate(e)} type="text" {...register("birthDate", {required: "La Fecha de nacimiento es obligatorio", onBlur: (e) => { onBlurDate(e) } , validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
+                    <Input placeholder='Fecha de nacimiento' type="date" {...register("birthDate", {required: "La Fecha de nacimiento es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
                     <Input placeholder='Correo Electronico' {...register("email", {required: "El Correo electronico es obligatorio", validate: (value) => { return !!value.trim()}, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electronico debe ser un email valido" }, maxLength: {value: 150, message: "El Correo electronico no debe tener mas de 150 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.email?.message != null) ? true : false}/>
                     <Input placeholder='Contraseña' type="password" {...register("password", {required: "La Contraseña es obligatorio", validate: (value) => { return !!value.trim()}, minLength: {value: 8, message: "La Contraseña debe tener minimo 8 caracteres"}, maxLength: {value: 50, message: "La Contraseña debe tener maximo 30 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.password?.message != null) ? true : false}/>
                     <Input placeholder='Confirmar Contraseña' type="password" {...register("confirmPassword", {required: "El Confirmar contraseña es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.confirmPassword?.message != null) ? true : false}/>
@@ -37,6 +38,7 @@ export const RegisterModal = (props: Props) => {
             }
         }
         e.target.type = "date";
+        dateRef.current.showPicker();
     }
 
     const onBlurDate = (e: any) => {
@@ -55,14 +57,17 @@ export const RegisterModal = (props: Props) => {
                             padding="14px 28px"
                             onClick={onRegister}
                             isLoading={loading}></MyButton>
-                <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>{errorMessage}</Text>
+                <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>
+                    {errorMessage && errorMessage}
+                    {(Object.values(errors).length != 0) && <p>{Object.values(errors)[0]?.message + ""}</p>}
+                </Text>
             </VStack>
     }
 
     const onRegister = async () => {
+        setErrorMessage("");
         const isValid = await registerTrigger(["name", "lastNameFather", "lastNameMother", "birthDate", "email", "password", "confirmPassword"], { shouldFocus: true });
         if(!isValid){
-            setErrorMessage(Object.values(errors)[0]?.message);
             return;
         }
         
@@ -79,6 +84,7 @@ export const RegisterModal = (props: Props) => {
             return;
         }
 
+        clearErrors();
         setErrorMessage("");
         setLoading(true);
         var payload = {...registerGetValues(), birthDate: birthDateMoment.format("DD/MM/YYYY")}

@@ -48,14 +48,17 @@ export const LoginModal = (props: Props) => {
                                     padding="14px 28px"
                                     onClick={loginAction}
                                     isLoading={loading}></MyButton>
-                <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>{errorMessage}</Text>
+                <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>
+                    {errorMessage && errorMessage}
+                    {(Object.values(errors).length != 0) && <p>{Object.values(errors)[0]?.message + ""}</p>}
+                </Text>
             </VStack>
     }
 
     const loginAction = async () => {
+        setErrorMessage("");
         const isValid = await loginTrigger(["email", "password"], { shouldFocus: true });
         if(!isValid){
-            setErrorMessage(Object.values(errors)[0]?.message);
             return;
         }
 
