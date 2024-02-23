@@ -2,7 +2,7 @@ import { Input, Text, VStack } from "@chakra-ui/react";
 import { MyModal } from "../myModal";
 import { MyButton } from "../../myButton/myButton";
 import { useForm } from "react-hook-form";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { registerUser } from "../../../services/auth.service";
 import moment from 'moment/min/moment-with-locales';
 import Session from "../../../utils/session";
@@ -15,7 +15,7 @@ export const RegisterModal = (props: Props) => {
     const [errorMessage, setErrorMessage] = useState("" as any);
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const dateRef = useRef<any>();
+    //const dateRef = useRef<any>();
 
     const bodyComponents = () => {
         //validate: (value) =>  value.setFullYear(value.getFullYear() + 18)<=new Date() || "Debes ser mayor de edad"
@@ -30,7 +30,7 @@ export const RegisterModal = (props: Props) => {
                 </VStack>;
     }
 
-    const onChangeDate = (e: any) => {
+    /*const onChangeDate = (e: any) => {
         if(e.currentTarget.value.length != 0){
             var birthDateMoment = moment(e.currentTarget.value, 'DD/MM/YYYY').format("YYYY-MM-DD");
             if(birthDateMoment != "Fecha inválida"){
@@ -45,7 +45,7 @@ export const RegisterModal = (props: Props) => {
         e.target.type = "text";
         var birthDateMoment = moment(e.currentTarget.value, 'YYYY-MM-DD').format("DD/MM/YYYY");
         e.currentTarget.value = birthDateMoment;
-    }
+    }*/
 
     const footerComponents = () => {
         return <VStack gap={3}>

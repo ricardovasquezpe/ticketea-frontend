@@ -2,13 +2,11 @@ import { Box, Center, HStack, SimpleGrid, Text, VStack, useToast } from "@chakra
 import { Link, useNavigate } from "react-router-dom";
 import { MyButton } from "../myButton/myButton";
 import styles from "./footer.module.css";
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareFacebook, faSquareInstagram, faSquareTwitter, faTiktok } from "@fortawesome/free-brands-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
-import Session from "../../utils/session";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { store } from "../../store/store";
