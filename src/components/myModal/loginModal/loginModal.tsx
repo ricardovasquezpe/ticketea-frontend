@@ -33,6 +33,10 @@ export const LoginModal = (props: Props) => {
         });
     }
 
+    const openResetPassword = () => {
+
+    }
+
     const bodyComponents = () => {
         return <VStack gap={3}>
                     <Input placeholder='Correo Electronico' 
@@ -49,7 +53,10 @@ export const LoginModal = (props: Props) => {
                             <FontAwesomeIcon color={"var(--chakra-colors-grey-default)"} cursor={"pointer"} onClick={clickShowPassword} icon={(showPassword ? faEyeSlash : faEye)} size="1x"/>
                         </InputRightElement>
                     </InputGroup>
-                    <Text fontSize={"15px"}>¿Aun no tienes una cuenta? <strong onClick={openRegister} style={{cursor: "pointer"}}>Registrate aquí</strong></Text>
+                    <VStack textAlign={"center"} gap={1}>
+                        <Text fontSize={"15px"}>¿Aun no tienes una cuenta? <strong onClick={openRegister} style={{cursor: "pointer"}}>Registrate aquí</strong></Text>
+                        <Text color={"white.half"} fontSize={"15px"} cursor={"pointer"} onClick={openResetPassword}>¿Olvidaste tu contraseña?</Text>
+                    </VStack>
                 </VStack>;
     }
 
