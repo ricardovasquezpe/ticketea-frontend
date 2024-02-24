@@ -221,7 +221,7 @@ export const TicketDetail = () => {
                         <MyButton textColor="white" 
                                 backgroundColor="secondary.default" 
                                 backgroundColorHover="secondary.dark" 
-                                title={"Ponme en contacto con el vendedor"}
+                                title={"Enviame la información"}
                                 fontSize="18px"
                                 padding="14px"
                                 onClick={click}
