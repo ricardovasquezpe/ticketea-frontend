@@ -28,7 +28,7 @@ export const RequestRefundModal = (props: Props) => {
             closeButton={true}
             onClose={props.onClose} 
             closeOnOverlay={true}
-            titleComponent={<Text fontSize={"18px"} textAlign={"left"}>Devolución Ticket</Text>}
+            titleComponent={<Text fontSize={"18px"} textAlign={"left"}>Devolución Entrada</Text>}
             bodyComponent={bodyComponents()}
             footerComponent={footerComponents()}/>
     );
