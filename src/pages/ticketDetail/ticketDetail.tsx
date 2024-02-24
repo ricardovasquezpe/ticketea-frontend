@@ -324,7 +324,7 @@ export const TicketDetail = () => {
                             <Box textAlign={"center"}>
                                 <Text fontSize={"22px"} fontFamily={"robotoBold"}>Tiempos</Text>
                                 <Text>Tendras como máximo 2 dias para confirmar o cancelar tu compra, sino la entrada sera devuelta al vendedor</Text>
-                                <Link color='teal.500' href='/terminos-y-condiciones' isExternal>
+                                <Link color='teal.500' href='/terms-conditions' isExternal>
                                     Términos y condiciones <ExternalLinkIcon mx='2px' />
                                 </Link>
                             </Box>

@@ -71,8 +71,8 @@ export const Header = () => {
     const menuLinks = [
         {
             id: 2,
-            label: "¿Como funciona?",
-            url: "/",
+            label: "¿Cómo funciona?",
+            url: "/how-works",
             type: "link"
         },
         {
