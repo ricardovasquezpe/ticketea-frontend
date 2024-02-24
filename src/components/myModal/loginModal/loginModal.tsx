@@ -33,8 +33,16 @@ export const LoginModal = (props: Props) => {
         });
     }
 
+    const resetPasswordModal = useModal<any>(Modals.ResetPasswordModal);
     const openResetPassword = () => {
-
+        resetPasswordModal.open({
+            onSave: () => {
+                resetPasswordModal.close();
+            },
+            onClose: () => {
+                resetPasswordModal.close();
+            }
+        });
     }
 
     const bodyComponents = () => {

@@ -23,6 +23,8 @@ export const MY_TICKETS_URL = "/tickets/users/me";
 export const UPDATE_TICKET_PRICE_URL = "/tickets/:ticketId/updatePrice";
 export const DELETE_TICKET_URL = "/tickets";
 export const BUY_TICKET = "/tickets/buy";
+export const SEND_RESET_PASSWORD_URL = "/auth/sendResetPassword";
+export const RESET_PASSWORD_URL = "/auth/resetPassword";
 
 export const PAYMENT_METHOD_BANK_ACCOUNT = "1";
 export const PAYMENT_METHOD_CREDIT_CARD = "2";
