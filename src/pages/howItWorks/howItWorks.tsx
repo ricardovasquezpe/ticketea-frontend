@@ -104,29 +104,29 @@ export const HowItWorks = () => {
                     </Box>
                     <MyContainer>
                         <VStack gap={7} width={"100%"} padding={"10px"}>
-                            <Grid templateColumns="repeat(15, 1fr)" gap={5} width={"100%"}>
-                                <GridItem colSpan={{base: 10, sm: 1, md: 1}} textAlign={"center"}>
+                            <Grid templateColumns="repeat(15, 1fr)" gap={5} width={{base: "auto", sm: "100%"}}>
+                                <GridItem colSpan={{base: 15, sm: 1, md: 1}} textAlign={"center"}>
                                     <FontAwesomeIcon icon={faIdCard} size="2x"/>
                                 </GridItem>
-                                <GridItem colSpan={{base: 10, sm: 9, md: 14}} textAlign={{base: "center", sm: "start"}}>
+                                <GridItem colSpan={{base: 15, sm: 14, md: 14}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
                                     <Text fontSize={"20px"}>Validación del DNI físico con RENIEC</Text>
                                     <Text color={"white.half"}>Se escanea el DNI físico (frontal y posterior) y se valida con el sistema de RENIEC para verificar la veracidad de los datos ingresados por el vendedor</Text>  
                                 </GridItem>
                             </Grid>
-                            <Grid templateColumns="repeat(15, 1fr)" gap={5} width={"100%"}>
-                                <GridItem colSpan={{base: 10, sm: 1, md: 1}} textAlign={"center"}>
+                            <Grid templateColumns="repeat(15, 1fr)" gap={5} width={{base: "auto", sm: "100%"}}>
+                                <GridItem colSpan={{base: 15, sm: 1, md: 1}} textAlign={"center"}>
                                     <FontAwesomeIcon icon={faAddressBook} size="2x"/>
                                 </GridItem>
-                                <GridItem colSpan={{base: 10, sm: 9, md: 14}} textAlign={{base: "center", sm: "start"}}>
+                                <GridItem colSpan={{base: 15, sm: 14, md: 14}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
                                     <Text fontSize={"20px"}>Validación de cada uno de sus datos</Text>
                                     <Text color={"white.half"}>Se requiere al vendedor cada uno de sus datos como nombres completos, fecha de nacimiento, DNI, foto de perfil, etc. Y validamos que todos los datos coincidan con su documento de identificación</Text>
                                 </GridItem>
                             </Grid>
-                            <Grid templateColumns="repeat(15, 1fr)" gap={5} width={"100%"}>
-                                <GridItem colSpan={{base: 10, sm: 1, md: 1}} textAlign={"center"}>
+                            <Grid templateColumns="repeat(15, 1fr)" gap={5} width={{base: "auto", sm: "100%"}}>
+                                <GridItem colSpan={{base: 15, sm: 1, md: 1}} textAlign={"center"}>
                                     <FontAwesomeIcon icon={faAt} size="2x"/>
                                 </GridItem>
-                                <GridItem colSpan={{base: 10, sm: 9, md: 14}} textAlign={{base: "center", sm: "start"}}>
+                                <GridItem colSpan={{base: 15, sm: 14, md: 14}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
                                     <Text fontSize={"20px"}>Validación del número celular y correo electrónico (no spams)</Text>
                                     <Text color={"white.half"}>Se confirma que el numero celular y correo electronico sean los correctos y los pertenecientes al vendedor</Text>  
                                 </GridItem>
@@ -137,7 +137,7 @@ export const HowItWorks = () => {
                 <br />
                 <br />
                 <VStack gap={6}>
-                    <Text fontSize={"30px"} marginBottom={"15px"}>Sé un vendedor <Text display={"inline-block"} color={"gold.default"}>verificado!</Text></Text>
+                    <Text textAlign={"center"} fontSize={"30px"} marginBottom={"10px"}>Sé un vendedor <Text display={"inline-block"} color={"gold.default"}>verificado!</Text></Text>
                     <Grid templateColumns="repeat(6, 1fr)" gap={10} width={"100%"}>
                         <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                             <MyContainer>
