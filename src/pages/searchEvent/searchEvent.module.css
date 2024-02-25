@@ -17,6 +17,13 @@
     margin-right: 100px;
 }
 
+@media screen and (max-width: 600px) {
+    .containerNoResults {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+
 .noResultsTitle{
     font-size: 20px;
 }
