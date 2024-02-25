@@ -56,9 +56,9 @@ export const TICKET_DETAIL_TOUR_STEPS = [{
     group: ""
 },
 {
-    content: "Cuando estes listo, podras ir a comprar la entrada",
+    content: "Cuando hayas revisado todo el detalle, podrás ponerte en contacto con el vendedor",
     title: "Vamos a comprar!",
-    target: "#buy",
+    target: "#contact-seller",
     order: "",
     group: ""
 }];

@@ -34,7 +34,13 @@ export const TicketDetail = () => {
     const [user, setUser] = useState({} as User);
     const [loading, setLoading] = useState(false);
     const { ticketId } = useParams();
-    const tg = new TourGuideClient({steps: TICKET_DETAIL_TOUR_STEPS, autoScroll:true, nextLabel: "Siguiente", prevLabel: "Atras", finishLabel: "Terminar"});
+    const tg = new TourGuideClient({steps: TICKET_DETAIL_TOUR_STEPS, 
+                                    autoScroll: true, 
+                                    dialogPlacement: 'bottom',
+                                    nextLabel: "Siguiente", 
+                                    prevLabel: "Atras", 
+                                    finishLabel: "Terminar",
+                                    autoScrollOffset: 500});
     const loadingModal = useModal<any>(Modals.LoadingModal);
     const loginModal = useModal<any>(Modals.LoginModal);
     const toast = useToast();
@@ -84,7 +90,6 @@ export const TicketDetail = () => {
         loadingModal.open({title: "Cargando el detalle de la entrada"});
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         onLoadData();
-        tourInit();
     }, []);
 
     const tourInit = () => {
@@ -107,6 +112,7 @@ export const TicketDetail = () => {
         setUser(userRes.data);
 
         loadingModal.close();
+        tourInit();
     }
 
     const ratingDetailModal = useModal<any>(Modals.RatingDetailsModal);
@@ -216,7 +222,7 @@ export const TicketDetail = () => {
                         Link de la pagina oficial del evento <ExternalLinkIcon mx='2px' />
                     </Link>
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
-                    <VStack>
+                    <VStack id="contact-seller">
                         <Text textAlign={"center"}>Si deseas adquirir la entrada, ponte en contacto con el vendedor. Al dar click te enviaremos un correo con el nombre y numero celular del vendedor</Text>
                         <MyButton textColor="white" 
                                 backgroundColor="secondary.default" 
