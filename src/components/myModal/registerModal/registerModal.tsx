@@ -9,6 +9,8 @@ import Session from "../../../utils/session";
 import { useDispatch } from "react-redux";
 import { onLogin } from "../../../store/auth/authAction";
 import { ErrorType } from "../../../utils/enums/errorType.enum";
+import { useModal } from "../../../config/modal/use-modal";
+import { Modals } from "../../../config/modal/modal-config";
 
 export const RegisterModal = (props: Props) => {
     const { register, trigger: registerTrigger, getValues: registerGetValues, formState: { errors }, clearErrors } = useForm();
@@ -16,6 +18,18 @@ export const RegisterModal = (props: Props) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     //const dateRef = useRef<any>();
+
+    const registerModal = useModal<any>(Modals.LoginModal);
+    const openLogin = () => {
+        registerModal.open({
+            onSave: () => {
+                registerModal.close();
+            },
+            onClose: () => {
+                registerModal.close();
+            }
+        });
+    }
 
     const bodyComponents = () => {
         //validate: (value) =>  value.setFullYear(value.getFullYear() + 18)<=new Date() || "Debes ser mayor de edad"
@@ -27,6 +41,9 @@ export const RegisterModal = (props: Props) => {
                     <Input placeholder='Correo Electronico' {...register("email", {required: "El Correo electronico es obligatorio", validate: (value) => { return !!value.trim()}, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electronico debe ser un email valido" }, maxLength: {value: 150, message: "El Correo electronico no debe tener mas de 150 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.email?.message != null) ? true : false}/>
                     <Input placeholder='Contraseña' type="password" {...register("password", {required: "La Contraseña es obligatorio", validate: (value) => { return !!value.trim()}, minLength: {value: 8, message: "La Contraseña debe tener minimo 8 caracteres"}, maxLength: {value: 50, message: "La Contraseña debe tener maximo 30 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.password?.message != null) ? true : false}/>
                     <Input placeholder='Confirmar Contraseña' type="password" {...register("confirmPassword", {required: "El Confirmar contraseña es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.confirmPassword?.message != null) ? true : false}/>
+                    <VStack textAlign={"center"} gap={1}>
+                        <Text fontSize={"15px"}>¿Ya tienes una cuenta? <strong onClick={openLogin} style={{cursor: "pointer"}}>Inicia sesion aquí</strong></Text>
+                    </VStack>
                 </VStack>;
     }
 
