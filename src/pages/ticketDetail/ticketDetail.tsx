@@ -81,7 +81,7 @@ export const TicketDetail = () => {
     }
 
     useEffect(() => {
-        loadingModal.open({title: "Cargando el detalle del ticket"});
+        loadingModal.open({title: "Cargando el detalle de la entrada"});
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         onLoadData();
         tourInit();

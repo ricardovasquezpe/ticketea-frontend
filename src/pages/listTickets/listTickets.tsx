@@ -26,7 +26,7 @@ export const ListTickets = () => {
     const loginModal = useModal<any>(Modals.LoginModal);
 
     useEffect(() => {
-        loadingModal.open({title: "Cargando los tickets"});
+        loadingModal.open({title: "Cargando las entradas"});
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         onLoadData();
     }, []);
