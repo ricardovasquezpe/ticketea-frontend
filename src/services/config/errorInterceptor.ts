@@ -6,6 +6,7 @@ const errorInterceptor = (axiosInstance: any) => {
     axiosInstance.interceptors.response.use((response: any) => {
         return response;
     },(error: any) => {
+        console.log(error);
         if(error.code == "ERR_NETWORK" || error.code ==  "ECONNABORTED"){
             const errorModal = useModal<any>(Modals.ErrorModal);
             errorModal.open({
@@ -19,7 +20,7 @@ const errorInterceptor = (axiosInstance: any) => {
             const errorModal = useModal<any>(Modals.ErrorModal);
             errorModal.open({
                 title: "Algo esta pasando",
-                description: "Hubo un error con nuestros servidores, porfavor recargar la página e intentar nuevamente, gracias"
+                description: "Hubo un error con nuestros servidores, porfavor recargar la página e intentar nuevamente, gracias" + error
             });
         }
     });
