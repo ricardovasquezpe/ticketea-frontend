@@ -292,7 +292,7 @@ export const TicketDetail = () => {
                                             </GridItem>
                                             <GridItem colSpan={{base: 2, sm: 2, customMd: 2, customLg: 1, customXl: 1}} textAlign={"center"}>
                                                 <HStack>
-                                                    <Link color='#4CAF50' onClick={openTickeaProtect}>
+                                                    <Link color='#4CAF50' onClick={openTickeaProtect} fontFamily={"montserratBold"}>
                                                         TicketeaProtect
                                                     </Link>
                                                     <FontAwesomeIcon color='#4CAF50' style={{marginTop: "-5px"}} icon={faShieldHeart} size="xl"/>

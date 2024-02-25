@@ -95,39 +95,43 @@ export const HowItWorks = () => {
             </Box>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <VStack gap={6}>
-                    <HStack>
-                        <Text fontSize={"30px"}>Tu seguridad con </Text>
-                        <Text fontSize={"30px"} color='#4CAF50'>TicketeaProtect</Text>
-                        <FontAwesomeIcon color='#4CAF50' style={{marginTop: "-5px"}} icon={faShieldHeart} size="xl"/>
+                    <HStack textAlign={"center"}>
+                        <Text fontSize={"30px"}>Tu seguridad con <Text display={"inline-block"} fontFamily={"montserratBold"} fontSize={"30px"} color='#4CAF50'>TicketeaProtect</Text> <FontAwesomeIcon color='#4CAF50' style={{marginTop: "-5px"}} icon={faShieldHeart}/></Text>
                     </HStack>
                     <Box textAlign={"center"}>
                         <Text fontSize={"23px"}>TicketProtect es un sistema integrado que valida la identificación del vendedor con diferentes metodos</Text>
                         <Text fontSize={"16px"} color={"white.half"} marginTop={"10px"}> * No permitimos que el vendedor cambie sus datos mas de 2 vecez asi aseguramos que el vendedor siempre sea verificado</Text>
                     </Box>
                     <MyContainer>
-                    <VStack gap={7} margin={"20px"} width={"100%"}>
-                        <HStack gap={5} width={"100%"}>
-                            <FontAwesomeIcon color="#959595" style={{marginTop: "-5px"}} icon={faIdCard} size="2x"/>
-                            <Box>
-                                <Text fontSize={"20px"}>Validación del DNI físico con RENIEC</Text>
-                                <Text color={"white.half"}>Se escanea el DNI físico (frontal y posterior) y se valida con el sistema de RENIEC para verificar la veracidad de los datos ingresados por el vendedor</Text>  
-                            </Box>
-                        </HStack>
-                        <HStack gap={5} width={"100%"}>
-                            <FontAwesomeIcon color="#959595" style={{marginTop: "-5px"}} icon={faAddressBook} size="2x"/>
-                            <Box>
-                                <Text fontSize={"20px"}>Validación de cada uno de sus datos</Text>
-                                <Text color={"white.half"}>Se requiere al vendedor cada uno de sus datos como nombres completos, fecha de nacimiento, DNI, foto de perfil, etc. Y validamos que todos los datos coincidan con su documento de identificación</Text>  
-                            </Box>
-                        </HStack>
-                        <HStack gap={5} width={"100%"}>
-                            <FontAwesomeIcon color="#959595" style={{marginTop: "-5px"}} icon={faAt} size="2x"/>
-                            <Box>
-                                <Text fontSize={"20px"}>Validación del número celular y correo electrónico (no spams)</Text>
-                                <Text color={"white.half"}>Se confirma que el numero celular y correo electronico sean los correctos y los pertenecientes al vendedor</Text>  
-                            </Box>
-                        </HStack>
-                    </VStack>
+                        <VStack gap={7} width={"100%"} padding={"10px"}>
+                            <Grid templateColumns="repeat(15, 1fr)" gap={5} width={"100%"}>
+                                <GridItem colSpan={{base: 10, sm: 1, md: 1}} textAlign={"center"}>
+                                    <FontAwesomeIcon icon={faIdCard} size="2x"/>
+                                </GridItem>
+                                <GridItem colSpan={{base: 10, sm: 9, md: 14}} textAlign={{base: "center", sm: "start"}}>
+                                    <Text fontSize={"20px"}>Validación del DNI físico con RENIEC</Text>
+                                    <Text color={"white.half"}>Se escanea el DNI físico (frontal y posterior) y se valida con el sistema de RENIEC para verificar la veracidad de los datos ingresados por el vendedor</Text>  
+                                </GridItem>
+                            </Grid>
+                            <Grid templateColumns="repeat(15, 1fr)" gap={5} width={"100%"}>
+                                <GridItem colSpan={{base: 10, sm: 1, md: 1}} textAlign={"center"}>
+                                    <FontAwesomeIcon icon={faAddressBook} size="2x"/>
+                                </GridItem>
+                                <GridItem colSpan={{base: 10, sm: 9, md: 14}} textAlign={{base: "center", sm: "start"}}>
+                                    <Text fontSize={"20px"}>Validación de cada uno de sus datos</Text>
+                                    <Text color={"white.half"}>Se requiere al vendedor cada uno de sus datos como nombres completos, fecha de nacimiento, DNI, foto de perfil, etc. Y validamos que todos los datos coincidan con su documento de identificación</Text>
+                                </GridItem>
+                            </Grid>
+                            <Grid templateColumns="repeat(15, 1fr)" gap={5} width={"100%"}>
+                                <GridItem colSpan={{base: 10, sm: 1, md: 1}} textAlign={"center"}>
+                                    <FontAwesomeIcon icon={faAt} size="2x"/>
+                                </GridItem>
+                                <GridItem colSpan={{base: 10, sm: 9, md: 14}} textAlign={{base: "center", sm: "start"}}>
+                                    <Text fontSize={"20px"}>Validación del número celular y correo electrónico (no spams)</Text>
+                                    <Text color={"white.half"}>Se confirma que el numero celular y correo electronico sean los correctos y los pertenecientes al vendedor</Text>  
+                                </GridItem>
+                            </Grid>
+                        </VStack>
                     </MyContainer>
                 </VStack>
                 <br />
