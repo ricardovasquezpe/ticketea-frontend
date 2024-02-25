@@ -7,6 +7,8 @@ import { faAddressBook, faAt, faCartShopping, faHandshake, faIdCard, faMagnifyin
 import { MyButton } from "../../components/myButton/myButton";
 import { useNavigate } from "react-router-dom";
 import { MyContainer } from "../../components/myContainer/myContainer";
+import { useModal } from "../../config/modal/use-modal";
+import { Modals } from "../../config/modal/modal-config";
 
 export const HowItWorks = () => {
     const imageNumber = useMemo(() => Utils.generateRandom(3, 8), []);
@@ -15,6 +17,19 @@ export const HowItWorks = () => {
     useEffect(() => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }, []);
+
+    const registerModal = useModal<any>(Modals.RegisterModal);
+    const openRegisterModal = () => {
+        registerModal.open({
+            onSave: () => {
+                registerModal.close();
+                navigate("/my-account")
+            },
+            onClose: () => {
+                registerModal.close();
+            }
+        });
+    }
 
     return (
         <>
@@ -134,7 +149,7 @@ export const HowItWorks = () => {
                             title={"Unete ahora!"}
                             fontSize="22px"
                             padding="20px 30px 20px 30px"
-                            onClick={()=>{navigate("/")}}/>
+                            onClick={openRegisterModal}/>
                 </VStack>
             </Box>
         </>
