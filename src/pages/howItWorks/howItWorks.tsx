@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
+import Session from "../../utils/session";
 
 export const HowItWorks = () => {
     const imageNumber = useMemo(() => Utils.generateRandom(3, 8), []);
@@ -20,6 +21,11 @@ export const HowItWorks = () => {
 
     const registerModal = useModal<any>(Modals.RegisterModal);
     const openRegisterModal = () => {
+        if(Session.isLoggedIn()){
+            navigate("/my-account");
+            return;
+        }
+        
         registerModal.open({
             onSave: () => {
                 registerModal.close();
