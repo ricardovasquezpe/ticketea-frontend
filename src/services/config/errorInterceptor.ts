@@ -11,7 +11,7 @@ const errorInterceptor = (axiosInstance: any) => {
             const errorModal = useModal<any>(Modals.ErrorModal);
             errorModal.open({
                 title: "Algo esta pasando",
-                description: "Hubo un error con nuestros servidores, porfavor recargar la página e intentar nuevamente, gracias"
+                description: "Hubo un error con nuestros servidores, porfavor recargar la página e intentar nuevamente, gracias" + error
             });
         } else if(error.response.status === 401) {
             Session.clearUserToken();
