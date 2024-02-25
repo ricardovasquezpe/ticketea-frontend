@@ -8,7 +8,7 @@ import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 export const FileUploader = (props: Props) => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const { getRootProps, getInputProps } = useDropzone({
-        maxSize: 3000000,
+        maxSize: 10000000,
         maxFiles: props.maxFiles,
         accept: props.acceptFiles,
         multiple: props.multiple,
