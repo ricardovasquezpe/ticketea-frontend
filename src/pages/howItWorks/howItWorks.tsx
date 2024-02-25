@@ -1,26 +1,57 @@
-import { Box, Text, VStack } from "@chakra-ui/react";
-import { ReturnButton } from "../../components/returnButton/returnButton";
-import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
-import { MyContainer } from "../../components/myContainer/myContainer";
-import { useEffect } from "react";
+import { Box, Center, Grid, GridItem, Text, VStack } from "@chakra-ui/react";
+import { useEffect, useMemo } from "react";
+import styles from "./howItWorks.module.css";
+import Utils from "../../utils/utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping, faMagnifyingGlass, faTicket } from "@fortawesome/free-solid-svg-icons";
 
 export const HowItWorks = () => {
+    const imageNumber = useMemo(() => Utils.generateRandom(3, 8), []);
+
     useEffect(() => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }, []);
-    
+
     return (
         <>
-            <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
-                <VStack align='stretch' gap={5}>
-                    <ReturnButton route="/ticket-detail"></ReturnButton>
-                    <SectionTitle title="Terminos y condiciones"/>
-                    <MyContainer>
-                        <Text fontSize={"16px"}>
-                            Los presentes Términos y Condiciones de Uso (en adelante “Términos y Condiciones”) regulan el acceso y la utilización de los usuarios de los servicios brindados por Teledistribución S.A. (en adelante) a través de su página web, (en adelante, la “Página Web”). Los usuarios del mencionado sitio web se encontrarán sujetos a los Términos y Condiciones, junto con todas las demás políticas y principios que rigen la Página Web y que son incorporados al presente por referencia. Los Términos y Condiciones indicados en este documento serán aplicables a cualquier acto celebrado entre cualquier Usuario de la Página Web y . El usuario declara haber leído los presentes Términos y Condiciones, y manifiesta su conformidad y aceptación al momento de hacer uso de la Página Web (en adelante, los “Usuarios”). Cualquier usuario que no acepte o se encuentre en desacuerdo con estos Términos Condiciones, los cuales tienen un carácter obligatorio y vinculante, deberá abstenerse de utilizar la Página Web.
-                        </Text>
-                    </MyContainer>
-                </VStack>
+            <Box className={styles.parent}>
+                <Box className={styles.background} style={{backgroundImage: "url(/images/party-banner-"+imageNumber+".jpg)"}}></Box>
+                <Box paddingBottom={"80px"} paddingTop={"80px"} paddingLeft={"15px"} paddingRight={"15px"}>
+                    <Center textAlign={"center"}>
+                        <VStack gap={14}>
+                            <Text fontSize={"30px"} fontFamily={"montserratBold"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Compra tu entrada con un vendedor verificado y de confianza</Text>
+                            <Grid templateColumns="repeat(6, 1fr)" gap={10} width={"70%"}>
+                                <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
+                                    <VStack gap={5}>
+                                        <Box background={"#0093D3"} borderRadius={"100px"} padding={"22px"}>
+                                            <FontAwesomeIcon icon={faMagnifyingGlass} size="3x"/>
+                                        </Box>
+                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Busca el evento y explora la lista de vendedores verificados</Text>
+                                    </VStack>
+                                </GridItem>
+                                <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
+                                    <VStack gap={5}>
+                                        <Box background={"#0093D3"} borderRadius={"100px"} padding={"22px"}>
+                                            <FontAwesomeIcon icon={faCartShopping} size="3x"/>
+                                        </Box>
+                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Elige al que mas te convenga y compra de manera facil y segura</Text>
+                                    </VStack>
+                                </GridItem>
+                                <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
+                                    <VStack gap={5}>
+                                        <Box background={"#0093D3"} borderRadius={"100px"} padding={"22px"}>
+                                            <FontAwesomeIcon icon={faTicket} size="3x"/>
+                                        </Box>
+                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Asegurate de monimar tu entrada con el vendedor</Text>
+                                    </VStack>
+                                </GridItem>
+                            </Grid>
+                        </VStack>
+                    </Center>
+                </Box>
+            </Box>
+            <Box marginTop={{"base": "-75px", "sm": "-75px", "customMd": "-90px"}} padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
+                
             </Box>
         </>
     );

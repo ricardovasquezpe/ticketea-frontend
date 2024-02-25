@@ -4,7 +4,6 @@ import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { EventCard } from "../../components/eventCard/eventCard";
 import { OrderByMenu } from "../../components/orderByMenu/orderByMenu";
 import { useEffect, useMemo, useState } from "react";
-import styles from "./searchEvent.module.css";
 import { useDispatch } from "react-redux";
 import { onSearch } from "../../store/search/searchAction";
 import { searchEvents } from "../../services/event.service";
@@ -13,6 +12,8 @@ import { ASC_ORDER_BY, DESC_ORDER_BY } from "../../utils/constants";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import { EventDate } from "../../services/models/eventDate.model";
+import Utils from "../../utils/utils";
+import styles from "./searchEvent.module.css";
 
 export const SearchEvent = () => {
     const dispatch = useDispatch();
@@ -22,15 +23,7 @@ export const SearchEvent = () => {
     const [orderByDate, setOrderByDate] = useState(false);
     const [timer, setTimer] = useState(null as any);
     const loadingModal = useModal<any>(Modals.LoadingModal);
-
-    const generateRandom = (min = 0, max = 100) =>{
-        let difference = max - min;
-        let rand = Math.random();
-        rand = Math.floor( rand * difference);
-        rand = rand + min;
-        return rand;
-    }
-    const imageNumber = useMemo(() => generateRandom(3, 8), []);
+    const imageNumber = useMemo(() => Utils.generateRandom(3, 8), []);
 
     useEffect(() => {
         loadingModal.open({title: "Cargando los eventos"});
