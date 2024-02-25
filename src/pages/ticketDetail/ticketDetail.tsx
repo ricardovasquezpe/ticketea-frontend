@@ -222,7 +222,7 @@ export const TicketDetail = () => {
                         Link de la pagina oficial del evento <ExternalLinkIcon mx='2px' />
                     </Link>
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
-                    <VStack id="contact-seller">
+                    <VStack id="contact-seller" gap={5}>
                         <Text textAlign={"center"}>Si deseas adquirir la entrada, ponte en contacto con el vendedor. Al dar click te enviaremos un correo con el nombre y numero celular del vendedor</Text>
                         <MyButton textColor="white" 
                                 backgroundColor="secondary.default" 
