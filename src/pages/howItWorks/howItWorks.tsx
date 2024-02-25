@@ -1,4 +1,4 @@
-import { Box, Center, Grid, GridItem, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, Grid, GridItem, HStack, Text, VStack, useToast } from "@chakra-ui/react";
 import { useEffect, useMemo } from "react";
 import styles from "./howItWorks.module.css";
 import Utils from "../../utils/utils";
@@ -14,6 +14,7 @@ import Session from "../../utils/session";
 export const HowItWorks = () => {
     const imageNumber = useMemo(() => Utils.generateRandom(3, 8), []);
     const navigate = useNavigate();
+    const toast = useToast();
 
     useEffect(() => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
@@ -25,11 +26,21 @@ export const HowItWorks = () => {
             navigate("/my-account");
             return;
         }
-        
+
         registerModal.open({
             onSave: () => {
                 registerModal.close();
-                navigate("/my-account")
+                navigate("/my-account");
+                toast({
+                    title: 'Gracias por registrarte! ahora ya puedes anunciar tus entradas y comprar!',
+                    description: "",
+                    status: 'success',
+                    containerStyle: {
+                        fontSize: "16px"
+                    },
+                    duration: 9000,
+                    isClosable: true,
+                })
             },
             onClose: () => {
                 registerModal.close();
