@@ -89,7 +89,7 @@ export const Footer = () => {
                                   align={"center"} 
                                   fontSize={"15px"} 
                                   color={"white.half"} 
-                                  mb={"10px"}>No pierdas la oportunidad de ver a tu artista favorito</Text>
+                                  mb={"10px"}>{(!isLogin) ? "No pierdas la oportunidad de ver a tu artista favorito de manera facil y segura!" : "¿Tienes una entrada que no usaras o que te sobra? Anuniala y vendela de manera rapida y segura"}</Text>
                             {(!isLogin) ? <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
                                     backgroundColorHover="secondary.dark" 
@@ -109,10 +109,7 @@ export const Footer = () => {
             </Box>
             <Center h='70px' color='white.half'>
                 <HStack>
-                    <Text>Creado con</Text>
-                    <FontAwesomeIcon icon={faHeart} className={styles.pulseHeart}/>
-                    <Text>por</Text>
-                    <Text>Ticketea @{new Date().getFullYear()}</Text>
+                    <Text>Creado con <FontAwesomeIcon icon={faHeart} className={styles.pulseHeart}/> por Ticketea@{new Date().getFullYear()}</Text>
                 </HStack>
             </Center>
         </>

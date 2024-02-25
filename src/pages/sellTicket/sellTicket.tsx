@@ -70,7 +70,7 @@ export const SellTicket = () => {
             return;
         }
 
-        const isValid = await sellTrigger(["event", "price", "zone", "seat"], { shouldFocus: true });
+        const isValid = await sellTrigger(["event", "zone", "price", "seat"], { shouldFocus: true });
         if(!isValid){
             //setErrorMessage(Object.values(errors)[0]?.message);
             return;

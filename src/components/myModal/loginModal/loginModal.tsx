@@ -53,6 +53,7 @@ export const LoginModal = (props: Props) => {
                     <InputGroup size='md'>
                         <Input
                             pr='4.5rem'
+                            onKeyPress={(e)=>{if(e.key === 'Enter') loginAction()}}
                             type={showPassword ? 'text' : 'password'}
                             placeholder='Contraseña'
                             {...login("password", {required: "La Contraseña es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} 

@@ -10,6 +10,7 @@ import { MyContainer } from "../../components/myContainer/myContainer";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import Session from "../../utils/session";
+import { StarIcon } from "@chakra-ui/icons";
 
 export const HowItWorks = () => {
     const imageNumber = useMemo(() => Utils.generateRandom(3, 8), []);
@@ -59,7 +60,7 @@ export const HowItWorks = () => {
                             <Grid templateColumns="repeat(6, 1fr)" gap={10} width={"70%"}>
                                 <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                                     <VStack gap={5}>
-                                        <Box background={"#0093D3"} borderRadius={"100px"} padding={"22px"}>
+                                        <Box background={"secondary.dark"} borderRadius={"0.625rem"} padding={"22px"}>
                                             <FontAwesomeIcon icon={faMagnifyingGlass} size="3x"/>
                                         </Box>
                                         <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Busca el evento y explora la lista de vendedores verificados</Text>
@@ -67,18 +68,19 @@ export const HowItWorks = () => {
                                 </GridItem>
                                 <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                                     <VStack gap={5}>
-                                        <Box background={"#0093D3"} borderRadius={"100px"} padding={"22px"}>
+                                        <Box background={"secondary.dark"} borderRadius={"0.625rem"} padding={"22px"}>
                                             <FontAwesomeIcon icon={faCartShopping} size="3x"/>
                                         </Box>
-                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Elige al que mas te convenga y compra de manera facil y segura</Text>
+                                        {/*<Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Elige al que mas te convenga y compra de manera facil y segura</Text> */}
+                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Elige al que mas te convenga y contactate con el vendedor</Text>
                                     </VStack>
                                 </GridItem>
                                 <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                                     <VStack gap={5}>
-                                        <Box background={"#0093D3"} borderRadius={"100px"} padding={"22px"}>
+                                        <Box background={"secondary.dark"} borderRadius={"0.625rem"} padding={"22px"}>
                                             <FontAwesomeIcon icon={faTicket} size="3x"/>
                                         </Box>
-                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Asegurate de monimar tu entrada con el vendedor</Text>
+                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Asegurate de monimar tu entrada con el vendedor y disfruta del evento!</Text>
                                     </VStack>
                                 </GridItem>
                             </Grid>
@@ -137,7 +139,7 @@ export const HowItWorks = () => {
                 <br />
                 <br />
                 <VStack gap={6}>
-                    <Text textAlign={"center"} fontSize={"30px"} marginBottom={"10px"}>Sé un vendedor <Text display={"inline-block"} color={"gold.default"}>verificado!</Text></Text>
+                    <Text textAlign={"center"} fontSize={"30px"} marginBottom={"10px"}>Sé un vendedor <Box display={"inline-block"} borderRadius={"0.625rem"} paddingLeft={"10px"} paddingRight={"10px"} background={"gold.default"}><Text color={"black"}>verificado <StarIcon marginTop={"-5px"} color={"#323232"} boxSize={5}/></Text></Box></Text>
                     <Grid templateColumns="repeat(6, 1fr)" gap={10} width={"100%"}>
                         <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                             <MyContainer>
@@ -159,7 +161,7 @@ export const HowItWorks = () => {
                             <MyContainer>
                                 <VStack gap={5} padding={"15px"} textAlign={"center"}>
                                     <FontAwesomeIcon icon={faHandshake} size="3x"/>
-                                    <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Nomina la entrada con el comprador y recibe el dinero en tu cuenta bancaria</Text>
+                                    <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Nomina la entrada con el comprador y sigue teniendo mas ventas</Text>
                                 </VStack>
                             </MyContainer>
                         </GridItem>

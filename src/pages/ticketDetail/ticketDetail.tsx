@@ -286,19 +286,12 @@ export const TicketDetail = () => {
                                     
                                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
                                     <Box id="ticketeaSecure">
-                                        <Grid templateColumns='repeat(2, 1fr)'>
-                                            <GridItem colSpan={{base: 2, sm: 2, customMd: 1, customLg: 1, customXl: 1}} textAlign={"center"}>
-                                                <Text>Validado por</Text>
-                                            </GridItem>
-                                            <GridItem colSpan={{base: 2, sm: 2, customMd: 2, customLg: 1, customXl: 1}} textAlign={"center"}>
-                                                <HStack>
-                                                    <Link color='#4CAF50' onClick={openTickeaProtect} fontFamily={"montserratBold"}>
-                                                        TicketeaProtect
-                                                    </Link>
-                                                    <FontAwesomeIcon color='#4CAF50' style={{marginTop: "-5px"}} icon={faShieldHeart} size="xl"/>
-                                                </HStack>
-                                            </GridItem>
-                                        </Grid>
+                                        <Text>Validado por 
+                                            <Link display={"inline-block"} color='#4CAF50' onClick={openTickeaProtect} fontFamily={"montserratBold"} marginLeft={"5px"}>
+                                                TicketeaProtect
+                                                <FontAwesomeIcon color='#4CAF50' style={{marginTop: "-5px"}} icon={faShieldHeart} size="xl"/>
+                                            </Link>            
+                                        </Text>
                                     </Box>
                                 </VStack>
                             </VStack>

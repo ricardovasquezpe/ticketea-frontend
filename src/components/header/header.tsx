@@ -1,5 +1,5 @@
 import styles from './header.module.css'
-import {  Image, Flex,  HStack , chakra, Hide, Text, Box, useToast } from '@chakra-ui/react';
+import {  Image, Flex,  HStack , chakra, Hide, Text, Box, useToast, Link as ChakraLink } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MobileDrawer } from './mobile-drawer';
 import { useModal } from '../../config/modal/use-modal';
@@ -165,7 +165,7 @@ export const Header = () => {
                         <Hide below='sm'>
                             <Image src={"/images/logo.png"} h="32px"/>
                         </Hide>
-                        <Text fontSize={"26px"} fontFamily={"MontserratBold"}>ticketea</Text>
+                        <ChakraLink as={Link} to='/' style={{textDecoration:"none"}} fontSize={"26px"} fontFamily={"MontserratBold"}>ticketea</ChakraLink>
                     </HStack>
                 </Box>
                 <Hide below='md'>

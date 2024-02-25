@@ -7,7 +7,7 @@ export const TicketeaProtectModal = (props: Props) => {
     const bodyComponents = () => {
         return  <Box>
                     <Box textAlign={"center"}>
-                        <Text fontSize={"20px"}>TicketProtect es un sistema integrado que valida la identificación del vendedor con diferentes metodos</Text>
+                        <Text fontSize={"20px"}>Es un sistema integrado que valida la identificación del vendedor con diferentes metodos</Text>
                     </Box>
                     <VStack gap={4} margin={"20px"}>
                         <HStack gap={5}>
@@ -37,7 +37,7 @@ export const TicketeaProtectModal = (props: Props) => {
 
     const titleComponents = () => {
         return <Box>
-                    <Text marginBottom={"20px"} fontSize={"22px"}>¿Qué es TicketeaProtect?</Text>
+                    <Text marginBottom={"20px"} fontSize={"22px"}>¿Qué es <Text display={"inline-block"} fontFamily={"montserratBold"}>TicketeaProtect</Text>?</Text>
                     <Box position='relative' padding='10'>
                         <Divider borderColor={"green.default"}/>
                         <AbsoluteCenter borderRadius={"0.625rem"} bg='#4CAF50' px='2' padding={2}>
