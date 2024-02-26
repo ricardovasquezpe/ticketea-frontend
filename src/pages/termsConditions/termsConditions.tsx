@@ -13,7 +13,6 @@ export const TermsConditions = () => {
         <>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <VStack align='stretch' gap={5}>
-                    <ReturnButton route="/ticket-detail"></ReturnButton>
                     <SectionTitle title="Terminos y condiciones"/>
                     <MyContainer>
                         <VStack gap={3} alignItems={"start"} fontSize={"16px"}>
@@ -26,7 +25,7 @@ export const TermsConditions = () => {
                             </Text>
                             <Text>
                                 <Text fontWeight={"bold"}>Registro y Cuenta de Usuario</Text>
-                                Para utilizar algunos servicios de [Nombre del Sitio Web], puede ser necesario registrarse y crear una cuenta. Usted es responsable de mantener la confidencialidad de su cuenta y contraseña, así como de todas las actividades que ocurran bajo su cuenta.
+                                Para utilizar algunos servicios de Ticketea, puede ser necesario registrarse y crear una cuenta. Usted es responsable de mantener la confidencialidad de su cuenta y contraseña, así como de todas las actividades que ocurran bajo su cuenta.
                             </Text>
                             <Text>
                                 <Text fontWeight={"bold"}>Uso de la Plataforma</Text>
@@ -40,7 +39,7 @@ export const TermsConditions = () => {
                             </Text>
                             <Text>
                                 <Text fontWeight={"bold"}>Indemnización</Text>
-                                Usted acuerda indemnizar y eximir de responsabilidad a [Nombre del Sitio Web], sus directores, empleados, y agentes, contra cualquier reclamo, pérdida, daño, responsabilidad, coste, o gasto (incluyendo honorarios legales) que surjan de su uso de nuestra plataforma, su violación de estos Términos, o su violación de cualquier derecho de terceros.
+                                Usted acuerda indemnizar y eximir de responsabilidad a Ticketea, sus directores, empleados, y agentes, contra cualquier reclamo, pérdida, daño, responsabilidad, coste, o gasto (incluyendo honorarios legales) que surjan de su uso de nuestra plataforma, su violación de estos Términos, o su violación de cualquier derecho de terceros.
                             </Text>
                             <Text>
                                 <Text fontWeight={"bold"}>Modificaciones a los Términos y Condiciones</Text>
