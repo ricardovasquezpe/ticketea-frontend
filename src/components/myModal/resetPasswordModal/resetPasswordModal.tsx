@@ -34,7 +34,7 @@ export const ResetPasswordModal = (props: Props) => {
         }
 
         toast({
-            title: 'Le llegará un correo electronico con un link para restablecer su contraseña',
+            title: 'Le llegará un correo electrónico con un link para restablecer su contraseña',
             description: "",
             status: 'success',
             containerStyle: {
@@ -50,9 +50,9 @@ export const ResetPasswordModal = (props: Props) => {
     const bodyComponents = () => {
         return  <VStack justifyContent={"stretch"} alignItems={"start"} gap={3} marginBottom={"10px"}>
                     <Input type='text' 
-                            placeholder='Correo Electronico'
-                            {...resetPassword("email", {required: "El Correo electronico es obligatorio", pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electronico debe ser un email valido" }, maxLength: {value: 150, message: "El Correo electronico no debe tener mas de 150 caracteres"}})} isInvalid={(errors?.email?.message != null) ? true : false}/>
-                    <Text color={"white.half"} fontSize={"14px"}>* Te llegará un correo electronico con una link para restablecer tu contraseña</Text>
+                            placeholder='Correo Electrónico'
+                            {...resetPassword("email", {required: "El Correo electrónico es obligatorio", pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electrónico debe ser un email valido" }, maxLength: {value: 150, message: "El Correo electrónico no debe tener mas de 150 caracteres"}})} isInvalid={(errors?.email?.message != null) ? true : false}/>
+                    <Text color={"white.half"} fontSize={"14px"}>* Te llegará un correo electrónico con una link para restablecer tu contraseña</Text>
                     <VStack width={"100%"} marginTop={"10px"}>
                         <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 

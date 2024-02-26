@@ -107,7 +107,7 @@ export const SearchEvent = () => {
                     </> : 
                     <Box className={styles.containerNoResults}>
                         <span className={styles.noResultsTitle}>
-                            Hay más de 200 eventos en el Perú al año (conciertos, stand up, etc) y con <Text fontFamily={"montserratBold"} display={"inline-block"}>Ticketea</Text> podrás ir a cada uno de ellos de manera segura y sin preocuparte de las estafas
+                            Hay más de 200 eventos en el Perú al año (conciertos, partidos, stand up, etc) y con <Text fontFamily={"montserratBold"} display={"inline-block"}>Ticketea</Text> podrás ir a cada uno de ellos de manera segura y sin preocuparte de las estafas
                         </span>
                     </Box>
                 }

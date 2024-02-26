@@ -7,7 +7,7 @@ export const TicketeaProtectModal = (props: Props) => {
     const bodyComponents = () => {
         return  <Box>
                     <Box textAlign={"center"}>
-                        <Text fontSize={"20px"}>Es un sistema integrado que valida la identificación del vendedor con diferentes metodos</Text>
+                        <Text fontSize={"20px"}>Es un sistema integrado que valida la identificación del vendedor con diferentes métodos</Text>
                     </Box>
                     <VStack gap={4} margin={"20px"}>
                         <HStack gap={5}>
@@ -21,14 +21,14 @@ export const TicketeaProtectModal = (props: Props) => {
                             <FontAwesomeIcon color="#959595" style={{marginTop: "-5px"}} icon={faAddressBook} size="2x"/>
                             <Box>
                                 <Text>Validación de cada uno de sus datos</Text>
-                                <Text fontSize={15} color={"white.half"}>Se requiere cada uno de sus datos como nombres completos, fecha de nacimiento y direccion del domicilio</Text>  
+                                <Text fontSize={15} color={"white.half"}>Se requiere cada uno de sus datos como nombres completos, fecha de nacimiento, DNI, dirección del domicilio</Text>  
                             </Box>
                         </HStack>
                         <HStack gap={5}>
                             <FontAwesomeIcon color="#959595" style={{marginTop: "-5px"}} icon={faAt} size="2x"/>
                             <Box>
                                 <Text>Validación del número celular y correo electrónico (no spams)</Text>
-                                <Text fontSize={15} color={"white.half"}>Se confirma que el numero celular y correo electronico sean los correctos y los pertenecientes al vendedor</Text>  
+                                <Text fontSize={15} color={"white.half"}>Se valida que el número celular y correo electrónico sean los correctos y los pertenecientes al vendedor</Text>  
                             </Box>
                         </HStack>
                     </VStack>

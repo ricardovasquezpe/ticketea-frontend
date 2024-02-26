@@ -79,7 +79,7 @@ export const ValidatePersonalDocModal = (props: Props) => {
 
     const bodyComponents = () => {
         return  <VStack justifyContent={"stretch"} alignItems={"start"} gap={3} marginBottom={"10px"}>
-                    <Text color={"white.half"} fontSize={"14px"}>Compararemos los datos de tu documento de identidad con tus datos basicos y con el servicio de RENIEC</Text>
+                    <Text color={"white.half"} fontSize={"14px"}>Compararemos los datos de tu documento de identidad con tus datos básicos y con el servicio de RENIEC</Text>
                     <Center width={"100%"}>
                         <VStack gap={3} width={"100%"}>
                             <Text color={"white"} fontSize={"16px"}>Parte frontal</Text>

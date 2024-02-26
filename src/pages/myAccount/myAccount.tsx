@@ -105,7 +105,7 @@ export const MyAccount = () => {
             setUser(res.data);
             validateEmailModal.close();
             toast({
-                title: 'Correo Electronico validado correctamente',
+                title: 'Correo Electrónico validado correctamente',
                 description: "",
                 status: 'success',
                 containerStyle: {
@@ -225,19 +225,19 @@ export const MyAccount = () => {
                             <Box width={"100%"}>
                                 <Grid templateColumns="repeat(4, 1fr)" gap={3}> 
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Nombres" {...userData("name", {required: "Los Nombres es obligatorio", maxLength: {value: 100, message: "Los Nombres no debe ser tener de 100 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.name?.message != null) ? true : false}></Input>
+                                        <Input placeholder="Nombres" {...userData("name", {required: "Los Nombres es obligatorio", maxLength: {value: 100, message: "Los Nombres no debe tener más de 100 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.name?.message != null) ? true : false}></Input>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Apellido Paterno" {...userData("lastNameFather", {required: "El apellido paterno es obligatorio", maxLength: {value: 100, message: "El apellido paterno no debe tener mas de 100 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameFather?.message != null) ? true : false}></Input>
+                                        <Input placeholder="Apellido Paterno" {...userData("lastNameFather", {required: "El apellido paterno es obligatorio", maxLength: {value: 100, message: "El apellido paterno no debe tener más de 100 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameFather?.message != null) ? true : false}></Input>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="Apellido Materno" {...userData("lastNameMother", {required: "El apellido materno es obligatorio", maxLength: {value: 100, message: "El apellido materno no debe tener mas de 100 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameMother?.message != null) ? true : false}></Input>
+                                        <Input placeholder="Apellido Materno" {...userData("lastNameMother", {required: "El apellido materno es obligatorio", maxLength: {value: 100, message: "El apellido materno no debe tener más de 100 caracteres"}, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameMother?.message != null) ? true : false}></Input>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
                                         <Input placeholder="Fecha de nacimiento" type="date" {...userData("birthDate", {required: "La Fecha de nacimiento es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
                                     </GridItem>
                                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
-                                        <Input placeholder="DNI" {...userData("personalDocument", {required: "El DNI es obligatorio", pattern: { value: /^\d{8}$/, message: "El DNI debe tener 8 digitos" }, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.personalDocument?.message != null) ? true : false}></Input>
+                                        <Input placeholder="DNI" {...userData("personalDocument", {required: "El DNI es obligatorio", pattern: { value: /^\d{8}$/, message: "El DNI debe tener 8 dígitos" }, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.personalDocument?.message != null) ? true : false}></Input>
                                     </GridItem>
                                 </Grid>
                                 <Text marginTop={"10px"} color={"white.half"} fontSize={"14px"}>* Recuerda que solo podras editar tus datos 2 vecez</Text>
@@ -265,7 +265,7 @@ export const MyAccount = () => {
                             <MyContainer>
                                 <HStack justifyContent={"space-between"}>
                                     <HStack>
-                                        <Text fontSize={"16px"}>Celular</Text>
+                                        <Text fontSize={"16px"}>Número Celular</Text>
                                         {(user.userValidations?.find((val) => val.type == UserValidationType.PhoneVerified && val.validated)) ? 
                                             <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
                                             <></>}
@@ -284,7 +284,7 @@ export const MyAccount = () => {
                             <MyContainer>
                                 <HStack justifyContent={"space-between"}>
                                     <HStack>
-                                        <Text fontSize={"16px"}>Correo Electronico</Text>
+                                        <Text fontSize={"16px"}>Correo Electrónico</Text>
                                         {(user.userValidations?.find((val) => val.type == UserValidationType.EmailVerified && val.validated)) ? 
                                             <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
                                             <></>}

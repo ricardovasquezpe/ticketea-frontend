@@ -49,7 +49,7 @@ export const Header = () => {
           onSave: () => {
             registerModal.close();
             toast({
-                title: 'Gracias por registrarte! ahora ya puedes anunciar tus entradas y comprar!',
+                title: 'Gracias por registrarte! Ahora ya puedes anunciar tus entradas y comprar!',
                 description: "",
                 status: 'success',
                 containerStyle: {
@@ -83,13 +83,13 @@ export const Header = () => {
         },
         {
             id: 4,
-            label: "Registrate Ya!",
+            label: "Regístrate Ya!",
             onClick: displayRegisterModal, 
             type: "button"
         },
         {
             id: 3,
-            label: "Iniciar Sesion",
+            label: "Ingresar",
             onClick: displayLoginModal, 
             type: "linkButton"
         }

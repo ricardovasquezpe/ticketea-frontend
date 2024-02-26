@@ -26,7 +26,7 @@ export const ListTickets = () => {
     const loginModal = useModal<any>(Modals.LoginModal);
 
     useEffect(() => {
-        loadingModal.open({title: "Cargando las entradas"});
+        loadingModal.open({title: "Cargando los tickets"});
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         onLoadData();
     }, []);
@@ -133,7 +133,7 @@ export const ListTickets = () => {
                         <Box className={styles.containerNoResults}>
                             <VStack gap={6}>
                                 <Text className={styles.noResultsTitle}>
-                                    Sé el primero en vender una entrada de este evento de manera segura y rápida
+                                    Sé el primero en vender una entrada de este evento de manera segura y fácil
                                 </Text>
                                 <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 

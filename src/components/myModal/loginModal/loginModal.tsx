@@ -47,8 +47,8 @@ export const LoginModal = (props: Props) => {
 
     const bodyComponents = () => {
         return <VStack gap={3}>
-                    <Input placeholder='Correo Electronico' 
-                            {...login("email", {required: "El Correo electronico es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim(), pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electronico debe ser un email valido" }})} 
+                    <Input placeholder='Correo Electrónico' 
+                            {...login("email", {required: "El Correo electrónico es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim(), pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electrónico debe ser un email valido" }})} 
                             isInvalid={(errors?.email?.message != null) ? true : false}/>
                     <InputGroup size='md'>
                         <Input
@@ -63,7 +63,7 @@ export const LoginModal = (props: Props) => {
                         </InputRightElement>
                     </InputGroup>
                     <VStack textAlign={"center"} gap={1}>
-                        <Text fontSize={"15px"}>¿Aun no tienes una cuenta? <strong onClick={openRegister} style={{cursor: "pointer"}}>Registrate aquí</strong></Text>
+                        <Text fontSize={"15px"}>¿Aun no tienes una cuenta? <strong onClick={openRegister} style={{cursor: "pointer"}}>Regístrate aquí</strong></Text>
                         <Text color={"white.half"} fontSize={"15px"} cursor={"pointer"} onClick={openResetPassword}>¿Olvidaste tu contraseña?</Text>
                     </VStack>
                 </VStack>;
@@ -121,7 +121,7 @@ export const LoginModal = (props: Props) => {
             closeButton={true}
             onClose={props.onClose} 
             closeOnOverlay={true}
-            titleComponent={<Text fontSize={22}>Iniciar Sesion</Text>}
+            titleComponent={<Text fontSize={22}>Ingresar a Ticketea</Text>}
             bodyComponent={bodyComponents()}
             footerComponent={footerComponents()}/>
     );

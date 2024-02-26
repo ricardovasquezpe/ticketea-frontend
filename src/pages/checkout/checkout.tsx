@@ -26,7 +26,7 @@ export const Checkout = () => {
     const loadingModal = useModal<any>(Modals.LoadingModal);
 
     useEffect(() => {
-        loadingModal.open({title: "Cargando informacion de pago"});
+        loadingModal.open({title: "Cargando información de pago"});
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         onLoadData();
     }, []);

@@ -66,7 +66,7 @@ export const ValidatePhoneModal = (props: Props) => {
 
     const bodyComponents = () => {
         return  <VStack justifyContent={"stretch"} alignItems={"start"} gap={3} marginBottom={"10px"}>
-                    <Text color={"white.half"} fontSize={"14px"}>Podrás enviar un nuevo codigo cada 30 segundos</Text>
+                    <Text color={"white.half"} fontSize={"14px"}>Podrás enviar un nuevo código cada 30 segundos</Text>
                     <Grid templateColumns='repeat(4, 1fr)' gap={3} width={"100%"}>
                         <GridItem colSpan={{base: 4, sm: 3}}>
                             <InputGroup>
@@ -76,7 +76,7 @@ export const ValidatePhoneModal = (props: Props) => {
                                 <Input type='tel' 
                                         placeholder='Numero Celular' 
                                         {...phoneValidation("phone", {required: "El numero celular es obligatorio", 
-                                                                      pattern: { value: /^\d{9}$/, message: "El numero telefonico debe tener 9 digitos" }
+                                                                      pattern: { value: /^\d{9}$/, message: "El número de celular debe tener 9 dígitos" }
                                                                     })} 
                                                             isInvalid={(errors?.phone?.message != null) ? true : false}/>
                             </InputGroup>

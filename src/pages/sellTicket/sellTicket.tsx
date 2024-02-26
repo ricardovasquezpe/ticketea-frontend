@@ -175,7 +175,7 @@ export const SellTicket = () => {
                                         }
                                     </tr>
                                     <tr>
-                                        <td><Text color={"white.half"} fontSize={"16px"}>Correo Electronico</Text></td>
+                                        <td><Text color={"white.half"} fontSize={"16px"}>Correo Electrónico</Text></td>
                                         {
                                             (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.EmailVerified)) ? 
                                             <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 

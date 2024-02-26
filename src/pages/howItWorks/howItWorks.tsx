@@ -33,7 +33,7 @@ export const HowItWorks = () => {
                 registerModal.close();
                 navigate("/my-account");
                 toast({
-                    title: 'Gracias por registrarte! ahora ya puedes anunciar tus entradas y comprar!',
+                    title: 'Gracias por registrarte! Ahora ya puedes anunciar tus entradas y comprar!',
                     description: "",
                     status: 'success',
                     containerStyle: {
@@ -101,7 +101,7 @@ export const HowItWorks = () => {
                         <Text fontSize={"30px"}>Tu seguridad con <Text display={"inline-block"} fontFamily={"montserratBold"} fontSize={"30px"} color='#4CAF50'>TicketeaProtect</Text> <FontAwesomeIcon color='#4CAF50' style={{marginTop: "-5px"}} icon={faShieldHeart}/></Text>
                     </HStack>
                     <Box textAlign={"center"}>
-                        <Text fontSize={"23px"}>TicketProtect es un sistema integrado que valida la identificación del vendedor con diferentes metodos</Text>
+                        <Text fontSize={"23px"}>TicketProtect es un sistema integrado que valida la identificación del vendedor con diferentes métodos</Text>
                         <Text fontSize={"16px"} color={"white.half"} marginTop={"10px"}> * No permitimos que el vendedor cambie sus datos mas de 2 vecez asi aseguramos que el vendedor siempre sea verificado</Text>
                     </Box>
                     <MyContainer>
@@ -130,7 +130,7 @@ export const HowItWorks = () => {
                                 </GridItem>
                                 <GridItem colSpan={{base: 15, sm: 14, md: 14}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
                                     <Text fontSize={"20px"}>Validación del número celular y correo electrónico (no spams)</Text>
-                                    <Text color={"white.half"}>Se confirma que el numero celular y correo electronico sean los correctos y los pertenecientes al vendedor</Text>  
+                                    <Text color={"white.half"}>Se valida que el número celular y correo electrónico sean los correctos y los pertenecientes al vendedor</Text>  
                                 </GridItem>
                             </Grid>
                         </VStack>
@@ -145,7 +145,7 @@ export const HowItWorks = () => {
                             <MyContainer>
                                 <VStack gap={5} padding={"15px"} textAlign={"center"}>
                                     <FontAwesomeIcon icon={faPersonCircleCheck} size="3x"/>
-                                    <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Registrate, llena tus datos basicos y verificate</Text>
+                                    <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Regístrate, llena tus datos básicos y verificate</Text>
                                 </VStack>
                             </MyContainer>
                         </GridItem>

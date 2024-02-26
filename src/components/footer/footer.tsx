@@ -34,7 +34,7 @@ export const Footer = () => {
           onSave: () => {
             registerModal.close();
             toast({
-                title: 'Gracias por registrarte! ahora ya puedes anunciar tus entradas y comprar!',
+                title: 'Gracias por registrarte! Ahora ya puedes anunciar tus entradas y comprar!',
                 description: "",
                 status: 'success',
                 containerStyle: {
@@ -89,11 +89,11 @@ export const Footer = () => {
                                   align={"center"} 
                                   fontSize={"15px"} 
                                   color={"white.half"} 
-                                  mb={"10px"}>{(!isLogin) ? "No pierdas la oportunidad de ver a tu artista favorito de manera facil y segura!" : "¿Tienes una entrada que no usaras o que te sobra? Anuniala y vendela de manera rapida y segura"}</Text>
+                                  mb={"10px"}>{(!isLogin) ? "No pierdas la oportunidad de ver a tu artista favorito de manera facil y segura!" : "¿Tienes una entrada que no usaras o que te sobra? Anunciala y vendela de manera rápida y segura"}</Text>
                             {(!isLogin) ? <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
                                     backgroundColorHover="secondary.dark" 
-                                    title={"Registrate Ya!"}
+                                    title={"Regístrate Ya!"}
                                     fontSize="22px"
                                     padding="20px 30px 20px 30px"
                                     onClick={()=>{displayRegisterModal()}}/> : <MyButton textColor="white" 

@@ -52,7 +52,7 @@ export const TicketDetail = () => {
             await buyTicket(String(ticketId));
             setLoading(false);
             toast({
-                title: 'Revisa tu correo electronico te hemos enviado la información del vendedor!',
+                title: 'Revisa tu correo electrónico te hemos enviado la información del vendedor!',
                 description: "",
                 status: 'success',
                 containerStyle: {
@@ -69,7 +69,7 @@ export const TicketDetail = () => {
                     await buyTicket(String(ticketId));
                     setLoading(false);
                     toast({
-                        title: 'Revisa tu correo electronico te hemos enviado la información del vendedor!',
+                        title: 'Revisa tu correo electrónico te hemos enviado la información del vendedor!',
                         description: "",
                         status: 'success',
                         containerStyle: {
@@ -219,11 +219,11 @@ export const TicketDetail = () => {
                     </HStack>
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
                     <Link color='teal.500' href={(event.event)?event.event.url:""} isExternal>
-                        Link de la pagina oficial del evento <ExternalLinkIcon mx='2px' />
+                        Link de la página oficial del evento <ExternalLinkIcon mx='2px' />
                     </Link>
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
                     <VStack id="contact-seller" gap={5}>
-                        <Text textAlign={"center"}>Si deseas adquirir la entrada, ponte en contacto con el vendedor. Al dar click te enviaremos un correo con el nombre y numero celular del vendedor</Text>
+                        <Text textAlign={"center"}>Si deseas adquirir la entrada, ponte en contacto con el vendedor. Al dar click te enviaremos un correo con el nombre y número celular del vendedor</Text>
                         <MyButton textColor="white" 
                                 backgroundColor="secondary.default" 
                                 backgroundColorHover="secondary.dark" 
@@ -285,7 +285,7 @@ export const TicketDetail = () => {
                                     </HStack>
                                     
                                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
-                                    <Box id="ticketeaSecure">
+                                    <Box id="ticketeaSecure" textAlign={"center"}>
                                         <Text>Validado por 
                                             <Link display={"inline-block"} color='#4CAF50' onClick={openTickeaProtect} fontFamily={"montserratBold"} marginLeft={"5px"}>
                                                 TicketeaProtect
@@ -304,28 +304,42 @@ export const TicketDetail = () => {
                                 <Highlight query='nominar' styles={{ px: '0.5', py: '0.5', bg: 'grey.default' }}>
                                     Para validar que la entrada sea original recomendamos que realices el proceso de nominar la entrada con el vendedor y asegurarte que la entrada tenga tu nombre
                                 </Highlight>
-                                <br />
-                                <Link color='teal.500' href='https://teleticketperu.zendesk.com/hc/es/articles/10212876635163--C%C3%93MO-NOMINAR-MI-TICKET' isExternal>
-                                    Nominar entrada en Teleticket <ExternalLinkIcon mx='2px' />
-                                </Link>
-                                <br />
-                                <Link color='teal.500' href='https://blog.joinnus.com/entradas-nominativas-como-comprar/' isExternal>
-                                    Nominar entrada en Joinus <ExternalLinkIcon mx='2px' />
-                                </Link>
-                                <br />
-                                <Link color='teal.500' href='https://blog.ticketmaster.es/post/que-son-las-entradas-nominales-27129/' isExternal>
-                                    Nominar entrada en TicketMaster <ExternalLinkIcon mx='2px' />
-                                </Link>
+                                <Box marginTop={"7px"}>
+                                    <Link color='teal.500' href='https://teleticketperu.zendesk.com/hc/es/articles/10212876635163--C%C3%93MO-NOMINAR-MI-TICKET' isExternal>
+                                        Nominar entrada en Teleticket <ExternalLinkIcon mx='2px' />
+                                    </Link>
+                                    <br />
+                                    <Link color='teal.500' href='https://blog.joinnus.com/entradas-nominativas-como-comprar/' isExternal>
+                                        Nominar entrada en Joinus <ExternalLinkIcon mx='2px' />
+                                    </Link>
+                                    <br />
+                                    <Link color='teal.500' href='https://blog.ticketmaster.es/post/que-son-las-entradas-nominales-27129/' isExternal>
+                                        Nominar entrada en TicketMaster <ExternalLinkIcon mx='2px' />
+                                    </Link>
+                                </Box>
                             </Box>
                         </MyContainer>
                         <Box marginTop={3}></Box>
                         <MyContainer>
+                            {
+                                /* 
+                                    <Box textAlign={"center"}>
+                                        <Text fontSize={"22px"} fontFamily={"robotoBold"}>Tiempos</Text>
+                                        <Text>Tendras como máximo 2 dias para confirmar o cancelar tu compra, sino la entrada sera devuelta al vendedor</Text>
+                                        <Link color='teal.500' href='/terms-conditions' isExternal>
+                                            Términos y condiciones <ExternalLinkIcon mx='2px' />
+                                        </Link>
+                                    </Box>
+                                */
+                            }
                             <Box textAlign={"center"}>
-                                <Text fontSize={"22px"} fontFamily={"robotoBold"}>Tiempos</Text>
-                                <Text>Tendras como máximo 2 dias para confirmar o cancelar tu compra, sino la entrada sera devuelta al vendedor</Text>
-                                <Link color='teal.500' href='/terms-conditions' isExternal>
-                                    Términos y condiciones <ExternalLinkIcon mx='2px' />
-                                </Link>
+                                <Text fontSize={"22px"} fontFamily={"robotoBold"}>¿Dudas?</Text>
+                                <Text>En caso tengas dudas puedes comunicarte con nosotros a nuestro correo electrónico hola.ticketea@gmail.com</Text>
+                                <Box marginTop={"7px"}>
+                                    <Link color='teal.500' href='/terms-conditions' isExternal>
+                                        Términos y condiciones <ExternalLinkIcon mx='2px' />
+                                    </Link>
+                                </Box>
                             </Box>
                         </MyContainer>
                     </GridItem>
@@ -344,7 +358,36 @@ export const TicketDetail = () => {
                             </AccordionButton>
                             <AccordionPanel pb={4}>
                                 <Text fontSize={16}>
-                                    Recomendamos hacer el proceso de nomincion de la entrada con el vendedor en persona o compartiendo pantalla
+                                    Recomendamos hacer el proceso de nominción de la entrada con el vendedor en persona o compartiendo pantalla, asi te podrás asegurar al 100% que tu eres el nuevo dueño de la entrada
+                                </Text>
+                                <Box marginTop={"7px"}>
+                                    <Link color='teal.500' href='https://teleticketperu.zendesk.com/hc/es/articles/10212876635163--C%C3%93MO-NOMINAR-MI-TICKET' isExternal>
+                                        Nominar entrada en Teleticket <ExternalLinkIcon mx='2px' />
+                                    </Link>
+                                    <br />
+                                    <Link color='teal.500' href='https://blog.joinnus.com/entradas-nominativas-como-comprar/' isExternal>
+                                        Nominar entrada en Joinus <ExternalLinkIcon mx='2px' />
+                                    </Link>
+                                    <br />
+                                    <Link color='teal.500' href='https://blog.ticketmaster.es/post/que-son-las-entradas-nominales-27129/' isExternal>
+                                        Nominar entrada en TicketMaster <ExternalLinkIcon mx='2px' />
+                                    </Link>
+                                </Box>
+                            </AccordionPanel>
+                        </AccordionItem>
+
+                        <AccordionItem border={"none"}>
+                            <h2>
+                                <AccordionButton>
+                                    <Box as="span" flex='1' textAlign='left'>
+                                        <Text>¿Que información tendré del vendedor?</Text>
+                                    </Box>
+                                    <AccordionIcon />
+                                </AccordionButton>
+                            </h2>
+                            <AccordionPanel pb={4}>
+                                <Text fontSize={16}>
+                                    Se te enviará un mensaje a tu correo electrónico,con el que te registraste, con el nombre y número celular del vendedor para que te puedas comunicar con él
                                 </Text>
                             </AccordionPanel>
                         </AccordionItem>
@@ -353,30 +396,14 @@ export const TicketDetail = () => {
                             <h2>
                                 <AccordionButton>
                                     <Box as="span" flex='1' textAlign='left'>
-                                        <Text>¿En cuanto tiempo validan mi pago?</Text>
+                                        <Text>¿Puedo realizar la compra atravez de Ticketea?</Text>
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
                             </h2>
                             <AccordionPanel pb={4}>
                                 <Text fontSize={16}>
-                                    Validaremos el deposito de tu pago en un plazo maximo de 1 dia (24 horas)
-                                </Text>
-                            </AccordionPanel>
-                        </AccordionItem>
-
-                        <AccordionItem border={"none"}>
-                            <h2>
-                                <AccordionButton>
-                                    <Box as="span" flex='1' textAlign='left'>
-                                        <Text>¿Que pasa si no me contacto con el vendedor?</Text>
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={4}>
-                                <Text fontSize={16}>
-                                    Tienes como maximo 2 dias para contactarte con el vendedor para recibir la entrada o hacer el proceso de nominacion
+                                    Por ahora no esta habilitada la opción de compra atravez de Ticketea, pero mantente atento que pronto estará listo!
                                 </Text>
                             </AccordionPanel>
                         </AccordionItem>

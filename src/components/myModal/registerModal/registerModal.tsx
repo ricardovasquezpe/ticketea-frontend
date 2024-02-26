@@ -19,14 +19,14 @@ export const RegisterModal = (props: Props) => {
     const dispatch = useDispatch();
     //const dateRef = useRef<any>();
 
-    const registerModal = useModal<any>(Modals.LoginModal);
+    const loginModal = useModal<any>(Modals.LoginModal);
     const openLogin = () => {
-        registerModal.open({
+        loginModal.open({
             onSave: () => {
-                registerModal.close();
+                loginModal.close();
             },
             onClose: () => {
-                registerModal.close();
+                loginModal.close();
             }
         });
     }
@@ -38,12 +38,12 @@ export const RegisterModal = (props: Props) => {
                     <Input placeholder='Apellido Paterno' {...register("lastNameFather", {required: "El apellido paterno es obligatorio", validate: (value) => { return !!value.trim()}, maxLength: {value: 100, message: "El apellido paterno no debe tener mas de 100 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameFather?.message != null) ? true : false}/>
                     <Input placeholder='Apellido Materno' {...register("lastNameMother", {required: "El apellido materno es obligatorio", validate: (value) => { return !!value.trim()}, maxLength: {value: 100, message: "El apellido materno no debe tener mas de 100 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameMother?.message != null) ? true : false}/>
                     <Input placeholder='Fecha de nacimiento' type="date" {...register("birthDate", {required: "La Fecha de nacimiento es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.birthDate?.message != null) ? true : false}/>
-                    <Input placeholder='Correo Electronico' {...register("email", {required: "El Correo electronico es obligatorio", validate: (value) => { return !!value.trim()}, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electronico debe ser un email valido" }, maxLength: {value: 150, message: "El Correo electronico no debe tener mas de 150 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.email?.message != null) ? true : false}/>
+                    <Input placeholder='Correo Electrónico' {...register("email", {required: "El Correo electrónico es obligatorio", validate: (value) => { return !!value.trim()}, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electrónico debe ser un email valido" }, maxLength: {value: 150, message: "El Correo electrónico no debe tener mas de 150 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.email?.message != null) ? true : false}/>
                     <Input placeholder='Contraseña' type="password" {...register("password", {required: "La Contraseña es obligatorio", validate: (value) => { return !!value.trim()}, minLength: {value: 8, message: "La Contraseña debe tener minimo 8 caracteres"}, maxLength: {value: 50, message: "La Contraseña debe tener maximo 30 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.password?.message != null) ? true : false}/>
                     <Input placeholder='Confirmar Contraseña' type="password" {...register("confirmPassword", {required: "El Confirmar contraseña es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.confirmPassword?.message != null) ? true : false}/>
-                    <Checkbox {...register("termsConditionsAccept", {required: "Aceptar los terminos y condiciones es obligatorio"})}><Link href="/terms-conditions" fontSize={"16px"} isExternal>Acepta los terminos y condiciones</Link></Checkbox>
+                    <Checkbox {...register("termsConditionsAccept", {required: "Aceptar los términos y condiciones es obligatorio"})}><Link href="/terms-conditions" fontSize={"16px"} isExternal>Acepta los términos y condiciones</Link></Checkbox>
                     <VStack textAlign={"center"} gap={1} width={"100%"}>
-                        <Text fontSize={"15px"}>¿Ya tienes una cuenta? <strong onClick={openLogin} style={{cursor: "pointer"}}>Inicia sesion aquí</strong></Text>
+                        <Text fontSize={"15px"}>¿Ya tienes una cuenta? <strong onClick={openLogin} style={{cursor: "pointer"}}>Ingresa aquí</strong></Text>
                     </VStack>
                 </VStack>;
     }
@@ -131,7 +131,7 @@ export const RegisterModal = (props: Props) => {
             closeButton={true}
             onClose={props.onClose} 
             closeOnOverlay={true}
-            titleComponent={<Text fontSize={22}>Registrate</Text>}
+            titleComponent={<Text fontSize={22}>Únete a Ticketea</Text>}
             bodyComponent={bodyComponents()}
             footerComponent={footerComponents()}/>
     );

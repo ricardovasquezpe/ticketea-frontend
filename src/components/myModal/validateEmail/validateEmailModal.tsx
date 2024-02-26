@@ -70,13 +70,13 @@ export const ValidateEmailModal = (props: Props) => {
 
     const bodyComponents = () => {
         return  <VStack justifyContent={"stretch"} alignItems={"start"} gap={3} marginBottom={"10px"}>
-                    <Text color={"white.half"} fontSize={"14px"}>Podrás enviar un nuevo codigo cada 30 segundos</Text>
+                    <Text color={"white.half"} fontSize={"14px"}>Podrás enviar un nuevo código cada 30 segundos</Text>
                     <VStack textAlign={"center"} width={"100%"}>
                         <Text fontSize={"22px"}>{props.currentEmail}</Text>
                         <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
                                     backgroundColorHover="secondary.dark" 
-                                    title={"Enviar Codigo"}
+                                    title={"Enviar Código"}
                                     fontSize="16px"
                                     padding="18px"
                                     onClick={sendEmailValidation}
@@ -137,7 +137,7 @@ export const ValidateEmailModal = (props: Props) => {
             closeButton={true}
             onClose={props.onClose} 
             closeOnOverlay={true}
-            titleComponent={<Text textAlign={"left"} fontSize={"18px"}>Verificar Correo Electronico</Text>}
+            titleComponent={<Text textAlign={"left"} fontSize={"18px"}>Verificar Correo Electrónico</Text>}
             bodyComponent={bodyComponents()}/>
     );
 };
