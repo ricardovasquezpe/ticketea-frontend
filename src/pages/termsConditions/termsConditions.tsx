@@ -49,10 +49,10 @@ export const TermsConditions = () => {
                                 <Text fontWeight={"bold"}>Jurisdicción y Ley Aplicable</Text>
                                 Estos Términos se regirán e interpretarán de acuerdo con las leyes del país de Perú, sin dar efecto a ningún principio de conflictos de leyes. Cualquier disputa relacionada con estos Términos será resuelta exclusivamente en los tribunales de Perú.
                             </Text>
-                            <Text fontWeight={"bold"}>Fecha de la última revisión: 26/02/2024</Text>
                             <Text>
                                 <Text fontWeight={"bold"}>Si tiene alguna pregunta sobre estos Términos, por favor contáctenos a través del correo hola.ticketea@gmail.com</Text>
                             </Text>
+                            <Text>Fecha de la última actualización: 26/02/2024</Text>
                         </VStack>
                     </MyContainer>
                 </VStack>
