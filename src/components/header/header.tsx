@@ -78,7 +78,7 @@ export const Header = () => {
         {
             id: 1,
             label: "Nosotros",
-            url: "/",
+            url: "/about-us",
             type: "link"
         },
         {

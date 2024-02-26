@@ -13,6 +13,7 @@ import { AuthGuard } from "./utils/authGuard"
 import { TermsConditions } from "./pages/termsConditions/termsConditions"
 import { HowItWorks } from "./pages/howItWorks/howItWorks"
 import { ResetPassword } from "./pages/resetPassword/resetPassword"
+import { AboutUs } from "./pages/aboutUs/aboutUs"
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path='/terms-conditions' element={<TermsConditions></TermsConditions>}></Route>
           <Route path='/reset-password/:code' element={<ResetPassword></ResetPassword>}></Route>
           <Route path='/how-works' element={<HowItWorks></HowItWorks>}></Route>
+          <Route path='/about-us' element={<AboutUs></AboutUs>}></Route>
           <Route path="/sell-ticket" element={<AuthGuard><SellTicket></SellTicket></AuthGuard>}/>
           <Route path="/my-tickets" element={<AuthGuard><MyTickets></MyTickets></AuthGuard>}/>
           <Route path="/my-account" element={<AuthGuard><MyAccount></MyAccount></AuthGuard>}/>

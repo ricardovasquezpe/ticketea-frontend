@@ -1,5 +1,4 @@
 import { Box, Text, VStack } from "@chakra-ui/react";
-import { ReturnButton } from "../../components/returnButton/returnButton";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { useEffect } from "react";

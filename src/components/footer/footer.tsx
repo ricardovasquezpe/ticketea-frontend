@@ -58,7 +58,7 @@ export const Footer = () => {
                 <SimpleGrid columns={{sm: 1, md: 3}} spacing={10}>
                     <Box>
                         <VStack align={{"base": "center", "sm": "center", "md": "start"}}>
-                            <Link to={"/"}>Nosotros</Link>
+                            <Link to={"/about-us"}>Nosotros</Link>
                             <Link to={"/how-works"}>¿Cómo funciona?</Link>
                             <Link to={"/terms-conditions"}>Términos y condiciones</Link>
                         </VStack>
