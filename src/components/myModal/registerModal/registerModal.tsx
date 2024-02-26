@@ -1,4 +1,4 @@
-import { Input, Text, VStack } from "@chakra-ui/react";
+import { Checkbox, Input, Link, Text, VStack } from "@chakra-ui/react";
 import { MyModal } from "../myModal";
 import { MyButton } from "../../myButton/myButton";
 import { useForm } from "react-hook-form";
@@ -33,7 +33,7 @@ export const RegisterModal = (props: Props) => {
 
     const bodyComponents = () => {
         //validate: (value) =>  value.setFullYear(value.getFullYear() + 18)<=new Date() || "Debes ser mayor de edad"
-        return  <VStack gap={3}>
+        return  <VStack gap={3} alignItems={"start"}>
                     <Input placeholder='Nombres' {...register("name", {required: "Los Nombres es obligatorio", validate: (value) => { return !!value.trim()}, maxLength: {value: 100, message: "Los Nombres no debe ser tener de 100 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.name?.message != null) ? true : false}/>
                     <Input placeholder='Apellido Paterno' {...register("lastNameFather", {required: "El apellido paterno es obligatorio", validate: (value) => { return !!value.trim()}, maxLength: {value: 100, message: "El apellido paterno no debe tener mas de 100 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameFather?.message != null) ? true : false}/>
                     <Input placeholder='Apellido Materno' {...register("lastNameMother", {required: "El apellido materno es obligatorio", validate: (value) => { return !!value.trim()}, maxLength: {value: 100, message: "El apellido materno no debe tener mas de 100 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.lastNameMother?.message != null) ? true : false}/>
@@ -41,6 +41,7 @@ export const RegisterModal = (props: Props) => {
                     <Input placeholder='Correo Electronico' {...register("email", {required: "El Correo electronico es obligatorio", validate: (value) => { return !!value.trim()}, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electronico debe ser un email valido" }, maxLength: {value: 150, message: "El Correo electronico no debe tener mas de 150 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.email?.message != null) ? true : false}/>
                     <Input placeholder='Contraseña' type="password" {...register("password", {required: "La Contraseña es obligatorio", validate: (value) => { return !!value.trim()}, minLength: {value: 8, message: "La Contraseña debe tener minimo 8 caracteres"}, maxLength: {value: 50, message: "La Contraseña debe tener maximo 30 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.password?.message != null) ? true : false}/>
                     <Input placeholder='Confirmar Contraseña' type="password" {...register("confirmPassword", {required: "El Confirmar contraseña es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.confirmPassword?.message != null) ? true : false}/>
+                    <Checkbox {...register("termsConditionsAccept", {required: "Aceptar los terminos y condiciones es obligatorio"})}><Link href="/terms-conditions" fontSize={"16px"} isExternal>Acepta los terminos y condiciones</Link></Checkbox>
                     <VStack textAlign={"center"} gap={1}>
                         <Text fontSize={"15px"}>¿Ya tienes una cuenta? <strong onClick={openLogin} style={{cursor: "pointer"}}>Inicia sesion aquí</strong></Text>
                     </VStack>
@@ -83,7 +84,7 @@ export const RegisterModal = (props: Props) => {
 
     const onRegister = async () => {
         setErrorMessage("");
-        const isValid = await registerTrigger(["name", "lastNameFather", "lastNameMother", "birthDate", "email", "password", "confirmPassword"], { shouldFocus: true });
+        const isValid = await registerTrigger(["name", "lastNameFather", "lastNameMother", "birthDate", "email", "password", "confirmPassword", "termsConditionsAccept"], { shouldFocus: true });
         if(!isValid){
             return;
         }
