@@ -42,7 +42,7 @@ export const RegisterModal = (props: Props) => {
                     <Input placeholder='Contraseña' type="password" {...register("password", {required: "La Contraseña es obligatorio", validate: (value) => { return !!value.trim()}, minLength: {value: 8, message: "La Contraseña debe tener minimo 8 caracteres"}, maxLength: {value: 50, message: "La Contraseña debe tener maximo 30 caracteres"}, setValueAs: value => value.trim()})} isInvalid={(errors?.password?.message != null) ? true : false}/>
                     <Input placeholder='Confirmar Contraseña' type="password" {...register("confirmPassword", {required: "El Confirmar contraseña es obligatorio", validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.confirmPassword?.message != null) ? true : false}/>
                     <Checkbox {...register("termsConditionsAccept", {required: "Aceptar los terminos y condiciones es obligatorio"})}><Link href="/terms-conditions" fontSize={"16px"} isExternal>Acepta los terminos y condiciones</Link></Checkbox>
-                    <VStack textAlign={"center"} gap={1}>
+                    <VStack textAlign={"center"} gap={1} width={"100%"}>
                         <Text fontSize={"15px"}>¿Ya tienes una cuenta? <strong onClick={openLogin} style={{cursor: "pointer"}}>Inicia sesion aquí</strong></Text>
                     </VStack>
                 </VStack>;

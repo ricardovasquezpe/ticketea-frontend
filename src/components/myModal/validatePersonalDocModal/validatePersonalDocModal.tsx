@@ -1,4 +1,4 @@
-import { Center, Text, VStack } from "@chakra-ui/react";
+import { Center, Checkbox, Text, VStack, useToast } from "@chakra-ui/react";
 import { MyModal } from "../myModal";
 import { FileUploader } from "../../fileUploader/fileUploader";
 import { MyButton } from "../../myButton/myButton";
@@ -12,6 +12,9 @@ export const ValidatePersonalDocModal = (props: Props) => {
     const [backFile, setBackFile] = useState([] as File[]);
     const [errorMessage, setErrorMessage] = useState("" as any);
     const [loading, setLoading] = useState(false);
+    const [alreadyTried, setAlreadyTried] = useState(false);
+    const [acceptValidation, setAcceptValidation] = useState(false);
+    const toast = useToast();
 
     const documentVerification = async () => {
         setLoading(true);
@@ -31,8 +34,9 @@ export const ValidatePersonalDocModal = (props: Props) => {
         var formData = new FormData();
         formData.append("front", frontFile[0]);
         formData.append("back", backFile[0]);
-        var response = await validateMyPersonalDocument(formData);
+        if(acceptValidation) formData.append("acceptValidation", "true");
 
+        var response = await validateMyPersonalDocument(formData);
         if(response.data.errorType == ErrorType.Validation){
             setErrorMessage("Falta llenar algunos campos");
             setLoading(false);
@@ -40,9 +44,34 @@ export const ValidatePersonalDocModal = (props: Props) => {
         }
 
         if(response.data.errorType  == ErrorType.Simple){
+            setAlreadyTried(true);
             setErrorMessage(response.data.message);
             setLoading(false);
             return;
+        }
+
+        if(acceptValidation){
+            toast({
+                title: 'Sus documentos seran revisados y validados en un plazo no mayor a 1 dia',
+                description: "",
+                status: 'success',
+                containerStyle: {
+                    fontSize: "16px"
+                },
+                duration: 9000,
+                isClosable: true,
+            });
+        } else {
+            toast({
+                title: 'Documento de idenfiticación validado correctamente',
+                description: "",
+                status: 'success',
+                containerStyle: {
+                    fontSize: "16px"
+                },
+                duration: 9000,
+                isClosable: true,
+            });
         }
 
         props.onSave();
@@ -50,6 +79,7 @@ export const ValidatePersonalDocModal = (props: Props) => {
 
     const bodyComponents = () => {
         return  <VStack justifyContent={"stretch"} alignItems={"start"} gap={3} marginBottom={"10px"}>
+                    <Text color={"white.half"} fontSize={"14px"}>Compararemos los datos de tu documento de identidad con tus datos basicos y con el servicio de RENIEC</Text>
                     <Center width={"100%"}>
                         <VStack gap={3} width={"100%"}>
                             <Text color={"white"} fontSize={"16px"}>Parte frontal</Text>
@@ -68,7 +98,7 @@ export const ValidatePersonalDocModal = (props: Props) => {
                                 onChange={(files) => {setBackFile(files)}}/>
                         </VStack>
                     </Center>
-                    <Text color={"white.half"} fontSize={"14px"}>* Compararemos los datos de tu documento de identidad con tus datos basicos y con el servicio de RENIEC</Text>
+                    {(alreadyTried == true) ? <Checkbox isChecked={acceptValidation} onChange={(e) => setAcceptValidation(e.target.checked)}><Text fontSize={"15px"}>El sistema no pudo confirmar mis datos asi que Yo doy mi consentimiento que los documentos que estoy subiendo son validos y seran revisados en un plazo no mayor de 1 día</Text></Checkbox> : <></>}
                     <VStack width={"100%"}>
                         <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 

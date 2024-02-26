@@ -1,9 +1,9 @@
-import { Avatar, Box, Grid, GridItem, HStack, Input, Text, VStack } from "@chakra-ui/react";
+import { Avatar, Box, Grid, GridItem, HStack, Input, Text, Tooltip, VStack } from "@chakra-ui/react";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { MyButton } from "../../components/myButton/myButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck, faCircleMinus } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import { useToast } from '@chakra-ui/react'
@@ -131,16 +131,6 @@ export const MyAccount = () => {
             var res = await getMyUserData();
             setUser(res.data);
             validatePersonalDocModal.close();
-            toast({
-                title: 'Documento de idenfiticación validado correctamente',
-                description: "",
-                status: 'success',
-                containerStyle: {
-                    fontSize: "16px"
-                },
-                duration: 9000,
-                isClosable: true,
-            });
           },
           onClose: () => {
             validatePersonalDocModal.close();
@@ -317,6 +307,9 @@ export const MyAccount = () => {
                                         {(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.validated)) ? 
                                             <FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/> :
                                             <></>}
+                                        {(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.manualValidation)) ? 
+                                            <Tooltip label='En proceso de validacion manual'><FontAwesomeIcon color={"#FFEB3B"} icon={faCircleMinus} size="1x"/></Tooltip> :
+                                            <></>}
                                     </HStack>
                                     <MyButton textColor="white" 
                                                 backgroundColor="secondary.default" 
@@ -326,7 +319,7 @@ export const MyAccount = () => {
                                                 padding="5px 10px"
                                                 size="xs"
                                                 onClick={validatePersonalDoc}
-                                                isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && val.count == 2)?true:false)}></MyButton>
+                                                isDisabled={(user.userValidations?.find((val) => val.type == UserValidationType.PersonalDocumentVerified && (val.count == 2 || val.manualValidation))?true:false)}></MyButton>
                                 </HStack>
                             </MyContainer>
                         </VStack>
