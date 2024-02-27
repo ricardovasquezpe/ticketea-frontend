@@ -6,6 +6,7 @@ import { Modals } from "../../config/modal/modal-config";
 import { useEffect, useState } from "react";
 import { getMySoldTickets } from "../../services/ticket.service";
 import { Ticket } from "../../services/models/ticket.model";
+import { TicketState } from "../../utils/enums/ticketState.enum";
 
 export const MyTickets = () => {
     const loadingModal = useModal<any>(Modals.LoadingModal);
@@ -90,6 +91,24 @@ export const MyTickets = () => {
         });
     }
 
+    const sellTicketDialog = useModal<any>(Modals.ConfirmSellTicketDialog);
+    const sellTicket = (ticketId: string) => {
+      sellTicketDialog.open({
+          ticketId: ticketId,
+          onSave: async () => {
+            var res = await getMySoldTickets();
+            setTickets(res.data);
+            sellTicketDialog.close();
+          },
+          onClose: () => {
+            sellTicketDialog.close();
+          },
+          onCancel: () => {
+            sellTicketDialog.close();
+          },
+        });
+    }
+
     return (
         <>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
@@ -109,7 +128,7 @@ export const MyTickets = () => {
                                 {
                                   tickets.map((ticket: Ticket, index: number) => {
                                     return (<Grid key={index} templateColumns='repeat(7, 1fr)' gap={2} width={"100%"}>
-                                                <GridItem colSpan={{base: 7, sm:7, customMd: 6}}>
+                                                <GridItem colSpan={{base: 7, sm: 7, customMd: ticket.state == TicketState.Active ? 6 : 7}}>
                                                   <EventTicketCard eventImage={ticket.eventDate?.event.image_url!}
                                                           eventName={ticket.eventDate?.event.title!}
                                                           artistName={ticket.eventDate?.event.artist.name!}
@@ -119,9 +138,9 @@ export const MyTickets = () => {
                                                           seat={ticket.seat}
                                                           state={ticket.state}></EventTicketCard>
                                                 </GridItem>
-                                                <GridItem colSpan={{base: 7, sm: 7, customMd: 1}} style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                                                  <Grid key={index} templateColumns='repeat(2, 1fr)' gap={2} width={"100%"}>
-                                                      <GridItem colSpan={{base: 1, sm: 1, customMd: 2}}>
+                                                {ticket.state == TicketState.Active ? <GridItem colSpan={{base: 7, sm: 7, customMd: 1}} style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                                  <Grid key={index} templateColumns='repeat(3, 1fr)' gap={1} width={"100%"}>
+                                                      <GridItem colSpan={{base: 1, sm: 1, customMd: 3}}>
                                                         <MyButton textColor="white" 
                                                                 backgroundColor="red.default" 
                                                                 backgroundColorHover="red.dark" 
@@ -129,9 +148,10 @@ export const MyTickets = () => {
                                                                 fontSize="14px"
                                                                 padding="0px 5px"
                                                                 onClick={()=>deleteTicket(ticket.encId)}
-                                                                width="100%"></MyButton>
+                                                                width="100%"
+                                                                size="sm"></MyButton>
                                                       </GridItem>
-                                                      <GridItem colSpan={{base: 1, sm: 1, customMd: 2}}>
+                                                      <GridItem colSpan={{base: 1, sm: 1, customMd: 3}}>
                                                         <MyButton textColor="white" 
                                                                 backgroundColor="secondary.default" 
                                                                 backgroundColorHover="secondary.dark" 
@@ -139,10 +159,22 @@ export const MyTickets = () => {
                                                                 fontSize="14px"
                                                                 padding="0px 5px"
                                                                 onClick={()=>editTicketPrice(ticket.encId, ticket.price)}
+                                                                width="100%"
+                                                                size="sm"></MyButton>
+                                                      </GridItem>
+                                                      <GridItem colSpan={{base: 1, sm: 1, customMd: 3}}>
+                                                        <MyButton textColor="white" 
+                                                                backgroundColor="orange.default" 
+                                                                backgroundColorHover="orange.dark" 
+                                                                title={"Vendido"}
+                                                                fontSize="14px"
+                                                                padding="0px 5px"
+                                                                size="sm"
+                                                                onClick={()=>sellTicket(ticket.encId)}
                                                                 width="100%"></MyButton>
                                                       </GridItem>
                                                   </Grid>
-                                                </GridItem>
+                                                </GridItem> : <></>}
                                             </Grid>);
                                   })
                                 }
