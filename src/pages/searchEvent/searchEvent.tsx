@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, HStack, Heading, Text, VStack } from "@chakra-ui/react";
 import { MyBigInputSearch } from "../../components/myBigInputSearch/myBigInputSearch";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { EventCard } from "../../components/eventCard/eventCard";
@@ -14,6 +14,7 @@ import { Modals } from "../../config/modal/modal-config";
 import { EventDate } from "../../services/models/eventDate.model";
 import Utils from "../../utils/utils";
 import styles from "./searchEvent.module.css";
+import { MySeo } from "../../components/mySeo/mySeo";
 
 export const SearchEvent = () => {
     const dispatch = useDispatch();
@@ -64,12 +65,17 @@ export const SearchEvent = () => {
 
     return (
         <>
+            <MySeo title="Ticketea! Compra y vende entradas de manera segura"
+                   description="Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil"
+                   link="https://ticketea.me/"></MySeo>
             <Box className={styles.parent}>
                 <Box className={styles.background} style={{backgroundImage: "url(/images/party-banner-"+imageNumber+".jpg)"}}></Box>
                 <Box paddingBottom={"120px"} paddingTop={"100px"} paddingLeft={"15px"} paddingRight={"15px"}>
                     <Center textAlign={"center"}>
                         <VStack>
-                            <Text fontSize={"30px"} fontFamily={"montserratBold"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>La forma más segura de vender y comprar entradas</Text>
+                            <Heading as='h1' size='4xl' noOfLines={1} fontSize={"30px"} fontFamily={"montserratBold"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>
+                                La forma más segura de vender y comprar entradas
+                            </Heading>
                             <Text fontSize={"20px"} fontFamily={"montserratBold"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Compra y vende sin preocuparte de las estafas</Text>
                         </VStack>
                     </Center>

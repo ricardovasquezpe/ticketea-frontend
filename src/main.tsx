@@ -8,14 +8,17 @@ import { persistor, store } from './store/store.ts'
 import { PersistGate } from 'redux-persist/integration/react';
 import moment from 'moment/min/moment-with-locales';
 import 'moment/locale/es';
+import { HelmetProvider } from "react-helmet-async";
 
 moment.updateLocale("es", {});
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <ChakraProvider theme={theme}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-        <App />
-        </PersistGate>
-      </Provider>
-  </ChakraProvider>,
+  <HelmetProvider>
+    <ChakraProvider theme={theme}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+          <App />
+          </PersistGate>
+        </Provider>
+    </ChakraProvider>
+  </HelmetProvider>,
 )
