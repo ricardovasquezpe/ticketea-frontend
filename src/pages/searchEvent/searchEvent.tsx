@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, HStack, Text, VStack } from "@chakra-ui/react";
 import { MyBigInputSearch } from "../../components/myBigInputSearch/myBigInputSearch";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { EventCard } from "../../components/eventCard/eventCard";
