@@ -2,6 +2,7 @@ import { Box, Text, VStack } from "@chakra-ui/react";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { useEffect } from "react";
+import { MySeo } from "../../components/mySeo/mySeo";
 
 export const TermsConditions = () => {
     useEffect(() => {
@@ -10,9 +11,13 @@ export const TermsConditions = () => {
     
     return (
         <>
+            <MySeo title={`Términos y condiciones | Ticketea!`}
+                   description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil`}
+                   link={`https://ticketea.me/how-works`}
+                   image={"/images/logo.png"}/>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <VStack align='stretch' gap={5}>
-                    <SectionTitle title="Términos y condiciones"/>
+                    <SectionTitle title="Términos y condiciones" asH1/>
                     <MyContainer>
                         <VStack gap={3} alignItems={"start"} fontSize={"16px"}>
                             <Text>

@@ -11,6 +11,7 @@ import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import Session from "../../utils/session";
 import { StarIcon } from "@chakra-ui/icons";
+import { MySeo } from "../../components/mySeo/mySeo";
 
 export const HowItWorks = () => {
     const imageNumber = useMemo(() => Utils.generateRandom(3, 8), []);
@@ -51,12 +52,16 @@ export const HowItWorks = () => {
 
     return (
         <>
+            <MySeo title={`¿Cómo funciona? | Ticketea!`}
+                   description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil`}
+                   link={`https://ticketea.me/how-works`}
+                   image={"/images/logo.png"}/>
             <Box className={styles.parent}>
                 <Box className={styles.background} style={{backgroundImage: "url(/images/party-banner-"+imageNumber+".jpg)"}}></Box>
                 <Box paddingBottom={"50px"} paddingTop={"60px"} paddingLeft={"15px"} paddingRight={"15px"}>
                     <Center textAlign={"center"}>
                         <VStack gap={14}>
-                            <Text fontSize={"30px"} fontFamily={"montserratBold"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Compra tu entrada con un vendedor verificado y de confianza</Text>
+                            <Text as={"h1"} fontSize={"30px"} fontFamily={"montserratBold"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Compra tu entrada con un vendedor verificado y de confianza</Text>
                             <Grid templateColumns="repeat(6, 1fr)" gap={10} width={"70%"}>
                                 <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                                     <VStack gap={5}>
