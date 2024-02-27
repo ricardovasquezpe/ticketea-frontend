@@ -67,7 +67,8 @@ export const SearchEvent = () => {
         <>
             <MySeo title="Ticketea! Compra y vende entradas de manera segura"
                    description="Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil"
-                   link="https://ticketea.me/"></MySeo>
+                   link="https://ticketea.me/"
+                   image="/images/logo.png"></MySeo>
             <Box className={styles.parent}>
                 <Box className={styles.background} style={{backgroundImage: "url(/images/party-banner-"+imageNumber+".jpg)"}}></Box>
                 <Box paddingBottom={"120px"} paddingTop={"100px"} paddingLeft={"15px"} paddingRight={"15px"}>

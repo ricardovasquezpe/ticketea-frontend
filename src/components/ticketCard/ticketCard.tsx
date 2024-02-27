@@ -15,7 +15,11 @@ export const TicketCard = (props: Props) => {
             <HStack justifyContent="space-between">
                 <HStack gap={3}>
                     <Show above="sm">
-                        <Avatar size='lg' name={props.sellerName} src={props.sellerImage} />
+                        <Avatar size='lg' 
+                                name={props.sellerName} 
+                                src={props.sellerImage} 
+                                title={`Imagen de vendedor verificado ${props.sellerName}`}
+                                loading="eager"/>
                     </Show>
                     <Box textAlign={"start"}>
                         <Text className={styles.ticketZoneName}>{props.zoneName}</Text>

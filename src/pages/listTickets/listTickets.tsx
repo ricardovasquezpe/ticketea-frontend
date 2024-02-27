@@ -16,6 +16,7 @@ import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import Session from "../../utils/session";
 import { EventDate } from "../../services/models/eventDate.model";
+import { MySeo } from "../../components/mySeo/mySeo";
 
 export const ListTickets = () => {
     const [tickets, setTickets] = useState([] as Ticket[]);
@@ -66,6 +67,10 @@ export const ListTickets = () => {
 
     return (
         <>
+            <MySeo title={`${(event.event) ? event.event.title : ""} | Ticketea!`}
+                   description={`Entradas disponibles del evento ${(event.event) ? event.event.title : ""} en Ticketea`}
+                   link={`https://ticketea.me/tickets/${event.encId}`}
+                   image={(event.event) ? event.event.image_url : ""}/>
             <Box className={styles.parent}>
                 <Box className={styles.background} style={{backgroundImage: "url("+((event.event) ? event.event.image_url : "")+")"}}></Box>
                 <Box paddingBottom={5} paddingTop={5}>
@@ -73,8 +78,11 @@ export const ListTickets = () => {
                         <VStack spacing={3}>
                             <Image className={styles.eventImage} 
                                    src={(event.event)?event.event.image_url:""}
-                                   fallbackSrc='https://via.placeholder.com/150'></Image>
-                            <Text lineHeight={"30px"} fontSize={30} fontFamily={"robotoBold"} textAlign={"center"}>{(event.event)?event.event.title:""}</Text>
+                                   fallbackSrc='https://via.placeholder.com/150'
+                                   alt={`Evento de ${(event.event) ? event.event.title : ""}`}
+                                   title={`Evento de ${(event.event) ? event.event.title : ""}`}
+                                   loading="eager"></Image>
+                            <Text as={"h1"} lineHeight={"30px"} fontSize={30} fontFamily={"robotoBold"} textAlign={"center"}>{(event.event)?event.event.title:""}</Text>
                             <Show below='sm'>
                                 <VStack gap={0}>
                                     <Text textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>

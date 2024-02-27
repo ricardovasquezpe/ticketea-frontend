@@ -26,6 +26,7 @@ import { getRatingsByUserId } from "../../services/rating.service";
 import { UserValidationType } from "../../utils/enums/userValidationType.enum";
 import { EventDate } from "../../services/models/eventDate.model";
 import Session from "../../utils/session";
+import { MySeo } from "../../components/mySeo/mySeo";
 
 export const TicketDetail = () => {
     //const navigate = useNavigate();
@@ -147,6 +148,10 @@ export const TicketDetail = () => {
 
     return (
         <>
+            <MySeo title={`${(event.event) ? event.event.title : ""} | Ticketea!`}
+                   description={`Entrada del vendedor ${user.fullName} del evento ${(event.event) ? event.event.title : ""} en Ticketea`}
+                   link={`https://ticketea.me/tickets/${ticket.encId}`}
+                   image={(event.event) ? event.event.image_url : ""}/>
             <Box className={styles.parent}>
                 <Box className={styles.background} style={{backgroundImage: "url("+((event.event) ? event.event.image_url : "")+")"}}></Box>
                 <Box paddingBottom={5} paddingTop={5}>
@@ -154,26 +159,31 @@ export const TicketDetail = () => {
                         <Grid templateColumns="repeat(5, 1fr)" gap={5}> 
                             <GridItem colSpan={{base: 5, sm: 5, md: 1}}>
                                 <Center>
-                                    <Image className={styles.eventImage} src={((event.event) ? event.event.image_url : "")} fallbackSrc='https://via.placeholder.com/150'></Image>
+                                    <Image className={styles.eventImage} 
+                                           src={((event.event) ? event.event.image_url : "")} 
+                                           fallbackSrc='https://via.placeholder.com/150'
+                                           alt={`Evento de ${(event.event) ? event.event.title : ""}`}
+                                           title={`Evento de ${(event.event) ? event.event.title : ""}`}
+                                           loading="eager"></Image>
                                 </Center>
                             </GridItem>
                             <GridItem colSpan={{base: 5, sm: 5, md: 4}}>
                                 <Box textAlign={{base: "center", sm: "center", md: "left"}}>
-                                    <Text lineHeight={"30px"} fontSize={30} marginLeft={"20px"} marginRight={"20px"} fontFamily={"robotoBold"} marginBottom={2}>{(event.event)?event.event.title:""}</Text>
+                                    <Text as="h1" lineHeight={"30px"} fontSize={30} marginLeft={"20px"} marginRight={"20px"} fontFamily={"robotoBold"} marginBottom={2}>{(event.event)?event.event.title:""}</Text>
                                     <Show below='sm'>
                                         <VStack gap={0}>
-                                            <Text textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
-                                            <Text textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
-                                            <Text textAlign={"center"}>{(event.event)?event.event.place:""}</Text>
+                                            <Text as="h2" textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
+                                            <Text as="h2" textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
+                                            <Text as="h2" textAlign={"center"}>{(event.event)?event.event.place:""}</Text>
                                         </VStack>
                                     </Show>
                                     <Show above='sm'>
                                         <HStack gap={2}>
-                                            <Text textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
+                                            <Text as="h2" textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
                                             <Text fontWeight={"bold"}>|</Text>
-                                            <Text textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
+                                            <Text as="h2" textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
                                             <Text fontWeight={"bold"}>|</Text>
-                                            <Text textAlign={"center"}>{(event.event)?event.event.place:""}</Text>
+                                            <Text as="h2" textAlign={"center"}>{(event.event)?event.event.place:""}</Text>
                                         </HStack>
                                     </Show>
                                 </Box>
@@ -241,7 +251,11 @@ export const TicketDetail = () => {
                     <GridItem colSpan={{base: 5, sm: 5, md: 2}}>
                         <MyContainer>
                             <VStack>
-                                <Avatar size='xl' name={user.fullName} src={user.profile_photo_url} />
+                                <Avatar size='xl' 
+                                        name={user.fullName} 
+                                        src={user.profile_photo_url}
+                                        title={`Imagen de vendedor verificado ${user.fullName}`}
+                                        loading="eager"/>
                                 <Box textAlign={"center"}>
                                     <Text lineHeight={"20px"} fontFamily={"robotoBold"} fontSize={"22px"}>{user.fullName}</Text>
                                 </Box>
@@ -377,14 +391,12 @@ export const TicketDetail = () => {
                         </AccordionItem>
 
                         <AccordionItem border={"none"}>
-                            <h2>
-                                <AccordionButton>
-                                    <Box as="span" flex='1' textAlign='left'>
-                                        <Text>¿Que información tendré del vendedor?</Text>
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
+                            <AccordionButton>
+                                <Box as="span" flex='1' textAlign='left'>
+                                    <Text>¿Que información tendré del vendedor?</Text>
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
                             <AccordionPanel pb={4}>
                                 <Text fontSize={16}>
                                     Se te enviará un mensaje a tu correo electrónico,con el que te registraste, con el nombre y número celular del vendedor para que te puedas comunicar con él
@@ -393,14 +405,12 @@ export const TicketDetail = () => {
                         </AccordionItem>
 
                         <AccordionItem border={"none"}>
-                            <h2>
-                                <AccordionButton>
-                                    <Box as="span" flex='1' textAlign='left'>
-                                        <Text>¿Puedo realizar la compra atravez de Ticketea?</Text>
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
+                            <AccordionButton>
+                                <Box as="span" flex='1' textAlign='left'>
+                                    <Text>¿Puedo realizar la compra atravez de Ticketea?</Text>
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
                             <AccordionPanel pb={4}>
                                 <Text fontSize={16}>
                                     Por ahora no esta habilitada la opción de compra atravez de Ticketea, pero mantente atento que pronto estará listo!

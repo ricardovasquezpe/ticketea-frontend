@@ -12,12 +12,12 @@ export const MySeo = (props: Props) => {
             <meta property="og:type" content="website" />
             <meta property="og:title" content={props.title} />
             <meta property="og:description" content={props.description} />
-            <meta property="og:image" content="https://example.com/image.jpg" />
+            <meta property="og:image" content={props.image} />
             <meta property="og:url" content={props.link} />
 
             <meta name="twitter:title" content={props.title} />
             <meta name="twitter:description" content={props.description} />
-            <meta name="twitter:image" content={props.link} />
+            <meta name="twitter:image" content={props.image} />
             <meta name="twitter:card" content="summary_large_image" />
 
             <meta name="theme-color" content="#002E39" />
@@ -28,5 +28,6 @@ export const MySeo = (props: Props) => {
 type Props = {
     title: string,
     description: string,
-    link: string
+    link: string,
+    image: string
 };
