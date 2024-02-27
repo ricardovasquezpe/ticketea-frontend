@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 import styles from "./howItWorks.module.css";
 import Utils from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAddressBook, faAt, faCartShopping, faHandshake, faIdCard, faMagnifyingGlass, faPersonCircleCheck, faShieldHeart, faTicket } from "@fortawesome/free-solid-svg-icons";
+import { faAddressBook, faAt, faCartShopping, faHandshake, faIdCard, faMagnifyingGlass, faPeopleArrows, faPersonCircleCheck, faShieldHeart, faTicket } from "@fortawesome/free-solid-svg-icons";
 import { MyButton } from "../../components/myButton/myButton";
 import { useNavigate } from "react-router-dom";
 import { MyContainer } from "../../components/myContainer/myContainer";
@@ -74,7 +74,7 @@ export const HowItWorks = () => {
                                 <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                                     <VStack gap={5}>
                                         <Box background={"secondary.dark"} borderRadius={"0.625rem"} padding={"22px"}>
-                                            <FontAwesomeIcon icon={faCartShopping} size="3x"/>
+                                            <FontAwesomeIcon icon={faPeopleArrows} size="3x"/>
                                         </Box>
                                         {/*<Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Elige al que mas te convenga y compra de manera facil y segura</Text> */}
                                         <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Elige al que más te convenga y contactate con el vendedor</Text>

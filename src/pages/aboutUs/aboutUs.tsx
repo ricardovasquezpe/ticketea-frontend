@@ -11,7 +11,7 @@ export const AboutUs = () => {
     
     return (
         <>
-            <MySeo title={`Acerca de nosotros y como nació la idea | Ticketea!`}
+            <MySeo title={`Nosotros | Ticketea!`}
                    description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil`}
                    link={`https://ticketea.me/about-us`}
                    image={"/images/logo.png"}/>
