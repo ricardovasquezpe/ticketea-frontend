@@ -15,6 +15,7 @@ import { EventDate } from "../../services/models/eventDate.model";
 import Utils from "../../utils/utils";
 import styles from "./searchEvent.module.css";
 import { MySeo } from "../../components/mySeo/mySeo";
+import { store } from "../../store/store";
 
 export const SearchEvent = () => {
     const dispatch = useDispatch();
@@ -29,13 +30,13 @@ export const SearchEvent = () => {
     useEffect(() => {
         loadingModal.open({title: "Cargando los eventos"});
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-        //var searchText = store.getState().search.search;
-        //setSearch(searchText);
         onLoadData();
     }, []);
 
     const onLoadData = async () => {
-        var res:any = await searchEvents("", "date", ASC_ORDER_BY)
+        var searchText = store.getState().search.search;
+        setSearch(searchText);
+        var res:any = await searchEvents(searchText, "date", ASC_ORDER_BY)
         setEvents(res.data);
         loadingModal.close();
     }
