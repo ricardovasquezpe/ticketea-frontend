@@ -289,7 +289,7 @@ export const TicketDetail = () => {
                                         <Text>Validado por 
                                             <Link display={"inline-block"} color='#4CAF50' onClick={openTickeaProtect} fontFamily={"montserratBold"} marginLeft={"5px"}>
                                                 TicketeaProtect
-                                                <FontAwesomeIcon color='#4CAF50' style={{marginTop: "-5px"}} icon={faShieldHeart} size="xl"/>
+                                                <FontAwesomeIcon color='#4CAF50' style={{marginTop: "-5px", marginLeft: "5px"}} icon={faShieldHeart} size="xl"/>
                                             </Link>            
                                         </Text>
                                     </Box>

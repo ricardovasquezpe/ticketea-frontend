@@ -74,8 +74,8 @@ export const ValidatePhoneModal = (props: Props) => {
                                 +51
                                 </InputLeftAddon>
                                 <Input type='tel' 
-                                        placeholder='Numero Celular' 
-                                        {...phoneValidation("phone", {required: "El numero celular es obligatorio", 
+                                        placeholder='Número Celular' 
+                                        {...phoneValidation("phone", {required: "El número celular es obligatorio", 
                                                                       pattern: { value: /^\d{9}$/, message: "El número de celular debe tener 9 dígitos" }
                                                                     })} 
                                                             isInvalid={(errors?.phone?.message != null) ? true : false}/>

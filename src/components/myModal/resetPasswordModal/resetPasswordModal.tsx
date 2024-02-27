@@ -34,7 +34,7 @@ export const ResetPasswordModal = (props: Props) => {
         }
 
         toast({
-            title: 'Le llegará un correo electrónico con un link para restablecer su contraseña',
+            title: 'Te llegará un correo electrónico con un link para restablecer su contraseña',
             description: "",
             status: 'success',
             containerStyle: {

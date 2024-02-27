@@ -1,9 +1,9 @@
-import { Box, Grid, GridItem, Input, InputGroup, InputLeftAddon, Select, Text, VStack, useToast } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Input, InputGroup, InputLeftAddon, Select, Text, Tooltip, VStack, useToast } from "@chakra-ui/react";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { MyButton } from "../../components/myButton/myButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck, faCircleMinus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { EventCardSearch } from "../../components/eventCardSearch/eventCardSearch";
 import { FileUploader } from "../../components/fileUploader/fileUploader";
 import { useNavigate } from "react-router-dom";
@@ -65,7 +65,7 @@ export const SellTicket = () => {
 
     const sellTicket = async () => {
         setErrorMessage("");
-        if(user.userValidations?.length != 5){
+        if(user.userValidations?.filter((vald) => vald.validated == true).length != 5){
             setErrorMessage("Debes compeltar la verificación de tu perfil");
             return;
         }
@@ -126,6 +126,21 @@ export const SellTicket = () => {
         sellSetValue("price", input);
     }
 
+    const iconPersonalDocumentVerification = () => {
+        var validation = user.userValidations?.find((val)=>val.type == UserValidationType.PersonalDocumentVerified);
+        if(!validation){
+            return <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>;
+        }
+        
+        if(validation?.validated == true){
+            return <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td>;
+        } else if (validation?.validated == false && validation.manualValidation == false){
+            return <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>;
+        } else {
+            return <td><Tooltip label='En proceso de validacion manual'><FontAwesomeIcon color={"#FFEB3B"} icon={faCircleMinus} size="1x"/></Tooltip></td>
+        }
+    }
+
     return (
         <>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
@@ -167,7 +182,7 @@ export const SellTicket = () => {
                                         }
                                     </tr>
                                     <tr>
-                                        <td><Text color={"white.half"} fontSize={"16px"}>Numero Celular</Text></td>
+                                        <td><Text color={"white.half"} fontSize={"16px"}>Número Celular</Text></td>
                                         {
                                             (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PhoneVerified)) ? 
                                             <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
@@ -185,9 +200,7 @@ export const SellTicket = () => {
                                     <tr>
                                         <td><Text color={"white.half"} fontSize={"16px"} marginRight={"10px"}>Documento de Identificación</Text></td>
                                         {
-                                            (user.userValidations?.find((val)=>val.validated && val.type == UserValidationType.PersonalDocumentVerified)) ? 
-                                            <td><FontAwesomeIcon color={"var(--chakra-colors-green-default)"} icon={faCircleCheck} size="1x"/></td> : 
-                                            <td><FontAwesomeIcon color={"var(--chakra-colors-red-default)"} icon={faCircleXmark} size="1x"/></td>
+                                            iconPersonalDocumentVerification()
                                         }
                                     </tr>
                                 </tbody>
@@ -195,7 +208,7 @@ export const SellTicket = () => {
                         </Box>
                     </MyContainer>
                     <MyContainer>
-                        <Text fontSize={"20px"}>Seleccionar evento</Text>
+                        <Text fontSize={"20px"}>Elegir el evento</Text>
                         <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
                             <Select marginBottom={"15px"} 
                                     placeholder='Seleccione el evento' 
@@ -250,14 +263,14 @@ export const SellTicket = () => {
                                     <Input placeholder="Ingresar butaca"
                                         {...sell("seat", {maxLength: {value: 15, message: "La butaca no debe ser tener de 15 caracteres"}})}
                                         isInvalid={(errors?.seat?.message != null) ? true : false} ></Input>
-                                    <Text color={"white.half"} fontSize={"14px"}>La butaca no es obligatorio, pero siempre es bueno especificarlo</Text>
+                                    <Text color={"white.half"} fontSize={"14px"}>La butaca no es obligatorio, pero ingreselo si la entrada es numerada con una butaca</Text>
                                 </VStack>
                             </GridItem>
                         </Grid>
                     </MyContainer>
                     <MyContainer>
                         <Text fontSize={"20px"}>Subir entrada (formato PDF)</Text>
-                        <Text color={"white.half"} fontSize={"16px"}>Sube la entrada E-Ticket para poder validar que tengas la entrada </Text>
+                        <Text color={"white.half"} fontSize={"16px"}>Sube la entrada E-Ticket para poder validar que tengas la entrada, no guardaremos la entrada </Text>
                         <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
                             <FileUploader 
                                 acceptFiles={{"application/pdf": [".pdf"]}}
@@ -276,7 +289,7 @@ export const SellTicket = () => {
                                 padding="14px"
                                 onClick={sellTicket}
                                 isLoading={loading}></MyButton>
-                        <Text color={"red.default"} textAlign={"center"} fontSize={"14px"}>
+                        <Text color={"red.default"} textAlign={"center"} fontSize={"14px"} marginTop={"10px"}>
                             {errorMessage && errorMessage}
                             {(Object.values(errors).length != 0) && <p>{Object.values(errors)[0]?.message + ""}</p>}
                         </Text>
