@@ -135,7 +135,7 @@ export const MyTickets = () => {
                                                         <MyButton textColor="white" 
                                                                 backgroundColor="secondary.default" 
                                                                 backgroundColorHover="secondary.dark" 
-                                                                title={"Editar"}
+                                                                title={"Editar Precio"}
                                                                 fontSize="14px"
                                                                 padding="0px 5px"
                                                                 onClick={()=>editTicketPrice(ticket.encId, ticket.price)}

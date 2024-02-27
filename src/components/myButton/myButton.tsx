@@ -16,7 +16,8 @@ export const MyButton = (props: Props) => {
                     border={props.border}
                     size={props.size}
                     width={props.width}
-                    isLoading={props.isLoading}>
+                    isLoading={props.isLoading}
+                    whiteSpace={"normal"}>
                 {props.title}
             </Button>
         </>
