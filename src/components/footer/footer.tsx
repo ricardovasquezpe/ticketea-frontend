@@ -100,11 +100,11 @@ export const Footer = () => {
                                     title={"Sé un vendedor verificado"}
                                     fontSize="18px"
                                     padding="20px 30px 20px 30px"
-                                    onClick={()=>{displayRegisterModal()}}/> : <MyButton textColor="white" 
-                                    backgroundColor="secondary.default" 
-                                    backgroundColorHover="secondary.dark" 
+                                    onClick={()=>{displayRegisterModal()}}/> : <MyButton textColor="black" 
+                                    backgroundColor="gold.default" 
+                                    backgroundColorHover="gold.dark" 
                                     title={"Vende tu entrada!"}
-                                    fontSize="22px"
+                                    fontSize="20px"
                                     padding="20px 30px 20px 30px"
                                     onClick={()=>{navigate("/sell-ticket")}}/>}
                         </VStack>
