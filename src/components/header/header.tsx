@@ -83,7 +83,7 @@ export const Header = () => {
         },
         {
             id: 4,
-            label: "Regístrate Ya!",
+            label: "Sé un vendedor verificado",
             onClick: displayRegisterModal, 
             type: "button"
         },
@@ -132,9 +132,9 @@ export const Header = () => {
         return menu.map((item, i) => {
             if(item.type == "button"){
                 return (
-                    <MyButton key={i} textColor="white" 
-                        backgroundColor="secondary.default" 
-                        backgroundColorHover="secondary.dark" 
+                    <MyButton key={i} textColor="black" 
+                        backgroundColor="gold.default" 
+                        backgroundColorHover="gold.dark" 
                         title={item.label}
                         fontSize="18px"
                         padding="10px 15px"

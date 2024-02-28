@@ -29,9 +29,9 @@ export const MobileDrawer = (props: any) =>  {
     return menu.map((item: any, i: any) => {
       if(item.type == "button"){
         return (
-              <MyButton key={i} textColor="white" 
-                  backgroundColor="secondary.default" 
-                  backgroundColorHover="secondary.dark" 
+              <MyButton key={i} textColor="black" 
+                  backgroundColor="gold.default" 
+                  backgroundColorHover="gold.dark" 
                   title={item.label}
                   fontSize="18px"
                   padding="20px"

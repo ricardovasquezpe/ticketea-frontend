@@ -94,11 +94,11 @@ export const Footer = () => {
                                   fontSize={"15px"} 
                                   color={"white.half"} 
                                   mb={"10px"}>{(!isLogin) ? "No pierdas la oportunidad de ver a tu artista favorito de manera facil y segura!" : "¿Tienes una entrada que no usaras o que te sobra? Anunciala y vendela de manera rápida y segura"}</Text>
-                            {(!isLogin) ? <MyButton textColor="white" 
-                                    backgroundColor="secondary.default" 
-                                    backgroundColorHover="secondary.dark" 
-                                    title={"Regístrate Ya!"}
-                                    fontSize="22px"
+                            {(!isLogin) ? <MyButton textColor="black" 
+                                    backgroundColor="gold.default" 
+                                    backgroundColorHover="gold.dark" 
+                                    title={"Sé un vendedor verificado"}
+                                    fontSize="18px"
                                     padding="20px 30px 20px 30px"
                                     onClick={()=>{displayRegisterModal()}}/> : <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
