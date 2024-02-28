@@ -77,7 +77,7 @@ export const HowItWorks = () => {
                                             <FontAwesomeIcon icon={faPeopleArrows} size="3x"/>
                                         </Box>
                                         {/*<Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Elige al que mas te convenga y compra de manera facil y segura</Text> */}
-                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Elige al que más te convenga y contactate con el vendedor</Text>
+                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Elige al que más te convenga y contáctate con el vendedor</Text>
                                     </VStack>
                                 </GridItem>
                                 <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
@@ -85,7 +85,7 @@ export const HowItWorks = () => {
                                         <Box background={"secondary.dark"} borderRadius={"0.625rem"} padding={"22px"}>
                                             <FontAwesomeIcon icon={faTicket} size="3x"/>
                                         </Box>
-                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Asegurate de nominar tu entrada con el vendedor y disfruta del evento!</Text>
+                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Asegúrate de nominar tu entrada con el vendedor y disfruta del evento!</Text>
                                     </VStack>
                                 </GridItem>
                             </Grid>
@@ -107,7 +107,7 @@ export const HowItWorks = () => {
                     </HStack>
                     <Box textAlign={"center"}>
                         <Text fontSize={"23px"}>TicketProtect es un sistema integrado que valida la identificación del vendedor con diferentes métodos</Text>
-                        <Text fontSize={"16px"} color={"white.half"} marginTop={"10px"}> * No permitimos que el vendedor cambie sus datos más de 2 vecez asi aseguramos que el vendedor siempre sea verificado</Text>
+                        <Text fontSize={"16px"} color={"white.half"} marginTop={"10px"}> * No permitimos que el vendedor cambie sus datos más de 2 veces así aseguramos que el vendedor siempre sea verificado</Text>
                     </Box>
                     <MyContainer>
                         <VStack gap={7} width={"100%"} padding={"10px"}>
@@ -150,7 +150,7 @@ export const HowItWorks = () => {
                             <MyContainer>
                                 <VStack gap={5} padding={"15px"} textAlign={"center"}>
                                     <FontAwesomeIcon icon={faPersonCircleCheck} size="3x"/>
-                                    <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Regístrate, llena tus datos básicos y verificate</Text>
+                                    <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Regístrate, llena tus datos básicos y verifícate</Text>
                                 </VStack>
                             </MyContainer>
                         </GridItem>

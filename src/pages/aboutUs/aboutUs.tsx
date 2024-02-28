@@ -12,7 +12,7 @@ export const AboutUs = () => {
     return (
         <>
             <MySeo title={`Nosotros | Ticketea!`}
-                   description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil`}
+                   description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y fácil`}
                    link={`https://ticketea.me/about-us`}
                    image={"/images/logo.png"}/>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
@@ -24,7 +24,7 @@ export const AboutUs = () => {
                                 Creamos Ticketea en el año 2022 con el objetivo de acabar con las estafas en las reventas de entradas para diferentes eventos en Perú, poder adquirir una de manera segura, facil y puedas asistir al evento sin problemas
                             </Text>
                             <Text>
-                                <Text fontWeight={"bold"}>¿Como nacio la idea?</Text>
+                                <Text fontWeight={"bold"}>¿Cómo nació la idea?</Text>
                                 La idea nació de uno de los fundadores quien fue estafado al comprar una entrada para un concierto, y buscando soluciones dio con la idea de crear Ticketea para no volver a ser estafado el y sus amigos
                             </Text>
                             <Text>

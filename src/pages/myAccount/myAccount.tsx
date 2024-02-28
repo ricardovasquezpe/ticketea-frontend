@@ -245,7 +245,7 @@ export const MyAccount = () => {
                                         <Input placeholder="DNI" {...userData("personalDocument", {required: "El DNI es obligatorio", pattern: { value: /^\d{8}$/, message: "El DNI debe tener 8 dígitos" }, validate: (value) => { return !!value.trim()}, setValueAs: value => value.trim()})} isInvalid={(errors?.personalDocument?.message != null) ? true : false}></Input>
                                     </GridItem>
                                 </Grid>
-                                <Text marginTop={"10px"} color={"white.half"} fontSize={"14px"}>* Recuerda que solo podras editar tus datos 2 vecez</Text>
+                                <Text marginTop={"10px"} color={"white.half"} fontSize={"14px"}>* Recuerda que solo podrás editar tus datos 2 veces</Text>
                             </Box>
                             <Box width={"100%"}>
                                 <MyButton textColor="white" 

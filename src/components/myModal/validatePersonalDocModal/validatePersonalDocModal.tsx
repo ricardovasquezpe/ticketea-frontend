@@ -98,7 +98,7 @@ export const ValidatePersonalDocModal = (props: Props) => {
                                 onChange={(files) => {setBackFile(files)}}/>
                         </VStack>
                     </Center>
-                    {(alreadyTried == true) ? <Checkbox isChecked={acceptValidation} onChange={(e) => setAcceptValidation(e.target.checked)}><Text fontSize={"15px"}>El sistema no pudo confirmar mis datos asi que Yo doy mi consentimiento que los documentos que estoy subiendo son validos y seran revisados en un plazo no mayor de 1 día</Text></Checkbox> : <></>}
+                    {(alreadyTried == true) ? <Checkbox isChecked={acceptValidation} onChange={(e) => setAcceptValidation(e.target.checked)}><Text fontSize={"15px"}>El sistema no pudo confirmar mis datos, así que YO doy mi consentimiento que los documentos que estoy subiendo son válidos y serán revisados en un plazo no mayor de 1 día</Text></Checkbox> : <></>}
                     <VStack width={"100%"}>
                         <MyButton textColor="white" 
                                     backgroundColor="secondary.default" 
