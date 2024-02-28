@@ -85,7 +85,7 @@ export const HowItWorks = () => {
                                         <Box background={"secondary.dark"} borderRadius={"0.625rem"} padding={"22px"}>
                                             <FontAwesomeIcon icon={faTicket} size="3x"/>
                                         </Box>
-                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Asegurate de monimar tu entrada con el vendedor y disfruta del evento!</Text>
+                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Asegurate de nominar tu entrada con el vendedor y disfruta del evento!</Text>
                                     </VStack>
                                 </GridItem>
                             </Grid>
