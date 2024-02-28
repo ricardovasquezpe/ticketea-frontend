@@ -78,7 +78,7 @@ export const SearchEvent = () => {
                             <Text as='h1' fontSize={"30px"} fontFamily={"montserratBold"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>
                                 La forma más segura de vender y comprar entradas
                             </Text>
-                            <Text fontSize={"20px"} fontFamily={"montserratBold"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Compra y vende sin preocuparte de las estafas</Text>
+                            <Text fontSize={"20px"} fontFamily={"montserratBold"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Sin preocuparte de las estafas o información falsa</Text>
                         </VStack>
                     </Center>
                 </Box>
