@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { getMySoldTickets } from "../../services/ticket.service";
 import { Ticket } from "../../services/models/ticket.model";
 import { TicketState } from "../../utils/enums/ticketState.enum";
+import { MySeo } from "../../components/mySeo/mySeo";
 
 export const MyTickets = () => {
     const loadingModal = useModal<any>(Modals.LoadingModal);
@@ -111,6 +112,10 @@ export const MyTickets = () => {
 
     return (
         <>
+          <MySeo title={`Mis entradas | Ticketea!`}
+                   description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil`}
+                   link={`https://ticketea.me/my-tickets`}
+                   image={"/images/logo.png"}/>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <Tabs variant="unstyled">
                     <TabList>

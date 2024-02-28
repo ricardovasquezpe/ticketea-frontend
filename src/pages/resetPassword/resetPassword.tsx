@@ -7,6 +7,7 @@ import { MyButton } from "../../components/myButton/myButton";
 import { resetPassword } from "../../services/auth.service";
 import { ErrorType } from "../../utils/enums/errorType.enum";
 import { useNavigate, useParams } from "react-router-dom";
+import { MySeo } from "../../components/mySeo/mySeo";
 
 export const ResetPassword = () => {
     const { register: resetPasswordReg, trigger: resetPasswordTrigger, getValues: resetPasswordGetValues, formState: { errors }, clearErrors } = useForm();
@@ -64,6 +65,10 @@ export const ResetPassword = () => {
     
     return (
         <>
+            <MySeo title={`Restablecer contraseña | Ticketea!`}
+                   description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil`}
+                   link={`https://ticketea.me/my-account`}
+                   image={"/images/logo.png"}/>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <VStack align='stretch' gap={5}>
                     <SectionTitle title="Restablecer tu contraseña"/>

@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import moment from 'moment/min/moment-with-locales';
 import { UserValidationType } from "../../utils/enums/userValidationType.enum";
 import { ErrorType } from "../../utils/enums/errorType.enum";
+import { MySeo } from "../../components/mySeo/mySeo";
 
 export const MyAccount = () => {
     const toast = useToast();
@@ -203,6 +204,10 @@ export const MyAccount = () => {
 
     return (
         <>
+            <MySeo title={`Mi Cuenta | Ticketea!`}
+                   description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil`}
+                   link={`https://ticketea.me/my-account`}
+                   image={"/images/logo.png"}/>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <VStack align='stretch' gap={4}>
                     <SectionTitle title="Tu cuenta"/>

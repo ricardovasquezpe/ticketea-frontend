@@ -21,6 +21,7 @@ import { useForm } from "react-hook-form";
 import { createTicket } from "../../services/ticket.service";
 import { EventDate } from "../../services/models/eventDate.model";
 import { ErrorType } from "../../utils/enums/errorType.enum";
+import { MySeo } from "../../components/mySeo/mySeo";
 
 export const SellTicket = () => {
     const navigate = useNavigate();
@@ -143,6 +144,10 @@ export const SellTicket = () => {
 
     return (
         <>
+            <MySeo title={`Vender entrada | Ticketea!`}
+                   description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil`}
+                   link={`https://ticketea.me/sell-ticket`}
+                   image={"/images/logo.png"}/>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <VStack align='stretch' gap={5}>
                     <SectionTitle title="Vende tu entrada"/>
