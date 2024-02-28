@@ -73,10 +73,14 @@ export const Footer = () => {
                                 <FontAwesomeIcon icon={faSquareInstagram} />
                                 <Text className={styles.brands}>Instagram</Text>
                             </Link>
-                            <Link to={"/"}>
-                                <FontAwesomeIcon icon={faSquareTwitter} />
-                                <Text className={styles.brands}>Twitter</Text>
-                            </Link>
+                            {
+                                /* 
+                                <Link to={"/"}>
+                                    <FontAwesomeIcon icon={faSquareTwitter} />
+                                    <Text className={styles.brands}>Twitter</Text>
+                                </Link>
+                                */
+                            }
                             <Link to={"/"}>
                                 <FontAwesomeIcon icon={faTiktok} />
                                 <Text className={styles.brands}>Tiktok</Text>
