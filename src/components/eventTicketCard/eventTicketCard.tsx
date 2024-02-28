@@ -1,9 +1,10 @@
-import { Avatar, Box, Divider, HStack, Image, Show, Text } from "@chakra-ui/react";
+import { Avatar, Box, Divider, HStack, Image, Link, Show, Text } from "@chakra-ui/react";
 import styles from "./eventiTicketCard.module.css";
 import { RatingBadge } from "../ratingBadge/ratingBadge";
 import Utils from "../../utils/utils";
 import moment from 'moment/min/moment-with-locales';
 import { TicketState, TicketStateString } from "../../utils/enums/ticketState.enum";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 export const EventTicketCard = (props: Props) => {
     return (
@@ -16,7 +17,12 @@ export const EventTicketCard = (props: Props) => {
                             fallbackSrc='https://via.placeholder.com/150'/>
                     </Show>
                     <Box textAlign={"start"}>
-                        <Text className={styles.eventName}>{props.eventName}</Text>
+                        <Text className={styles.eventName}>
+                            {props.eventName}
+                            <Link marginLeft={"5px"} href={"https://ticketea.me/ticket-detail/" + props.ticketId} isExternal>
+                                <ExternalLinkIcon mx='2px' />
+                            </Link>
+                        </Text>
                         <Text className={styles.artistName}>{props.artistName}</Text>
                     <Text className={styles.eventDate}>{moment(props.eventDate * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
                     </Box>
@@ -55,5 +61,6 @@ type Props = {
     sellerImage?: string,
     ratingNumber?: number,
     seat: string,
-    state?: TicketState
+    state?: TicketState,
+    ticketId?: string
 };

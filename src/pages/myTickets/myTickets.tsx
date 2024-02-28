@@ -141,7 +141,8 @@ export const MyTickets = () => {
                                                           ticketZone={ticket.zone.name}
                                                           ticketPrice={ticket.price}
                                                           seat={ticket.seat}
-                                                          state={ticket.state}></EventTicketCard>
+                                                          state={ticket.state}
+                                                          ticketId={ticket.encId}></EventTicketCard>
                                                 </GridItem>
                                                 {ticket.state == TicketState.Active ? <GridItem colSpan={{base: 7, sm: 7, customMd: 1}} style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                                                   <Grid key={index} templateColumns='repeat(3, 1fr)' gap={1} width={"100%"}>
