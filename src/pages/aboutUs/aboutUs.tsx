@@ -29,7 +29,7 @@ export const AboutUs = () => {
                             </Text>
                             <Text>
                                 <Text fontWeight={"bold"}>Futuro de Ticketea</Text>
-                                Tenemos la firme idea de habilitar la transacción de la reventa de la entrada atravez de ticketea, donde ticketea sea el intermediario y moderador de la transacción
+                                Tenemos la firme idea de habilitar la transacción de la reventa de la entrada através de ticketea, donde ticketea sea el intermediario y moderador de la transacción
                             </Text>
                         </VStack>
                     </MyContainer>
