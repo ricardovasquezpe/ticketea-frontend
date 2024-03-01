@@ -17,19 +17,19 @@ export const AboutUs = () => {
                    image={"/images/logo.png"}/>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <VStack align='stretch' gap={5}>
-                    <SectionTitle title="¿Quienes somos nosotros?" asH1={true}/>
+                    <SectionTitle title="Quiénes somos nosotros?" asH1={true}/>
                     <MyContainer>
                         <VStack gap={3} alignItems={"start"} fontSize={"16px"}>
                             <Text>
-                                Creamos Ticketea en el año 2022 con el objetivo de acabar con las estafas en las reventas de entradas para diferentes eventos en Perú, poder adquirir una de manera segura, facil y puedas asistir al evento sin problemas
+                                Ante el notorio número de estafas en la reventa de entradas de eventos, nace Ticketea con el objetivo de acabar con las estafas por medio de una plataforma segura, fácil y sin inconvenientes.
                             </Text>
                             <Text>
                                 <Text fontWeight={"bold"}>¿Cómo nació la idea?</Text>
-                                La idea nació de uno de los fundadores quien fue estafado al comprar una entrada para un concierto, y buscando soluciones dio con la idea de crear Ticketea para no volver a ser estafado el y sus amigos
+                                En el 2021 se presentaba una famosa banda en el estadio nacional del Perú, agotándose las entradas en zona VIP. Un miembro del equipo se arriesgó al comprar la entrada a un revendedor por redes sociales. Llegando al evento se llevó la sorpresa que lo habían estafado con una entrada falsa a él y a otras personas más. Al notar que dicha estafa llegó incluso a las noticias, se puso en acción con el resto del equipo y nació Ticketea
                             </Text>
                             <Text>
                                 <Text fontWeight={"bold"}>Futuro de Ticketea</Text>
-                                Tenemos la firme idea de habilitar la transaccion de la reventa de la entrada atravez de ticketea, donde ticketea sea el intermediario y moderador de la transaccion
+                                Tenemos la firme idea de habilitar la transacción de la reventa de la entrada atravez de ticketea, donde ticketea sea el intermediario y moderador de la transacción
                             </Text>
                         </VStack>
                     </MyContainer>

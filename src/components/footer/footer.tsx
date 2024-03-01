@@ -93,7 +93,7 @@ export const Footer = () => {
                                   align={"center"} 
                                   fontSize={"15px"} 
                                   color={"white.half"} 
-                                  mb={"10px"}>{(!isLogin) ? "¡No pierdas la oportunidad de ver a tu artista/banda favorito de una manera facil y segura!" : "¿Tienes una entrada que no usaras o que te sobra? Anúnciala y véndela de manera rápida y segura"}</Text>
+                                  mb={"10px"}>{(!isLogin) ? "¡No pierdas la oportunidad de ver a tu artista/banda favorito de una manera fácil y segura!" : "¿Tienes una entrada que no usaras o que te sobra? Anúnciala y véndela de manera rápida y segura"}</Text>
                             {(!isLogin) ? <MyButton textColor="black" 
                                     backgroundColor="gold.default" 
                                     backgroundColorHover="gold.dark" 
