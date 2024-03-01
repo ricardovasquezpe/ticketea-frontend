@@ -149,7 +149,7 @@ export const HowItWorks = () => {
                         <Text textAlign={"center"} fontSize={"30px"} marginBottom={"10px"}>Sé un vendedor <Box display={"inline-block"} borderRadius={"0.625rem"} paddingLeft={"10px"} paddingRight={"10px"} background={"gold.default"}><Text color={"black"}>verificado <StarIcon marginTop={"-5px"} color={"#323232"} boxSize={5}/></Text></Box></Text>
                         <Text>Cumpliendo estos 3 simples pasos</Text>
                     </Box>
-                    <Grid templateColumns="repeat(6, 1fr)" gap={10} width={"100%"}>
+                    <Grid templateColumns="repeat(6, 1fr)" gap={4} width={"100%"}>
                         <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                             <MyContainer>
                                 <VStack gap={5} padding={"15px"} textAlign={"center"}>
