@@ -233,11 +233,11 @@ export const TicketDetail = () => {
                     </Link>
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
                     <VStack id="contact-seller" gap={5}>
-                        <Text textAlign={"center"}>Si deseas adquirir la entrada, ponte en contacto con el vendedor. Al dar click te enviaremos un correo con el nombre y número celular del vendedor</Text>
+                        <Text textAlign={"center"}>Si deseas adquirir la entrada, ponte en contacto con el vendedor dando click en el botón de abajo. Al dar click, te brindaremos sus datos de contacto</Text>
                         <MyButton textColor="white" 
                                 backgroundColor="secondary.default" 
                                 backgroundColorHover="secondary.dark" 
-                                title={"Enviame la información"}
+                                title={"Deseo adquirir la entrada!"}
                                 fontSize="18px"
                                 padding="14px"
                                 onClick={click}
@@ -348,7 +348,7 @@ export const TicketDetail = () => {
                             }
                             <Box textAlign={"center"}>
                                 <Text fontSize={"22px"} fontFamily={"robotoBold"}>¿Dudas?</Text>
-                                <Text>En caso tengas dudas puedes comunicarte con nosotros a nuestro correo electrónico hola.ticketea@gmail.com</Text>
+                                <Text>Recuerda que toda duda o consulta puedes comunicarte con nosotros a nuestro correo electrónico hola.ticketea@gmail.com</Text>
                                 <Box marginTop={"7px"}>
                                     <Link color='teal.500' href='/terms-conditions' isExternal>
                                         Términos y condiciones <ExternalLinkIcon mx='2px' />
@@ -366,13 +366,13 @@ export const TicketDetail = () => {
                         <AccordionItem border={"none"}>
                             <AccordionButton>
                                 <Box as="span" flex='1' textAlign='left'>
-                                    <Text>¿Cómo puedo asegurarme que la entrada es original?</Text>
+                                    <Text>¿Cómo puedo asegurarme que la entrada que compre es original?</Text>
                                 </Box>
                                 <AccordionIcon />
                             </AccordionButton>
                             <AccordionPanel pb={4}>
                                 <Text fontSize={16}>
-                                    Recomendamos hacer el proceso de nominción de la entrada con el vendedor en persona o compartiendo pantalla, asi te podrás asegurar al 100% que tu eres el nuevo dueño de la entrada
+                                    Recomendamos hacer el proceso de nominación de la entrada con el vendedor en persona o compartiendo pantalla. Así te aseguras al 100% ser el dueño de la entrada
                                 </Text>
                                 <Box marginTop={"7px"}>
                                     <Link color='teal.500' href='https://teleticketperu.zendesk.com/hc/es/articles/10212876635163--C%C3%93MO-NOMINAR-MI-TICKET' isExternal>
@@ -393,7 +393,7 @@ export const TicketDetail = () => {
                         <AccordionItem border={"none"}>
                             <AccordionButton>
                                 <Box as="span" flex='1' textAlign='left'>
-                                    <Text>¿Que información tendré del vendedor?</Text>
+                                    <Text>¿Qué información tendré del vendedor?</Text>
                                 </Box>
                                 <AccordionIcon />
                             </AccordionButton>
@@ -407,13 +407,13 @@ export const TicketDetail = () => {
                         <AccordionItem border={"none"}>
                             <AccordionButton>
                                 <Box as="span" flex='1' textAlign='left'>
-                                    <Text>¿Puedo realizar la compra atravez de Ticketea?</Text>
+                                    <Text>¿Puedo realizar la compra a través de Ticketea?</Text>
                                 </Box>
                                 <AccordionIcon />
                             </AccordionButton>
                             <AccordionPanel pb={4}>
                                 <Text fontSize={16}>
-                                    Por ahora no esta habilitada la opción de compra atravez de Ticketea, pero mantente atento que pronto estará listo!
+                                    Estamos trabajando para que sea ya posible compras en nuestra web. Muy pronto estará listo y disponible
                                 </Text>
                             </AccordionPanel>
                         </AccordionItem>
