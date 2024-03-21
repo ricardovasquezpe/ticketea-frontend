@@ -116,7 +116,7 @@ export const HowItWorks = () => {
                         <VStack gap={7} width={"100%"} padding={"10px"}>
                             <Grid templateColumns="repeat(15, 1fr)" gap={5} width={{base: "auto", sm: "100%"}}>
                                 <GridItem colSpan={{base: 15, sm: 2, md: 2}} textAlign={"center"}>
-                                    <Image src={"/images/how/dni_validation.png"} width={"100px"}></Image>
+                                    <Image src={"/images/how/dni_validation.png"} width={"100px"} display={"block"} margin={"auto"}></Image>
                                     {/*<FontAwesomeIcon icon={faIdCard} size="2x"/>*/}
                                 </GridItem>
                                 <GridItem colSpan={{base: 15, sm: 13, md: 13}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
@@ -126,7 +126,7 @@ export const HowItWorks = () => {
                             </Grid>
                             <Grid templateColumns="repeat(15, 1fr)" gap={5} width={{base: "auto", sm: "100%"}}>
                                 <GridItem colSpan={{base: 15, sm: 2, md: 2}} textAlign={"center"}>
-                                    <Image src={"/images/how/personal_data_validation.png"} width={"100px"}></Image>
+                                    <Image src={"/images/how/personal_data_validation.png"} width={"100px"} display={"block"} margin={"auto"}></Image>
                                     {/*<FontAwesomeIcon icon={faAddressBook} size="2x"/>*/}
                                 </GridItem>
                                 <GridItem colSpan={{base: 15, sm: 13, md: 13}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
@@ -136,7 +136,7 @@ export const HowItWorks = () => {
                             </Grid>
                             <Grid templateColumns="repeat(15, 1fr)" gap={5} width={{base: "auto", sm: "100%"}}>
                                 <GridItem colSpan={{base: 15, sm: 2, md: 2}} textAlign={"center"}>
-                                    <Image src={"/images/how/email_validation.png"} width={"100px"}></Image>
+                                    <Image src={"/images/how/email_validation.png"} width={"100px"} display={"block"} margin={"auto"}></Image>
                                     {/*<FontAwesomeIcon icon={faAt} size="2x"/>*/}
                                 </GridItem>
                                 <GridItem colSpan={{base: 15, sm: 13, md: 13}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
