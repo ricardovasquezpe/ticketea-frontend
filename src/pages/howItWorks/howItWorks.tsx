@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 import styles from "./howItWorks.module.css";
 import Utils from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAddressBook, faAt, faCartShopping, faHandshake, faIdCard, faMagnifyingGlass, faPeopleArrows, faPersonCircleCheck, faShieldHeart, faTicket } from "@fortawesome/free-solid-svg-icons";
+import { faShieldHeart } from "@fortawesome/free-solid-svg-icons";
 import { MyButton } from "../../components/myButton/myButton";
 import { useNavigate } from "react-router-dom";
 import { MyContainer } from "../../components/myContainer/myContainer";
