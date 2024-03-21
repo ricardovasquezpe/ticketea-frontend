@@ -1,4 +1,4 @@
-import { Box, Center, Grid, GridItem, HStack, Text, VStack, useToast } from "@chakra-ui/react";
+import { Box, Center, Grid, GridItem, HStack, Image, Text, VStack, useToast } from "@chakra-ui/react";
 import { useEffect, useMemo } from "react";
 import styles from "./howItWorks.module.css";
 import Utils from "../../utils/utils";
@@ -65,25 +65,28 @@ export const HowItWorks = () => {
                             <Grid templateColumns="repeat(6, 1fr)" gap={10} width={"70%"}>
                                 <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                                     <VStack gap={5}>
-                                        <Box background={"secondary.dark"} borderRadius={"0.625rem"} padding={"22px"}>
-                                            <FontAwesomeIcon icon={faMagnifyingGlass} size="3x"/>
+                                        <Box background={"secondary.dark"} borderRadius={"0.625rem"} padding={"15px"}>
+                                            <Image src={"/images/how/search_event.png"} width={"70px"}></Image>
+                                            {/*<FontAwesomeIcon icon={faMagnifyingGlass} size="3x"/>*/}
                                         </Box>
                                         <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Busca el evento de tu interés y ve la lista de vendedores</Text>
                                     </VStack>
                                 </GridItem>
                                 <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                                     <VStack gap={5}>
-                                        <Box background={"secondary.dark"} borderRadius={"0.625rem"} padding={"22px"}>
-                                            <FontAwesomeIcon icon={faPeopleArrows} size="3x"/>
+                                        <Box background={"secondary.dark"} borderRadius={"0.625rem"} padding={"15px"}>
+                                            <Image src={"/images/how/select_seller.png"} width={"70px"}></Image>
+                                            {/*<FontAwesomeIcon icon={faPeopleArrows} size="3x"/>*/}
                                         </Box>
                                         {/*<Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Elige al que mas te convenga y compra de manera facil y segura</Text> */}
-                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Escoge a un y ponte en contacto con el vendedor</Text>
+                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Escoge a uno y ponte en contacto con el vendedor</Text>
                                     </VStack>
                                 </GridItem>
                                 <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                                     <VStack gap={5}>
-                                        <Box background={"secondary.dark"} borderRadius={"0.625rem"} padding={"22px"}>
-                                            <FontAwesomeIcon icon={faTicket} size="3x"/>
+                                        <Box background={"secondary.dark"} borderRadius={"0.625rem"} padding={"15px"}>
+                                            <Image src={"/images/how/buy_ticket.png"} width={"70px"}></Image>
+                                            {/*<FontAwesomeIcon icon={faTicket} size="3x"/>*/}
                                         </Box>
                                         <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Recuerda nominar la entrada y disfruta del evento!</Text>
                                     </VStack>
@@ -112,28 +115,31 @@ export const HowItWorks = () => {
                     <MyContainer>
                         <VStack gap={7} width={"100%"} padding={"10px"}>
                             <Grid templateColumns="repeat(15, 1fr)" gap={5} width={{base: "auto", sm: "100%"}}>
-                                <GridItem colSpan={{base: 15, sm: 1, md: 1}} textAlign={"center"}>
-                                    <FontAwesomeIcon icon={faIdCard} size="2x"/>
+                                <GridItem colSpan={{base: 15, sm: 2, md: 2}} textAlign={"center"}>
+                                    <Image src={"/images/how/dni_validation.png"} width={"100px"}></Image>
+                                    {/*<FontAwesomeIcon icon={faIdCard} size="2x"/>*/}
                                 </GridItem>
-                                <GridItem colSpan={{base: 15, sm: 14, md: 14}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
+                                <GridItem colSpan={{base: 15, sm: 13, md: 13}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
                                     <Text fontSize={"20px"}>Validación del DNI físico con RENIEC</Text>
                                     <Text color={"white.half"}>El DNI físico se escanea por ambos lados y se valida con el sistema de RENIEC. Así verificamos la veracidad de los datos ingresados</Text>  
                                 </GridItem>
                             </Grid>
                             <Grid templateColumns="repeat(15, 1fr)" gap={5} width={{base: "auto", sm: "100%"}}>
-                                <GridItem colSpan={{base: 15, sm: 1, md: 1}} textAlign={"center"}>
-                                    <FontAwesomeIcon icon={faAddressBook} size="2x"/>
+                                <GridItem colSpan={{base: 15, sm: 2, md: 2}} textAlign={"center"}>
+                                    <Image src={"/images/how/personal_data_validation.png"} width={"100px"}></Image>
+                                    {/*<FontAwesomeIcon icon={faAddressBook} size="2x"/>*/}
                                 </GridItem>
-                                <GridItem colSpan={{base: 15, sm: 14, md: 14}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
+                                <GridItem colSpan={{base: 15, sm: 13, md: 13}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
                                     <Text fontSize={"20px"}>Validación de datos personales</Text>
                                     <Text color={"white.half"}>Se requiere al vendedor cada uno de sus datos como nombres completos, fecha de nacimiento, DNI, foto de perfil, etc. Y validamos que todos los datos coincidan con su documento de identificación</Text>
                                 </GridItem>
                             </Grid>
                             <Grid templateColumns="repeat(15, 1fr)" gap={5} width={{base: "auto", sm: "100%"}}>
-                                <GridItem colSpan={{base: 15, sm: 1, md: 1}} textAlign={"center"}>
-                                    <FontAwesomeIcon icon={faAt} size="2x"/>
+                                <GridItem colSpan={{base: 15, sm: 2, md: 2}} textAlign={"center"}>
+                                    <Image src={"/images/how/email_validation.png"} width={"100px"}></Image>
+                                    {/*<FontAwesomeIcon icon={faAt} size="2x"/>*/}
                                 </GridItem>
-                                <GridItem colSpan={{base: 15, sm: 14, md: 14}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
+                                <GridItem colSpan={{base: 15, sm: 13, md: 13}} textAlign={{base: "center", sm: "start"}} padding={{base: "0px 40px 0px 40px", sm: "0px"}}>
                                     <Text fontSize={"20px"}>Validación de datos de contacto</Text>
                                     <Text color={"white.half"}>El vendedor brinda un número de celular y correo electrónico al momento de su registro, los cuáles se validan</Text>  
                                 </GridItem>
@@ -153,7 +159,8 @@ export const HowItWorks = () => {
                         <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                             <MyContainer>
                                 <VStack gap={5} padding={"15px"} textAlign={"center"}>
-                                    <FontAwesomeIcon icon={faPersonCircleCheck} size="3x"/>
+                                    <Image src={"/images/how/register_seller.png"} width={"80px"}></Image>
+                                    {/*<FontAwesomeIcon icon={faPersonCircleCheck} size="3x"/>*/}
                                     <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Regístrate, completa tus datos y verifícate</Text>
                                 </VStack>
                             </MyContainer>
@@ -161,7 +168,8 @@ export const HowItWorks = () => {
                         <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                             <MyContainer>
                                 <VStack gap={5} padding={"15px"} textAlign={"center"}>
-                                    <FontAwesomeIcon icon={faCartShopping} size="3x"/>
+                                    <Image src={"/images/how/seller_announce.png"} width={"80px"}></Image>
+                                    {/*<FontAwesomeIcon icon={faCartShopping} size="3x"/>*/}
                                     <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Anuncia tu entrada y <Text fontFamily={"montserratBold"} display={"inline-block"}>Ticketea</Text> lo pondrá visible para posibles compradores</Text>
                                 </VStack>
                             </MyContainer>
@@ -169,7 +177,8 @@ export const HowItWorks = () => {
                         <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
                             <MyContainer>
                                 <VStack gap={5} padding={"15px"} textAlign={"center"}>
-                                    <FontAwesomeIcon icon={faHandshake} size="3x"/>
+                                    <Image src={"/images/how/shake_hand_seller.png"} width={"80px"}></Image>
+                                    {/*<FontAwesomeIcon icon={faHandshake} size="3x"/>*/}
                                     <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Nomina la entrada con el comprador y obtén tu venta!</Text>
                                 </VStack>
                             </MyContainer>

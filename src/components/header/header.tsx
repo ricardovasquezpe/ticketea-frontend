@@ -163,8 +163,8 @@ export const Header = () => {
                 <Box>
                     <HStack cursor={"pointer"} onClick={()=>navigate("/")}>
                         <Hide below='sm'>
-                            <Image src={"/images/logo.png"} 
-                                   h="32px" 
+                            <Image src={"/images/logo_2.png"} 
+                                   h="60px" 
                                    alt={`Logo de Ticketea.me`} 
                                    title={`Logo de Ticketea.me`}
                                    loading="eager"/>
