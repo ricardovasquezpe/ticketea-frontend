@@ -2,14 +2,14 @@ name: Build and deploy docker image on DockerHub
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    tags:        
+      - '*'
 
 env:
   DOCKER_USER: ${{secrets.DOCKER_USER}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
   REPO_NAME: ${{secrets.REPO_NAME}}
+  VERSION: ${{ github.ref_name }}
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build the docker image 
-      run: docker build -t $DOCKER_USER/$REPO_NAME:latest .
+      run: docker build -t $DOCKER_USER/$REPO_NAME:$VERSION .
     - name: Push the docker image
-      run: docker push $DOCKER_USER/$REPO_NAME:latest
+      run: docker push $DOCKER_USER/$REPO_NAME:$VERSION
 # ${{ github.sha }}
