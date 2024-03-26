@@ -13,13 +13,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-  steps:
-  - name: Checkout repo
-    uses: actions/checkout@v3
-  - name: Docker Login
-    run: |
-      docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-  - name: Build the docker image 
-    uses: docker build -t $DOCKER_USER/$REPO_NAME:$(date + %s) .
-  - name: Push the docker image
-    run: docker push $DOCKER_USER/$REPO_NAME
+    steps:
+    - uses: actions/checkout@v3
+    - name: Docker Login
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - name: Build the docker image 
+      uses: docker build -t $DOCKER_USER/$REPO_NAME:$(date + %s) .
+    - name: Push the docker image
+      run: docker push $DOCKER_USER/$REPO_NAME
