@@ -14,7 +14,8 @@ env:
   REPO_NAME: ${{secrets.REPO_NAME}}
 
 jobs:
-  build:
+  if_merged:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
