@@ -1,4 +1,4 @@
-name: Node.js CI
+name: pre-pullrequest
 
 on: 
     pull_request:
