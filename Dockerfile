@@ -18,8 +18,12 @@ WORKDIR /usr/src/app
 
 COPY ./ /usr/src/app/
 RUN npm install
+
 RUN npm run build
+
+COPY entrypoint.sh /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/entrypoint.sh
 
 EXPOSE  8080
 
-CMD [ "npm", "run", "preview" ]
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
