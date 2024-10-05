@@ -19,7 +19,7 @@ WORKDIR /usr/src/app
 COPY ./ /usr/src/app/
 RUN npm install
 
-RUN npm run build
+# RUN npm run build
 
 COPY entrypoint.sh /usr/src/app/entrypoint.sh
 RUN chmod +x /usr/src/app/entrypoint.sh
