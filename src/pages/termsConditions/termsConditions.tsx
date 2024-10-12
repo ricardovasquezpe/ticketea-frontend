@@ -64,3 +64,5 @@ export const TermsConditions = () => {
         </>
     );
 };
+
+export default TermsConditions;

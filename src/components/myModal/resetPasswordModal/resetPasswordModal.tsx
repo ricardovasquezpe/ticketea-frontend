@@ -21,13 +21,13 @@ export const ResetPasswordModal = (props: Props) => {
 
         setLoading(true);
         var response = await sendResetPassword(resetPasswordGetValues());
-        if(response.data.errorType == ErrorType.Validation){
+        if(response.data.errorType == ErrorType.ValidationError){
             setLoading(false);
             setErrorMessage("Falta llenar algunos campos");
             return;
         }
 
-        if(response.data.errorType  == ErrorType.Simple){
+        if(response.data.errorType  == ErrorType.Info){
             setLoading(false);
             setErrorMessage(response.data.message);
             return;

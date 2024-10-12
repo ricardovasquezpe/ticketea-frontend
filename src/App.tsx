@@ -2,38 +2,43 @@ import { Footer } from "./components/footer/footer"
 import { Header } from "./components/header/header"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { ModalRenderer } from "./config/modal/modal-renderer"
-import { SearchEvent } from "./pages/searchEvent/searchEvent"
-import { ListTickets } from "./pages/listTickets/listTickets"
-import { TicketDetail } from "./pages/ticketDetail/ticketDetail"
-import { Checkout } from "./pages/checkout/checkout"
-import { SellTicket } from "./pages/sellTicket/sellTicket"
-import { MyTickets } from "./pages/myTickets/myTickets"
-import { MyAccount } from "./pages/myAccount/myAccount"
 import { AuthGuard } from "./utils/authGuard"
-import { TermsConditions } from "./pages/termsConditions/termsConditions"
-import { HowItWorks } from "./pages/howItWorks/howItWorks"
-import { ResetPassword } from "./pages/resetPassword/resetPassword"
-import { AboutUs } from "./pages/aboutUs/aboutUs"
+import { lazy, Suspense } from "react"
+import { Loading } from "./components/loading/loading"
+
+const SearchEventComp = lazy(() => import('./pages/searchEvent/searchEvent'));
+const ListTicketsComp = lazy(() => import('./pages/listTickets/listTickets'));
+const TicketDetailComp = lazy(() => import('./pages/ticketDetail/ticketDetail'));
+const CheckoutComp = lazy(() => import('./pages/checkout/checkout'));
+const TermsConditionsComp = lazy(() => import('./pages/termsConditions/termsConditions'));
+const ResetPasswordComp = lazy(() => import('./pages/resetPassword/resetPassword'));
+const HowItWorksComp = lazy(() => import('./pages/howItWorks/howItWorks'));
+const AboutUsComp = lazy(() => import('./pages/aboutUs/aboutUs'));
+const SellTicketComp = lazy(() => import('./pages/sellTicket/sellTicket'));
+const MyTicketsComp = lazy(() => import('./pages/myTickets/myTickets'));
+const MyAccountComp = lazy(() => import('./pages/myAccount/myAccount'));
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <ModalRenderer/>
+        <ModalRenderer />
         <Header></Header>
-        <Routes>
-          <Route path='/' element={<SearchEvent></SearchEvent>}></Route>
-          <Route path='/tickets/:eventDateId' element={<ListTickets></ListTickets>}></Route>
-          <Route path='/ticket-detail/:ticketId' element={<TicketDetail></TicketDetail>}></Route>
-          <Route path='/ticket-buy/:ticketId' element={<Checkout></Checkout>}></Route>
-          <Route path='/terms-conditions' element={<TermsConditions></TermsConditions>}></Route>
-          <Route path='/reset-password/:code' element={<ResetPassword></ResetPassword>}></Route>
-          <Route path='/how-works' element={<HowItWorks></HowItWorks>}></Route>
-          <Route path='/about-us' element={<AboutUs></AboutUs>}></Route>
-          <Route path="/sell-ticket" element={<AuthGuard><SellTicket></SellTicket></AuthGuard>}/>
-          <Route path="/my-tickets" element={<AuthGuard><MyTickets></MyTickets></AuthGuard>}/>
-          <Route path="/my-account" element={<AuthGuard><MyAccount></MyAccount></AuthGuard>}/>
-        </Routes>
+        <Suspense fallback={<Loading height100vh={true} />}>
+          <Routes>
+            <Route path='/' element={<SearchEventComp/>}></Route>
+            <Route path='/tickets/:eventDateId' element={<ListTicketsComp/>}></Route>
+            <Route path='/ticket-detail/:ticketId' element={<TicketDetailComp/>}></Route>
+            <Route path='/ticket-buy/:ticketId' element={<CheckoutComp/>}></Route>
+            <Route path='/terms-conditions' element={<TermsConditionsComp/>}></Route>
+            <Route path='/reset-password/:code' element={<ResetPasswordComp/>}></Route>
+            <Route path='/how-works' element={<HowItWorksComp/>}></Route>
+            <Route path='/about-us' element={<AboutUsComp/>}></Route>
+            <Route path="/sell-ticket" element={<AuthGuard><SellTicketComp/></AuthGuard>} />
+            <Route path="/my-tickets" element={<AuthGuard><MyTicketsComp/></AuthGuard>} />
+            <Route path="/my-account" element={<AuthGuard><MyAccountComp/></AuthGuard>} />
+          </Routes>
+        </Suspense>
         <Footer></Footer>
       </BrowserRouter>
     </>

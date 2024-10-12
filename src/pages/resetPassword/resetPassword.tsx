@@ -37,13 +37,13 @@ export const ResetPassword = () => {
         clearErrors();
 
         var response = await resetPassword({...resetPasswordGetValues(), code: code});
-        if(response.data.errorType == ErrorType.Validation){
+        if(response.data.errorType == ErrorType.ValidationError){
             setLoading(false);
             setErrorMessage("Falta llenar algunos campos");
             return;
         }
 
-        if(response.data.errorType  == ErrorType.Simple){
+        if(response.data.errorType  == ErrorType.Info){
             setLoading(false);
             setErrorMessage(response.data.message);
             return;
@@ -101,3 +101,5 @@ export const ResetPassword = () => {
         </>
     );
 };
+
+export default ResetPassword;

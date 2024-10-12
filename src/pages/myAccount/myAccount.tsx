@@ -166,13 +166,13 @@ export const MyAccount = () => {
 
                 var payload = {...userDataGetValues(), birthDate: birthDateMoment.format("DD/MM/YYYY")}
                 var response = await updateMyUserData(payload);
-                if(response.data.errorType == ErrorType.Validation){
+                if(response.data.errorType == ErrorType.ValidationError){
                     setLoadingUserUpdate(false);
                     setErrorMessage("Falta llenar algunos campos");
                     return;
                 }
 
-                if(response.data.errorType  == ErrorType.Simple){
+                if(response.data.errorType  == ErrorType.Info){
                     setLoadingUserUpdate(false);
                     setErrorMessage(response.data.message);
                     return;
@@ -357,3 +357,5 @@ export const MyAccount = () => {
         </>
     );
 };
+
+export default MyAccount;

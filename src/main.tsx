@@ -14,11 +14,11 @@ moment.updateLocale("es", {});
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <HelmetProvider>
     <ChakraProvider theme={theme}>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           <App />
-          </PersistGate>
-        </Provider>
+        </PersistGate>
+      </Provider>
     </ChakraProvider>
   </HelmetProvider>,
 )

@@ -27,13 +27,13 @@ export const ValidateEmailModal = (props: Props) => {
 
         setLoadingSendEmailValidation(true);
         var response = await sendMyEmailValidation({"email": props.currentEmail});
-        if(response.data.errorType == ErrorType.Validation){
+        if(response.data.errorType == ErrorType.ValidationError){
             setLoadingSendEmailValidation(false);
             setErrorMessage("Falta llenar algunos campos");
             return;
         }
 
-        if(response.data.errorType  == ErrorType.Simple){
+        if(response.data.errorType  == ErrorType.Info){
             setLoadingSendEmailValidation(false);
             setErrorMessage(response.data.message);
             return;
@@ -53,13 +53,13 @@ export const ValidateEmailModal = (props: Props) => {
         setErrorMessage("");
 
         var response = await validateMyEmail({"otp": pin});
-        if(response.data.errorType == ErrorType.Validation){
+        if(response.data.errorType == ErrorType.ValidationError){
             setErrorMessage("Falta llenar algunos campos");
             setLoadingValidateEmail(false);
             return;
         }
 
-        if(response.data.errorType  == ErrorType.Simple){
+        if(response.data.errorType  == ErrorType.Info){
             setErrorMessage(response.data.message);
             setLoadingValidateEmail(false);
             return;

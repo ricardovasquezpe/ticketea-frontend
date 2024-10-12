@@ -22,13 +22,13 @@ export const ValidatePhoneModal = (props: Props) => {
 
         setLoadingSendPhoneValidation(true);
         var response = await sendMyPhoneValidation(phoneValidationGetValues());
-        if(response.data.errorType == ErrorType.Validation){
+        if(response.data.errorType == ErrorType.ValidationError){
             setLoadingSendPhoneValidation(false);
             setErrorMessage("Falta llenar algunos campos");
             return;
         }
 
-        if(response.data.errorType  == ErrorType.Simple){
+        if(response.data.errorType  == ErrorType.Info){
             setLoadingSendPhoneValidation(false);
             setErrorMessage(response.data.message);
             return;
@@ -49,13 +49,13 @@ export const ValidatePhoneModal = (props: Props) => {
         setLoadingValidatePhone(true);
         setErrorMessage("");
         var response = await validateMyPhone({"otp": pin});
-        if(response.data.errorType == ErrorType.Validation){
+        if(response.data.errorType == ErrorType.ValidationError){
             setErrorMessage("Falta llenar algunos campos");
             setLoadingValidatePhone(false);
             return;
         }
 
-        if(response.data.errorType  == ErrorType.Simple){
+        if(response.data.errorType  == ErrorType.Info){
             setErrorMessage(response.data.message);
             setLoadingValidatePhone(false);
             return;

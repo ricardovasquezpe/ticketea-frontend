@@ -63,13 +63,13 @@ export const EditTicketPriceModal = (props: Props) => {
 
         setLoading(true);
         var response = await updateTicketPrice(props.ticketId, editPriceGetValues());
-        if(response.data.errorType == ErrorType.Validation){
+        if(response.data.errorType == ErrorType.ValidationError){
             setErrorMessage("Falta llenar algunos campos");
             setLoading(false);
             return;
         }
 
-        if(response.data.errorType  == ErrorType.Simple){
+        if(response.data.errorType  == ErrorType.Info){
             setLoading(false);
             setErrorMessage(response.data.message);
             return;

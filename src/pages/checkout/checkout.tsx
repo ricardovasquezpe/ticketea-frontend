@@ -16,7 +16,7 @@ import { User } from "../../services/models/user.model";
 import { getUserById } from "../../services/user.service";
 import { EventDate } from "../../services/models/eventDate.model";
 
-export const Checkout = () => {
+const Checkout = () => {
     const navigate = useNavigate();
     const [event, setEvent] = useState({} as EventDate);
     const [ticket, setTicket] = useState({} as Ticket);
@@ -94,3 +94,5 @@ export const Checkout = () => {
         </>
     );
 };
+
+export default Checkout;

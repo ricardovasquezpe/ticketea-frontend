@@ -17,7 +17,7 @@ import styles from "./searchEvent.module.css";
 import { MySeo } from "../../components/mySeo/mySeo";
 import { store } from "../../store/store";
 
-export const SearchEvent = () => {
+const SearchEvent = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [events, setEvents] = useState([] as EventDate[]);
@@ -124,3 +124,5 @@ export const SearchEvent = () => {
         </>
     );
 };
+
+export default SearchEvent;

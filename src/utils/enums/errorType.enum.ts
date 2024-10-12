@@ -1,4 +1,6 @@
 export enum ErrorType {
-    Validation = 1,
-    Simple = 2
+    Success = 1,
+    Info = 2,
+    Error = 3,
+    ValidationError = 4
 }

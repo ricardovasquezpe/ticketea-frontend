@@ -18,7 +18,7 @@ import Session from "../../utils/session";
 import { EventDate } from "../../services/models/eventDate.model";
 import { MySeo } from "../../components/mySeo/mySeo";
 
-export const ListTickets = () => {
+const ListTickets = () => {
     const [tickets, setTickets] = useState([] as Ticket[]);
     const [event, setEvent] = useState({} as EventDate);
     const { eventDateId } = useParams();
@@ -158,3 +158,5 @@ export const ListTickets = () => {
         </>
     );
 };
+
+export default ListTickets;

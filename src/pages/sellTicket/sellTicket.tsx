@@ -1,11 +1,11 @@
-import { Box, Grid, GridItem, Input, InputGroup, InputLeftAddon, Select, Text, Tooltip, VStack, useToast } from "@chakra-ui/react";
+import { Box, Checkbox, Grid, GridItem, Input, InputGroup, InputLeftAddon, Select, Text, Tooltip, VStack, useToast } from "@chakra-ui/react";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { MyButton } from "../../components/myButton/myButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faCircleMinus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { EventCardSearch } from "../../components/eventCardSearch/eventCardSearch";
-import { FileUploader } from "../../components/fileUploader/fileUploader";
+//import { FileUploader } from "../../components/fileUploader/fileUploader";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useModal } from "../../config/modal/use-modal";
@@ -25,7 +25,7 @@ import { MySeo } from "../../components/mySeo/mySeo";
 
 export const SellTicket = () => {
     const navigate = useNavigate();
-    const [files, setFiles] = useState([] as File[]);
+    //const [files, setFiles] = useState([] as File[]);
     const [user, setUser] = useState({} as User);
     const [events, setEvents] = useState([] as EventDate[]);
     const [eventSelected, setEventSelected] = useState({} as EventDate);
@@ -71,16 +71,15 @@ export const SellTicket = () => {
             return;
         }
 
-        const isValid = await sellTrigger(["event", "zone", "price", "seat"], { shouldFocus: true });
+        const isValid = await sellTrigger(["event", "zone", "price", "seat", "acceptSellTerms"], { shouldFocus: true });
         if(!isValid){
-            //setErrorMessage(Object.values(errors)[0]?.message);
             return;
         }
 
-        if(files.length == 0){
+        /*if(files.length == 0){
             setErrorMessage("Debes subir tu entrada en formato PDF")
             return;
-        }
+        }*/
 
         setLoading(true);
         var formData = new FormData();
@@ -89,15 +88,15 @@ export const SellTicket = () => {
         formData.append("zoneId", sellGetValues().zone);
         formData.append("price", sellGetValues().price);
         formData.append("seat", sellGetValues().seat);
-        formData.append("file", files[0]);
+        //formData.append("file", files[0]);
         var response = await createTicket(formData);
-        if(response.data.errorType == ErrorType.Validation){
+        if(response.data.errorType == ErrorType.ValidationError){
             setErrorMessage("Falta llenar algunos campos");
             setLoading(false);
             return;
         }
 
-        if(response.data.errorType  == ErrorType.Simple){
+        if(response.data.errorType  == ErrorType.Info){
             setErrorMessage(response.data.message);
             setLoading(false);
             return;
@@ -274,17 +273,25 @@ export const SellTicket = () => {
                         </Grid>
                     </MyContainer>
                     <MyContainer>
-                        <Text fontSize={"20px"}>Subir entrada (formato PDF)</Text>
-                        <Text color={"white.half"} fontSize={"16px"}>Sube la entrada E-Ticket para poder validar que tengas la entrada, no guardaremos la entrada </Text>
-                        <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
-                            <FileUploader 
-                                acceptFiles={{"application/pdf": [".pdf"]}}
-                                maxFiles={1}
-                                onChange={(files) => {setFiles(files)}}
-                                backgroundColor="primary.moreLight" 
-                                description="Selecciona o arrastra aquí el archivo de tu entrada en formato PDF"/>
-                        </Box>
+                        <Checkbox isInvalid={(errors?.acceptSellTerms?.message != null) ? true : false}
+                                 {...sell("acceptSellTerms", {required: "Aceptar el consentimiento de venta es obligatorio"})}><Text fontSize={"15px"}>Doy mi consentimiento de tener la entrada original y en caso de encontrarse algún tipo de fraude seré responsable de los daños y prejuicios sucedidos</Text></Checkbox>
                     </MyContainer>
+                    {
+                        /*
+                            <MyContainer>
+                                <Text fontSize={"20px"}>Subir entrada (formato PDF)</Text>
+                                <Text color={"white.half"} fontSize={"16px"}>Sube la entrada E-Ticket para poder validar que tengas la entrada, no guardaremos la entrada </Text>
+                                <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
+                                    <FileUploader 
+                                        acceptFiles={{"application/pdf": [".pdf"]}}
+                                        maxFiles={1}
+                                        onChange={(files) => {setFiles(files)}}
+                                        backgroundColor="primary.moreLight" 
+                                        description="Selecciona o arrastra aquí el archivo de tu entrada en formato PDF"/>
+                                </Box>
+                            </MyContainer>
+                        */
+                    }
                     <VStack textAlign={"center"}>
                         <MyButton textColor="white" 
                                 backgroundColor="secondary.default" 
@@ -304,3 +311,5 @@ export const SellTicket = () => {
         </>
     );
 };
+
+export default SellTicket;

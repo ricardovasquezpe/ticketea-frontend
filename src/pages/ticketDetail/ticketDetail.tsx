@@ -28,7 +28,7 @@ import { EventDate } from "../../services/models/eventDate.model";
 import Session from "../../utils/session";
 import { MySeo } from "../../components/mySeo/mySeo";
 
-export const TicketDetail = () => {
+const TicketDetail = () => {
     //const navigate = useNavigate();
     const [event, setEvent] = useState({} as EventDate);
     const [ticket, setTicket] = useState({} as Ticket);
@@ -424,3 +424,5 @@ export const TicketDetail = () => {
         
     );
 };
+
+export default TicketDetail;

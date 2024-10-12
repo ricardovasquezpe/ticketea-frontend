@@ -37,13 +37,13 @@ export const ValidatePersonalDocModal = (props: Props) => {
         if(acceptValidation) formData.append("acceptValidation", "true");
 
         var response = await validateMyPersonalDocument(formData);
-        if(response.data.errorType == ErrorType.Validation){
+        if(response.data.errorType == ErrorType.ValidationError){
             setErrorMessage("Falta llenar algunos campos");
             setLoading(false);
             return;
         }
 
-        if(response.data.errorType  == ErrorType.Simple){
+        if(response.data.errorType  == ErrorType.Info){
             setAlreadyTried(true);
             setErrorMessage(response.data.message);
             setLoading(false);
