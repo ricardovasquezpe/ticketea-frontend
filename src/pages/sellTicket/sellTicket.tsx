@@ -82,14 +82,22 @@ export const SellTicket = () => {
         }*/
 
         setLoading(true);
-        var formData = new FormData();
+        /*var formData = new FormData();
         formData.append("eventDateId", eventSelected.encId);
         formData.append("eventId", eventSelected.event.encId);
         formData.append("zoneId", sellGetValues().zone);
         formData.append("price", sellGetValues().price);
-        formData.append("seat", sellGetValues().seat);
+        formData.append("seat", sellGetValues().seat);*/
         //formData.append("file", files[0]);
-        var response = await createTicket(formData);
+        var data = {
+            eventDateId: eventSelected.encId,
+            eventId: eventSelected.event.encId,
+            zoneId: sellGetValues().zone,
+            price: sellGetValues().price,
+            seat: sellGetValues().seat
+        }
+
+        var response = await createTicket(data);
         if(response.data.errorType == ErrorType.ValidationError){
             setErrorMessage("Falta llenar algunos campos");
             setLoading(false);
