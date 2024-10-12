@@ -34,7 +34,11 @@ export const ValidatePersonalDocModal = (props: Props) => {
         var formData = new FormData();
         formData.append("front", frontFile[0]);
         formData.append("back", backFile[0]);
-        if(acceptValidation) formData.append("acceptValidation", "true");
+        if(acceptValidation){
+            formData.append("acceptValidation", "1");
+        } else {
+            formData.append("acceptValidation", "0");
+        }
 
         var response = await validateMyPersonalDocument(formData);
         if(response.data.errorType == ErrorType.ValidationError){
