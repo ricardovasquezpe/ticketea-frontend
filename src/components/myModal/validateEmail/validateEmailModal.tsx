@@ -1,4 +1,4 @@
-import { HStack, PinInput, PinInputField, Text, VStack } from "@chakra-ui/react";
+import { HStack, PinInput, PinInputField, Text, useToast, VStack } from "@chakra-ui/react";
 import { MyModal } from "../myModal";
 import { MyButton } from "../../myButton/myButton";
 import { sendMyEmailValidation, validateMyEmail } from "../../../services/validate.service";
@@ -12,6 +12,7 @@ export const ValidateEmailModal = (props: Props) => {
     const [errorMessage, setErrorMessage] = useState("" as any);
     const [loadingValidateEmail, setLoadingValidateEmail] = useState(false);
     const [pin, setPin] = useState('');
+    const toast = useToast();
 
     useEffect(() => {
         /*reset({
@@ -45,6 +46,17 @@ export const ValidateEmailModal = (props: Props) => {
         setTimeout(function(){
             setDisableSendEmailValidation(false);
         }, 30000);
+
+        toast({
+            title: 'Se envió el código a su correo',
+            description: "",
+            status: 'success',
+            containerStyle: {
+                fontSize: "16px"
+            },
+            duration: 9000,
+            isClosable: true,
+        })
     }
 
     const validateEmail = async () => {
@@ -106,7 +118,7 @@ export const ValidateEmailModal = (props: Props) => {
                             </Grid>
                         */
                     }
-                    <Text color={"white.half"} fontSize={"14px"}>*Te llegará un email con un código que debes ingresar</Text>
+                    <Text color={"white.half"} fontSize={"14px"}>* Te llegará un email con un código que debes ingresar</Text>
                     <Text fontSize={"16px"}>Ingresar Código</Text>
                     <HStack>
                         <PinInput onComplete={(e)=>{setPin(e)}}>

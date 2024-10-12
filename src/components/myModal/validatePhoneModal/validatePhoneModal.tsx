@@ -1,4 +1,4 @@
-import { Grid, GridItem, HStack, Input, InputGroup, InputLeftAddon, PinInput, PinInputField, Text, VStack } from "@chakra-ui/react";
+import { Grid, GridItem, HStack, Input, InputGroup, InputLeftAddon, PinInput, PinInputField, Text, useToast, VStack } from "@chakra-ui/react";
 import { MyModal } from "../myModal";
 import { MyButton } from "../../myButton/myButton";
 import { sendMyPhoneValidation, validateMyPhone } from "../../../services/validate.service";
@@ -13,6 +13,7 @@ export const ValidatePhoneModal = (props: Props) => {
     const [disableSendPhoneValidation, setDisableSendPhoneValidation] = useState(false);
     const [errorMessage, setErrorMessage] = useState("" as any);
     const [pin, setPin] = useState('');
+    const toast = useToast();
 
     const sendPhoneValidation = async () => {
         const isValid = await phoneValidationTrigger(["phone"], { shouldFocus: true });
@@ -39,6 +40,17 @@ export const ValidatePhoneModal = (props: Props) => {
         setTimeout(function(){
             setDisableSendPhoneValidation(false);
         }, 30000);
+
+        toast({
+            title: 'Se envió el código OTP al celular',
+            description: "",
+            status: 'success',
+            containerStyle: {
+                fontSize: "16px"
+            },
+            duration: 9000,
+            isClosable: true,
+        })
     }
 
     const validatePhone = async () => {
@@ -93,7 +105,7 @@ export const ValidatePhoneModal = (props: Props) => {
                                         onClick={sendPhoneValidation}></MyButton>
                         </GridItem>
                     </Grid>
-                    <Text color={"white.half"} fontSize={"14px"}>*Te llegará un sms con un código que debes ingresar</Text>
+                    <Text color={"white.half"} fontSize={"14px"}>* Te llegará un sms con un código que debes ingresar</Text>
                     <Text fontSize={"16px"}>Ingresar Código</Text>
                     <HStack>
                         <PinInput onComplete={(e)=>{setPin(e)}}>
