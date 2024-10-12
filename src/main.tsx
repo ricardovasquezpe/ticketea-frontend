@@ -9,6 +9,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import moment from 'moment/min/moment-with-locales';
 import 'moment/locale/es';
 import { HelmetProvider } from "react-helmet-async";
+import { ErrorBoundary } from "react-error-boundary";
+import { MyError } from './components/myError/myError.tsx'
 
 moment.updateLocale("es", {});
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -16,7 +18,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <ChakraProvider theme={theme}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <App />
+          <ErrorBoundary fallback={<MyError/>}>
+            <App />
+          </ErrorBoundary>
         </PersistGate>
       </Provider>
     </ChakraProvider>
