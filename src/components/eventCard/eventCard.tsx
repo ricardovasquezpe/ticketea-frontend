@@ -12,10 +12,9 @@ export const EventCard = (props: Props) => {
                     <Show above="sm">
                         <Image className={styles.eventImage} 
                             src={props.eventImage}
-                            fallbackSrc='https://via.placeholder.com/150'
+                            fallbackSrc={"/images/party-banner-9.jpg"}
                             alt={`Evento de ${props.eventName} en Perú`}
-                            title={`Evento de ${props.eventName} en Perú`}
-                            loading="eager"/>
+                            title={`Evento de ${props.eventName} en Perú`}/>
                     </Show>
                     <Box textAlign={"start"}>
                         <Text className={styles.eventName}>{props.eventName}</Text>

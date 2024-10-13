@@ -78,10 +78,9 @@ const ListTickets = () => {
                         <VStack spacing={3}>
                             <Image className={styles.eventImage} 
                                    src={(event.event)?event.event.image_url:""}
-                                   fallbackSrc='https://via.placeholder.com/150'
+                                   fallbackSrc={"/images/party-banner-9.jpg"}
                                    alt={`Evento de ${(event.event) ? event.event.title : ""}`}
-                                   title={`Evento de ${(event.event) ? event.event.title : ""}`}
-                                   loading="eager"></Image>
+                                   title={`Evento de ${(event.event) ? event.event.title : ""}`}></Image>
                             <Text as={"h1"} lineHeight={"30px"} fontSize={30} fontFamily={"robotoBold"} textAlign={"center"}>{(event.event)?event.event.title:""}</Text>
                             <Show below='sm'>
                                 <VStack gap={0}>

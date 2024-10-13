@@ -161,10 +161,9 @@ const TicketDetail = () => {
                                 <Center>
                                     <Image className={styles.eventImage} 
                                            src={((event.event) ? event.event.image_url : "")} 
-                                           fallbackSrc='https://via.placeholder.com/150'
+                                           fallbackSrc={"/images/party-banner-9.jpg"}
                                            alt={`Evento de ${(event.event) ? event.event.title : ""}`}
-                                           title={`Evento de ${(event.event) ? event.event.title : ""}`}
-                                           loading="eager"></Image>
+                                           title={`Evento de ${(event.event) ? event.event.title : ""}`}></Image>
                                 </Center>
                             </GridItem>
                             <GridItem colSpan={{base: 5, sm: 5, md: 4}}>

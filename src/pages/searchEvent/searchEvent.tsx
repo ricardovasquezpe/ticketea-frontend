@@ -25,7 +25,7 @@ const SearchEvent = () => {
     const [orderByDate, setOrderByDate] = useState(false);
     const [timer, setTimer] = useState(null as any);
     const loadingModal = useModal<any>(Modals.LoadingModal);
-    const imageNumber = useMemo(() => Utils.generateRandom(3, 8), []);
+    const imageNumber = useMemo(() => Utils.generateRandom(3, 9), []);
 
     useEffect(() => {
         loadingModal.open({title: "Cargando los eventos"});
