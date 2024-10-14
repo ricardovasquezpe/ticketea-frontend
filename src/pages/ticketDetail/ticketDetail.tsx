@@ -172,7 +172,7 @@ const TicketDetail = () => {
                                     <Show below='sm'>
                                         <VStack gap={0}>
                                             <Text as="h2" textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
-                                            <Text as="h2" textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
+                                            <Text as="h2" textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY")}</Text>
                                             <Text as="h2" textAlign={"center"}>{(event.event)?event.event.place:""}</Text>
                                         </VStack>
                                     </Show>
@@ -180,7 +180,7 @@ const TicketDetail = () => {
                                         <HStack gap={2}>
                                             <Text as="h2" textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
                                             <Text fontWeight={"bold"}>|</Text>
-                                            <Text as="h2" textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
+                                            <Text as="h2" textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY")}</Text>
                                             <Text fontWeight={"bold"}>|</Text>
                                             <Text as="h2" textAlign={"center"}>{(event.event)?event.event.place:""}</Text>
                                         </HStack>
@@ -223,7 +223,10 @@ const TicketDetail = () => {
                                     */
                                 }
                             </Grid>
-                            <Text fontSize={"14px"} color={"white.half"}>({Utils.calculatePercentageAdd(ticket.price, (ticket.zone) ? ticket.zone.price : 0)}% del precio original)</Text>
+                            {   
+                                ticket.zone && 
+                                <Text fontSize={"14px"} color={"white.half"}>({Utils.calculatePercentageAdd(ticket.price, ticket.zone.price)}% del precio original)</Text>
+                            }
                         </VStack>
                     </HStack>
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>

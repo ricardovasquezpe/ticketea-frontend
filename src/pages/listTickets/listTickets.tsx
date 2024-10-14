@@ -85,7 +85,7 @@ const ListTickets = () => {
                             <Show below='sm'>
                                 <VStack gap={0}>
                                     <Text textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
-                                    <Text textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
+                                    <Text textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY")}</Text>
                                     <Text textAlign={"center"}>{(event.event)?event.event.place:""}</Text>
                                 </VStack>
                             </Show>
@@ -93,7 +93,7 @@ const ListTickets = () => {
                                 <HStack gap={2}>
                                     <Text textAlign={"center"}>{(event.event) ? event.event.artist.name : ""}</Text>
                                     <Text fontWeight={"bold"}>|</Text>
-                                    <Text textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
+                                    <Text textAlign={"center"}>{moment(event.date * 1000).format("DD MMMM. YYYY")}</Text>
                                     <Text fontWeight={"bold"}>|</Text>
                                     <Text textAlign={"center"}>{(event.event)?event.event.place:""}</Text>
                                 </HStack>

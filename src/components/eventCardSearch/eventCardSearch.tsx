@@ -3,7 +3,7 @@ import styles from "./eventCardSearch.module.css";
 import moment from 'moment/min/moment-with-locales';
 
 export const EventCardSearch = (props: Props) => {
-    const formattedTime = moment(props.eventDate * 1000).format("DD MMMM. YYYY h:mm A");
+    const formattedTime = moment(props.eventDate * 1000).format("DD MMMM. YYYY");
 
     return (
         <Box className={styles.parent} onClick={props.onClick}>
@@ -12,7 +12,7 @@ export const EventCardSearch = (props: Props) => {
                     <Show above="sm">
                         <Image className={styles.eventImage} 
                             src={props.eventImage}
-                            fallbackSrc='https://via.placeholder.com/150'/>
+                            fallbackSrc='/images/party-banner-9.jpg'/>
                     </Show>
                     <Box textAlign={"start"}>
                         <Text className={styles.eventName}>{props.eventName}</Text>

@@ -24,7 +24,7 @@ export const EventTicketCard = (props: Props) => {
                             </Link>
                         </Text>
                         <Text className={styles.artistName}>{props.artistName}</Text>
-                    <Text className={styles.eventDate}>{moment(props.eventDate * 1000).format("DD MMMM. YYYY h:mm A")}</Text>
+                    <Text className={styles.eventDate}>{moment(props.eventDate * 1000).format("DD MMMM. YYYY")}</Text>
                     </Box>
                 </HStack>
                 <Box textAlign={"end"}>

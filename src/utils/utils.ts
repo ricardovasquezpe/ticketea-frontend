@@ -4,6 +4,7 @@ export default class Utils {
     }
 
     static calculatePercentageAdd = (price: number, originalPrice: number) => {
+        if(originalPrice == 0) return 0;
         var calculated = (((price * 100) / originalPrice) - 100).toFixed(0);
         if (calculated == "-0") return 0;
         

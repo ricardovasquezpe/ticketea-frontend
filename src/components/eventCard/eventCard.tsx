@@ -3,7 +3,7 @@ import styles from "./eventCard.module.css";
 import moment from 'moment/min/moment-with-locales';
 
 export const EventCard = (props: Props) => {
-    const formattedTime = moment(props.eventDate * 1000).format("DD MMMM. YYYY h:mm A");
+    const formattedTime = moment(props.eventDate * 1000).format("DD MMMM. YYYY");
 
     return (
         <Box className={styles.parent} onClick={props.onClick}>
