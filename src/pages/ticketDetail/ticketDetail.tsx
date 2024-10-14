@@ -27,6 +27,7 @@ import { UserValidationType } from "../../utils/enums/userValidationType.enum";
 import { EventDate } from "../../services/models/eventDate.model";
 import Session from "../../utils/session";
 import { MySeo } from "../../components/mySeo/mySeo";
+import { ErrorType } from "../../utils/enums/errorType.enum";
 
 const TicketDetail = () => {
     //const navigate = useNavigate();
@@ -50,7 +51,19 @@ const TicketDetail = () => {
         //navigate("/ticket-buy/" + ticketId);
         if(Session.isLoggedIn()){
             setLoading(true);
-            await buyTicket(String(ticketId));
+            var res = await buyTicket(String(ticketId));
+            if(res.data.errorType == ErrorType.Info){
+                toast({
+                    title: res.data.message,
+                    description: "",
+                    status: 'info',
+                    duration: 10000,
+                    isClosable: true,
+                });
+                
+                setLoading(false);
+                return;
+            }
             setLoading(false);
             toast({
                 title: 'Hemos enviado tu información al vendedor, en breves él se comunicará contigo!',
