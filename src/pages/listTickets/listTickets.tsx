@@ -72,7 +72,7 @@ const ListTickets = () => {
                    link={`https://ticketea.me/tickets/${event.encId}`}
                    image={(event.event) ? event.event.image_url : ""}/>
             <Box className={styles.parent}>
-                <Box className={styles.background} style={{backgroundImage: "url("+((event.event) ? event.event.image_url : "")+")"}}></Box>
+                <Box className={styles.background} style={{backgroundImage: "url("+((event && event.event && event.event.image_url.trim() != "") ? event.event.image_url : "/images/party-banner-9.jpg")+")"}}></Box>
                 <Box paddingBottom={5} paddingTop={5}>
                     <Center>
                         <VStack spacing={3}>

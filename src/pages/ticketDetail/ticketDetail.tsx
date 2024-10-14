@@ -53,13 +53,13 @@ const TicketDetail = () => {
             await buyTicket(String(ticketId));
             setLoading(false);
             toast({
-                title: 'Revisa tu correo electrónico te hemos enviado la información del vendedor!',
+                title: 'Hemos enviado tu información al vendedor, en breves él se comunicará contigo!',
                 description: "",
                 status: 'success',
-                containerStyle: {
+                /*containerStyle: {
                     fontSize: "16px"
-                },
-                duration: 9000,
+                },*/
+                duration: 10000,
                 isClosable: true,
             })
         } else {
@@ -70,12 +70,12 @@ const TicketDetail = () => {
                     await buyTicket(String(ticketId));
                     setLoading(false);
                     toast({
-                        title: 'Revisa tu correo electrónico te hemos enviado la información del vendedor!',
+                        title: 'Hemos enviado tu información al vendedor, en breves él se comunicará contigo!',
                         description: "",
                         status: 'success',
-                        containerStyle: {
+                        /*containerStyle: {
                             fontSize: "16px"
-                        },
+                        },*/
                         duration: 9000,
                         isClosable: true,
                     });
@@ -153,7 +153,7 @@ const TicketDetail = () => {
                    link={`https://ticketea.me/tickets/${ticket.encId}`}
                    image={(event.event) ? event.event.image_url : ""}/>
             <Box className={styles.parent}>
-                <Box className={styles.background} style={{backgroundImage: "url("+((event.event) ? event.event.image_url : "")+")"}}></Box>
+                <Box className={styles.background} style={{backgroundImage: "url("+((event && event.event && event.event.image_url.trim() != "") ? event.event.image_url : "/images/party-banner-9.jpg")+")"}}></Box>
                 <Box paddingBottom={5} paddingTop={5}>
                     <Center>
                         <Grid templateColumns="repeat(5, 1fr)" gap={5}> 
@@ -201,7 +201,7 @@ const TicketDetail = () => {
                 <MyContainer>
                     <HStack justifyContent={"space-between"}>
                         <Box>
-                            <Text fontFamily={"robotoBold"} fontSize={"22px"}>{(ticket.zone)?ticket.zone.name:""}</Text>
+                            <Text fontFamily={"robotoBold"} fontSize={"22px"}>Zona: {(ticket.zone)?ticket.zone.name:""}</Text>
                             {(ticket.seat)?<Text fontSize={"16px"} color={"white.half"} wordBreak={"break-all"}>Butaca: {ticket.seat}</Text>:<></>}
                         </Box>
                         <VStack id="buy" align={"end"} gap={1}>
@@ -232,7 +232,7 @@ const TicketDetail = () => {
                     </Link>
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
                     <VStack id="contact-seller" gap={5}>
-                        <Text textAlign={"center"}>Si deseas adquirir la entrada, ponte en contacto con el vendedor dando click en el botón de abajo. Al dar click, te brindaremos sus datos de contacto</Text>
+                        <Text textAlign={"center"}>Al dar click, le brindaremos tus datos al vendedor para que se ponga en contacto contigo y puedas comprar la entrada!</Text>
                         <MyButton textColor="white" 
                                 backgroundColor="secondary.default" 
                                 backgroundColorHover="secondary.dark" 
@@ -371,7 +371,7 @@ const TicketDetail = () => {
                             </AccordionButton>
                             <AccordionPanel pb={4}>
                                 <Text fontSize={16}>
-                                    Recomendamos hacer el proceso de nominación de la entrada con el vendedor en persona o compartiendo pantalla. Así te aseguras al 100% ser el dueño de la entrada
+                                    Recomendamos hacer el proceso de nominación de la entrada con el vendedor en persona o compartiendo pantalla. Así te aseguras al 100% de ser el dueño de la entrada a comprar
                                 </Text>
                                 <Box marginTop={"7px"}>
                                     <Link color='teal.500' href='https://teleticketperu.zendesk.com/hc/es/articles/10212876635163--C%C3%93MO-NOMINAR-MI-TICKET' isExternal>
@@ -392,13 +392,13 @@ const TicketDetail = () => {
                         <AccordionItem border={"none"}>
                             <AccordionButton>
                                 <Box as="span" flex='1' textAlign='left'>
-                                    <Text>¿Qué información tendré del vendedor?</Text>
+                                    <Text>¿Cómo funciona Ticketea?</Text>
                                 </Box>
                                 <AccordionIcon />
                             </AccordionButton>
                             <AccordionPanel pb={4}>
                                 <Text fontSize={16}>
-                                    Se te enviará un mensaje a tu correo electrónico,con el que te registraste, con el nombre y número celular del vendedor para que te puedas comunicar con él
+                                    Se le enviará tu nombre y número celular al vendedor para que se ponga en contacto contigo y puedan realizar la compra/venta de la entrada
                                 </Text>
                             </AccordionPanel>
                         </AccordionItem>
@@ -412,7 +412,7 @@ const TicketDetail = () => {
                             </AccordionButton>
                             <AccordionPanel pb={4}>
                                 <Text fontSize={16}>
-                                    Estamos trabajando para que sea ya posible compras en nuestra web. Muy pronto estará listo y disponible
+                                    Estamos trabajando para que sea posible las compras en Ticketea. Estes atento a nuevas novedades!
                                 </Text>
                             </AccordionPanel>
                         </AccordionItem>
