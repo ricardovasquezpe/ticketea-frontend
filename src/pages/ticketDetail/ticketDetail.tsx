@@ -8,7 +8,7 @@ import { ReturnButton } from "../../components/returnButton/returnButton";
 import { useEffect, useState } from "react";
 import { Modals } from "../../config/modal/modal-config";
 import { useModal } from "../../config/modal/use-modal";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getEventByEventDateId } from "../../services/event.service";
 import { RatingBadge } from "../../components/ratingBadge/ratingBadge";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -46,6 +46,7 @@ const TicketDetail = () => {
     const loadingModal = useModal<any>(Modals.LoadingModal);
     const loginModal = useModal<any>(Modals.LoginModal);
     const toast = useToast();
+    const navigate = useNavigate();
 
     const click = async () => {
         //navigate("/ticket-buy/" + ticketId);
@@ -61,6 +62,7 @@ const TicketDetail = () => {
                     isClosable: true,
                 });
                 
+                navigate("/my-account");
                 setLoading(false);
                 return;
             }
