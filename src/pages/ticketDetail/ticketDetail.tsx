@@ -52,54 +52,44 @@ const TicketDetail = () => {
         //navigate("/ticket-buy/" + ticketId);
         if(Session.isLoggedIn()){
             setLoading(true);
-            var res = await buyTicket(String(ticketId));
-            if(res.data.errorType == ErrorType.Info){
-                toast({
-                    title: res.data.message,
-                    description: "",
-                    status: 'info',
-                    duration: 10000,
-                    isClosable: true,
-                });
-                
-                navigate("/my-account");
-                setLoading(false);
-                return;
-            }
-            setLoading(false);
-            toast({
-                title: 'Hemos enviado tu información al vendedor, en breves él se comunicará contigo!',
-                description: "",
-                status: 'success',
-                /*containerStyle: {
-                    fontSize: "16px"
-                },*/
-                duration: 10000,
-                isClosable: true,
-            })
+            callBuyTicket();
         } else {
             loginModal.open({
                 onSave: async () =>{
                     loginModal.close();
                     setLoading(true);
-                    await buyTicket(String(ticketId));
-                    setLoading(false);
-                    toast({
-                        title: 'Hemos enviado tu información al vendedor, en breves él se comunicará contigo!',
-                        description: "",
-                        status: 'success',
-                        /*containerStyle: {
-                            fontSize: "16px"
-                        },*/
-                        duration: 9000,
-                        isClosable: true,
-                    });
+                    callBuyTicket();
                 },
                 onClose: ()=>{
                     loginModal.close();
                 }
             });
         }
+    }
+
+    const callBuyTicket = async() => {
+        var res = await buyTicket(String(ticketId));
+        if(res.data.errorType == ErrorType.Info){
+            toast({
+                title: res.data.message,
+                description: "",
+                status: 'info',
+                duration: 10000,
+                isClosable: true,
+            });
+            
+            navigate("/my-account");
+            setLoading(false);
+            return;
+        }
+        setLoading(false);
+        toast({
+            title: 'Hemos enviado tu información al vendedor, en breves él se comunicará contigo!',
+            description: "",
+            status: 'success',
+            duration: 10000,
+            isClosable: true,
+        });
     }
 
     useEffect(() => {

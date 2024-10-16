@@ -304,7 +304,7 @@ export const SellTicket = () => {
                         <MyButton textColor="white" 
                                 backgroundColor="secondary.default" 
                                 backgroundColorHover="secondary.dark" 
-                                title={"Crear anuncio!"}
+                                title={"Crear anuncio de mi entrada!"}
                                 fontSize="18px"
                                 padding="14px"
                                 onClick={sellTicket}

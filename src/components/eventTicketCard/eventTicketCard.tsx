@@ -14,7 +14,7 @@ export const EventTicketCard = (props: Props) => {
                     <Show above="sm">
                         <Image className={styles.eventImage} 
                             src={props.eventImage}
-                            fallbackSrc='https://via.placeholder.com/150'/>
+                            fallbackSrc={"/images/party-banner-9.jpg"}/>
                     </Show>
                     <Box textAlign={"start"}>
                         <Text className={styles.eventName}>

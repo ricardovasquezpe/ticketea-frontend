@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MyButton } from "../myButton/myButton";
 import styles from "./footer.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquareFacebook, faSquareInstagram, faTiktok } from "@fortawesome/free-brands-svg-icons";
+import { faTiktok } from "@fortawesome/free-brands-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
@@ -65,23 +65,23 @@ export const Footer = () => {
                     </Box>
                     <Box>
                         <VStack align={{"base": "center", "sm": "center", "md": "start"}}>
-                            <Link to={"/"}>
-                                <FontAwesomeIcon icon={faSquareFacebook} />
-                                <Text className={styles.brands}>Facebook</Text>
-                            </Link>
-                            <Link to={"/"}>
-                                <FontAwesomeIcon icon={faSquareInstagram} />
-                                <Text className={styles.brands}>Instagram</Text>
-                            </Link>
                             {
                                 /* 
+                                 <Link to={"/"}>
+                                    <FontAwesomeIcon icon={faSquareFacebook} />
+                                    <Text className={styles.brands}>Facebook</Text>
+                                </Link>
+                                <Link to={"/"}>
+                                    <FontAwesomeIcon icon={faSquareInstagram} />
+                                    <Text className={styles.brands}>Instagram</Text>
+                                </Link>
                                 <Link to={"/"}>
                                     <FontAwesomeIcon icon={faSquareTwitter} />
                                     <Text className={styles.brands}>Twitter</Text>
                                 </Link>
                                 */
                             }
-                            <Link to={"/"}>
+                            <Link to={"https://www.tiktok.com/@ticketea"} target="_blank">
                                 <FontAwesomeIcon icon={faTiktok} />
                                 <Text className={styles.brands}>Tiktok</Text>
                             </Link>
