@@ -14,8 +14,9 @@ export class Ticket {
     public eventDateIdEnc?: string;
     public eventDate?: EventDate;
     public state: TicketState;
+    public comment?: string;
 
-    constructor(encId: string, price: number, seat:string, zone: Zone, userSellerIdEnc: string, userSeller: User, eventIdEnc: string, eventDateIdEnc: string, eventDate: EventDate, state: TicketState){
+    constructor(encId: string, price: number, seat:string, zone: Zone, userSellerIdEnc: string, userSeller: User, eventIdEnc: string, eventDateIdEnc: string, eventDate: EventDate, state: TicketState, comment: string){
         this.encId = encId;
         this.price = price;
         this.seat = seat;
@@ -26,5 +27,6 @@ export class Ticket {
         this.eventDateIdEnc = eventDateIdEnc;
         this.eventDate = eventDate;
         this.state = state;
+        this.comment = comment;
     }
 }

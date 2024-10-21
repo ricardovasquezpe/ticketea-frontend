@@ -234,6 +234,11 @@ const TicketDetail = () => {
                             }
                         </VStack>
                     </HStack>
+                    {
+                        ticket.comment && <Box color={"white.half"} fontSize={"16px"}>
+                                                Cometario del vendedor: {ticket.comment}
+                                           </Box>
+                    }
                     <Divider marginTop={3} marginBottom={3} borderColor={"primary.default"} borderWidth={1.5}/>
                     <Link color='teal.500' href={(event.event)?event.event.url:""} isExternal>
                         Link de la página oficial del evento <ExternalLinkIcon mx='2px' />
