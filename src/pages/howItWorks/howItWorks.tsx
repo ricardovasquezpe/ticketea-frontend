@@ -25,14 +25,14 @@ export const HowItWorks = () => {
     const registerModal = useModal<any>(Modals.RegisterModal);
     const openRegisterModal = () => {
         if(Session.isLoggedIn()){
-            navigate("/my-account");
+            navigate("/mi-cuenta");
             return;
         }
 
         registerModal.open({
             onSave: () => {
                 registerModal.close();
-                navigate("/my-account");
+                navigate("/mi-cuenta");
                 toast({
                     title: 'Gracias por registrarte! Ahora ya puedes anunciar tus entradas y comprar!',
                     description: "",
@@ -54,7 +54,7 @@ export const HowItWorks = () => {
         <>
             <MySeo title={`¿Cómo funciona? | Ticketea!`}
                    description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil`}
-                   link={`https://ticketea.me/how-works`}
+                   link={`https://ticketea.me/como-funciona`}
                    image={"/images/logo.png"}/>
             <Box className={styles.parent}>
                 <Box className={styles.background} style={{backgroundImage: "url(/images/party-banner-"+imageNumber+".jpg)"}}></Box>

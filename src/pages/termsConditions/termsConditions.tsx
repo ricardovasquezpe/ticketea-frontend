@@ -13,7 +13,7 @@ export const TermsConditions = () => {
         <>
             <MySeo title={`Términos y condiciones | Ticketea!`}
                    description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil`}
-                   link={`https://ticketea.me/how-works`}
+                   link={`https://ticketea.me/como-funciona`}
                    image={"/images/logo.png"}/>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <VStack align='stretch' gap={5}>

@@ -19,7 +19,7 @@ export const EventTicketCard = (props: Props) => {
                     <Box textAlign={"start"}>
                         <Text className={styles.eventName}>
                             {props.eventName}
-                            <Link marginLeft={"5px"} href={"https://ticketea.me/ticket-detail/" + props.ticketId} isExternal>
+                            <Link marginLeft={"5px"} href={"https://ticketea.me/ticket-detalle/" + props.ticketId} isExternal>
                                 <ExternalLinkIcon mx='2px' />
                             </Link>
                         </Text>

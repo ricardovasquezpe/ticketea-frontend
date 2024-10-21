@@ -78,7 +78,7 @@ const TicketDetail = () => {
                 isClosable: true,
             });
             
-            navigate("/my-account");
+            navigate("/mi-cuenta");
             setLoading(false);
             return;
         }
@@ -347,7 +347,7 @@ const TicketDetail = () => {
                                     <Box textAlign={"center"}>
                                         <Text fontSize={"22px"} fontFamily={"robotoBold"}>Tiempos</Text>
                                         <Text>Tendras como máximo 2 dias para confirmar o cancelar tu compra, sino la entrada sera devuelta al vendedor</Text>
-                                        <Link color='teal.500' href='/terms-conditions' isExternal>
+                                        <Link color='teal.500' href='/terminos-condiciones' isExternal>
                                             Términos y condiciones <ExternalLinkIcon mx='2px' />
                                         </Link>
                                     </Box>
@@ -357,7 +357,7 @@ const TicketDetail = () => {
                                 <Text fontSize={"22px"} fontFamily={"robotoBold"}>¿Dudas?</Text>
                                 <Text>Recuerda que toda duda o consulta puedes comunicarte con nosotros a nuestro correo electrónico hola.ticketea@gmail.com</Text>
                                 <Box marginTop={"7px"}>
-                                    <Link color='teal.500' href='/terms-conditions' isExternal>
+                                    <Link color='teal.500' href='/terminos-condiciones' isExternal>
                                         Términos y condiciones <ExternalLinkIcon mx='2px' />
                                     </Link>
                                 </Box>

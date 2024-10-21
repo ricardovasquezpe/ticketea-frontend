@@ -121,7 +121,7 @@ export const SellTicket = () => {
             isClosable: true,
         });
 
-        navigate("/my-tickets");
+        navigate("/mis-tickets");
     }
 
     const handlePrecioChange = (e: any) => {
@@ -153,7 +153,7 @@ export const SellTicket = () => {
         <>
             <MySeo title={`Vender entrada | Ticketea!`}
                    description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y facil`}
-                   link={`https://ticketea.me/sell-ticket`}
+                   link={`https://ticketea.me/vender-ticket`}
                    image={"/images/logo.png"}/>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <VStack align='stretch' gap={5}>
@@ -170,7 +170,7 @@ export const SellTicket = () => {
                                             title={"Completar verificación"}
                                             fontSize="14px"
                                             padding="5px 10px"
-                                            onClick={()=>navigate("/my-account")}
+                                            onClick={()=>navigate("/mi-cuenta")}
                                             size="xs"></MyButton>
                             </GridItem> : <></>}
                         </Grid>

@@ -47,14 +47,14 @@ const ListTickets = () => {
 
     const onClickSell = () => {
         if(Session.isLoggedIn()){
-            navigate("/sell-ticket");
+            navigate("/vender-ticket");
             return;
         }
 
         loginModal.open({
             onSave: () => {
                 loginModal.close();
-                navigate("/sell-ticket");
+                navigate("/vender-ticket");
             },
             onClose: () => {
                 loginModal.close();

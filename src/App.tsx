@@ -28,15 +28,15 @@ function App() {
           <Routes>
             <Route path='/' element={<SearchEventComp/>}></Route>
             <Route path='/tickets/:eventDateId' element={<ListTicketsComp/>}></Route>
-            <Route path='/ticket-detail/:ticketId' element={<TicketDetailComp/>}></Route>
+            <Route path='/ticket-detalle/:ticketId' element={<TicketDetailComp/>}></Route>
             <Route path='/ticket-buy/:ticketId' element={<CheckoutComp/>}></Route>
-            <Route path='/terms-conditions' element={<TermsConditionsComp/>}></Route>
+            <Route path='/terminos-condiciones' element={<TermsConditionsComp/>}></Route>
             <Route path='/reset-password/:code' element={<ResetPasswordComp/>}></Route>
-            <Route path='/how-works' element={<HowItWorksComp/>}></Route>
-            <Route path='/about-us' element={<AboutUsComp/>}></Route>
-            <Route path="/sell-ticket" element={<AuthGuard><SellTicketComp/></AuthGuard>} />
-            <Route path="/my-tickets" element={<AuthGuard><MyTicketsComp/></AuthGuard>} />
-            <Route path="/my-account" element={<AuthGuard><MyAccountComp/></AuthGuard>} />
+            <Route path='/como-funciona' element={<HowItWorksComp/>}></Route>
+            <Route path='/nosotros' element={<AboutUsComp/>}></Route>
+            <Route path="/vender-ticket" element={<AuthGuard><SellTicketComp/></AuthGuard>} />
+            <Route path="/mis-tickets" element={<AuthGuard><MyTicketsComp/></AuthGuard>} />
+            <Route path="/mi-cuenta" element={<AuthGuard><MyAccountComp/></AuthGuard>} />
           </Routes>
         </Suspense>
         <Footer></Footer>

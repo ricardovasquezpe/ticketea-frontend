@@ -58,9 +58,9 @@ export const Footer = () => {
                 <SimpleGrid columns={{sm: 1, md: 3}} spacing={10}>
                     <Box>
                         <VStack align={{"base": "center", "sm": "center", "md": "start"}}>
-                            <Link to={"/about-us"}>Nosotros</Link>
-                            <Link to={"/how-works"}>¿Cómo funciona?</Link>
-                            <Link to={"/terms-conditions"}>Términos y condiciones</Link>
+                            <Link to={"/nosotros"}>Nosotros</Link>
+                            <Link to={"/como-funciona"}>¿Cómo funciona?</Link>
+                            <Link to={"/terminos-condiciones"}>Términos y condiciones</Link>
                         </VStack>
                     </Box>
                     <Box>
@@ -106,7 +106,7 @@ export const Footer = () => {
                                     title={"Vende tu entrada!"}
                                     fontSize="20px"
                                     padding="20px 30px 20px 30px"
-                                    onClick={()=>{navigate("/sell-ticket")}}/>}
+                                    onClick={()=>{navigate("/vender-ticket")}}/>}
                         </VStack>
                     </Center>
                 </SimpleGrid>

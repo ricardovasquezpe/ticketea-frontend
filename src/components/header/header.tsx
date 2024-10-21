@@ -72,13 +72,13 @@ export const Header = () => {
         {
             id: 2,
             label: "¿Cómo funciona?",
-            url: "/how-works",
+            url: "/como-funciona",
             type: "link"
         },
         {
             id: 1,
             label: "Nosotros",
-            url: "/about-us",
+            url: "/nosotros",
             type: "link"
         },
         {
@@ -99,27 +99,27 @@ export const Header = () => {
         {
             id: 3,
             label: "Tus entradas",
-            url: "/my-tickets",
+            url: "/mis-tickets",
             type: "link"
         },
         {
             id: 2,
             label: "Tu cuenta",
-            url: "/my-account",
+            url: "/mi-cuenta",
             type: "link"
         },
         {
             id: 1,
             label: "Vende tu entrada",
             type: "button",
-            onClick: () => {navigate("/sell-ticket")}, 
+            onClick: () => {navigate("/vender-ticket")}, 
         },
         {
             id: 4,
             label: "Salir",
             onClick: () => {
                 dispatch(onLogout());
-                if(pathname == "/sell-ticket" || pathname == "/my-account" || pathname == "/my-tickets"){
+                if(pathname == "/vender-ticket" || pathname == "/mi-cuenta" || pathname == "/mis-tickets"){
                     navigate("/");
                 }
             }, 

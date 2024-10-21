@@ -13,7 +13,7 @@ export const AboutUs = () => {
         <>
             <MySeo title={`Nosotros | Ticketea!`}
                    description={`Compra la entrada al evento que quieres asistir de manera segura con nuestros vendedores verificados rapido y fácil`}
-                   link={`https://ticketea.me/about-us`}
+                   link={`https://ticketea.me/nosotros`}
                    image={"/images/logo.png"}/>
             <Box padding={{"base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px"}}>
                 <VStack align='stretch' gap={5}>

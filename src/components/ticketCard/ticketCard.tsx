@@ -7,7 +7,7 @@ import Utils from "../../utils/utils";
 export const TicketCard = (props: Props) => {
     const navigate = useNavigate();
     const click = () => {
-        navigate("/ticket-detail"+ "/" + props.ticketId);
+        navigate("/ticket-detalle"+ "/" + props.ticketId);
     }
 
     return (
