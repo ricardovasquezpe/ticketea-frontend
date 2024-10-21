@@ -4,15 +4,21 @@ import { useState } from "react";
 
 export const OrderByMenu = (props: Props) => {
     const [active, setActive] = useState(props.default);
+    const [order, setOrder] = useState("Menor a mayor");
 
     const click = () => {
         setActive(!active);
         props.onChange(!active);
+        if(!active){
+            setOrder("Menor a mayor");
+        } else {
+            setOrder("Mayor a Menor");
+        }
     }
 
     return (
-        <Text className={(active) ? styles.headerActive : styles.header} onClick={click}>
-            {props.text}
+        <Text className={styles.headerActive} onClick={click}>
+            {props.text} - {order}
         </Text>
     );
 };
