@@ -172,6 +172,31 @@ const theme = extendTheme({
             variant: "text"
           }
         },
+        Textarea: {
+          baseStyle: {
+            borderRadius: "custom",
+            bg: "primary.moreLight",
+            borderWidth: 0,
+            borderColor: "primary.moreLight",
+            _focus: {
+              borderColor: "secondary.default",
+            },
+            _invalid: { borderColor: 'red.default' },
+          },
+          variants: {
+            outline: {
+              bg: "primary.moreLight",
+              borderColor: "#1F434C !important",
+              borderWidth: "2px",
+              _hover: {
+                borderColor: "#1F434C !important"
+              },
+            },
+          },
+          defaultProps: {
+            variant: "outline",
+          },
+        },
         Select: {
           baseStyle: {
             "&[aria-invalid=true]": {

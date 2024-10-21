@@ -1,4 +1,4 @@
-import { Box, Checkbox, Grid, GridItem, Input, InputGroup, InputLeftAddon, Select, Text, Tooltip, VStack, useToast } from "@chakra-ui/react";
+import { Box, Checkbox, Grid, GridItem, Input, InputGroup, InputLeftAddon, Select, Text, Textarea, Tooltip, VStack, useToast } from "@chakra-ui/react";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { MyButton } from "../../components/myButton/myButton";
@@ -22,6 +22,7 @@ import { createTicket } from "../../services/ticket.service";
 import { EventDate } from "../../services/models/eventDate.model";
 import { ErrorType } from "../../utils/enums/errorType.enum";
 import { MySeo } from "../../components/mySeo/mySeo";
+import { faSquareFacebook, faSquareInstagram, faTiktok } from "@fortawesome/free-brands-svg-icons";
 
 export const SellTicket = () => {
     const navigate = useNavigate();
@@ -76,6 +77,16 @@ export const SellTicket = () => {
             return;
         }
 
+        if(!sellGetValues().facebookApp && !sellGetValues().tiktokApp && !sellGetValues().instagramApp){
+            setErrorMessage("Debes escoger mínimo 1 aplicación donde se promocionará tu entrada");
+            return;
+        }
+
+        if(sellGetValues().facebookApp && sellGetValues().tiktokApp && sellGetValues().instagramApp){
+            setErrorMessage("Solo puedes escoger 2 aplicaciones como máximo donde se promocionará tu entrada");
+            return;
+        }
+
         /*if(files.length == 0){
             setErrorMessage("Debes subir tu entrada en formato PDF")
             return;
@@ -94,7 +105,8 @@ export const SellTicket = () => {
             eventId: eventSelected.event.encId,
             zoneId: sellGetValues().zone,
             price: sellGetValues().price,
-            seat: sellGetValues().seat
+            seat: sellGetValues().seat,
+            comment: sellGetValues().comment
         }
 
         var response = await createTicket(data);
@@ -279,6 +291,37 @@ export const SellTicket = () => {
                                 </VStack>
                             </GridItem>
                         </Grid>
+                    </MyContainer>
+                    <MyContainer>
+                        <Text fontSize={"20px"}>¿Donde quisieras promocionar?</Text>
+                        <Text color={"white.half"} fontSize={"14px"}>Escoge máximo 2 aplicaciónes donde quisieras que tu entrada se promocione y se venda más rapido!</Text>
+                        <Grid templateColumns="repeat(6, 1fr)" gap={3} margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}> 
+                            <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
+                            <Checkbox {...sell("facebookApp")}>
+                                    <FontAwesomeIcon icon={faSquareFacebook} />
+                                    <Text as={"label"} fontSize={"15px"} marginLeft={"8px"}>Facebook</Text>
+                                </Checkbox>
+                            </GridItem>
+                            <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
+                                <Checkbox {...sell("tiktokApp")}>
+                                    <FontAwesomeIcon icon={faTiktok} />
+                                    <Text as={"label"} fontSize={"15px"} marginLeft={"8px"}>Tiktok</Text>
+                                </Checkbox>
+                            </GridItem>
+                            <GridItem colSpan={{base: 6, sm: 6, md: 2}}>
+                                <Checkbox {...sell("instagramApp")}>
+                                    <FontAwesomeIcon icon={faSquareInstagram} />
+                                    <Text as={"label"} fontSize={"15px"} marginLeft={"8px"}>Instagram</Text>
+                                </Checkbox>
+                            </GridItem>
+                        </Grid>
+                    </MyContainer>
+                    <MyContainer>
+                        <Text fontSize={"20px"}>¿Deseas dejar algun comentario del ticket? (Opcional)</Text>
+                        <Text color={"white.half"} fontSize={"14px"}>Este comentario ayudará al comprador a saber mas sobre el ticket</Text>
+                        <Box margin={{"base": "10px 0px 0px 0px", "sm": "10px 20px 0px 20px", "md": "10px 20px 0px 20px"}}>
+                            <Textarea {...sell("comment")} placeholder="Ingresar comentario (opcional)"/>
+                        </Box>
                     </MyContainer>
                     <MyContainer>
                         <Checkbox isInvalid={(errors?.acceptSellTerms?.message != null) ? true : false}
