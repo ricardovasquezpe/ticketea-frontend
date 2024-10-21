@@ -79,7 +79,7 @@ export const HowItWorks = () => {
                                             {/*<FontAwesomeIcon icon={faPeopleArrows} size="3x"/>*/}
                                         </Box>
                                         {/*<Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Elige al que mas te convenga y compra de manera facil y segura</Text> */}
-                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Escoge a uno y ponte en contacto con el vendedor</Text>
+                                        <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Escoge a uno y el vendedor se pondrá en contacto contigo</Text>
                                     </VStack>
                                 </GridItem>
                                 <GridItem colSpan={{base: 6, sm: 6, md: 2}}>

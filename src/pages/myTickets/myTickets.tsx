@@ -1,10 +1,10 @@
-import { Box, Grid, GridItem, HStack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, VStack } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, VStack } from "@chakra-ui/react";
 import { EventTicketCard } from "../../components/eventTicketCard/eventTicketCard";
 import { MyButton } from "../../components/myButton/myButton";
 import { useModal } from "../../config/modal/use-modal";
 import { Modals } from "../../config/modal/modal-config";
 import { useEffect, useState } from "react";
-import { getMySoldTickets } from "../../services/ticket.service";
+import { getMyRequestsTicket, getMySoldTickets } from "../../services/ticket.service";
 import { Ticket } from "../../services/models/ticket.model";
 import { TicketState } from "../../utils/enums/ticketState.enum";
 import { MySeo } from "../../components/mySeo/mySeo";
@@ -12,6 +12,7 @@ import { MySeo } from "../../components/mySeo/mySeo";
 export const MyTickets = () => {
     const loadingModal = useModal<any>(Modals.LoadingModal);
     const [tickets, setTickets] = useState([] as Ticket[]);
+    const [ticketRequests, setTicketRequests] = useState([]);
 
     useEffect(() => {
       loadingModal.open({title: "Cargando tus entradas"});
@@ -22,11 +23,13 @@ export const MyTickets = () => {
     const onLoadData = async () => {
       var res = await getMySoldTickets();
       setTickets(res.data);
+      var resRequestTickets = await getMyRequestsTicket();
+      setTicketRequests(resRequestTickets.data);
       loadingModal.close();
     }
 
-    const confirmTicketModal = useModal<any>(Modals.ConfirmTicketModal);
-    const confirmTicket = () => {
+    //const confirmTicketModal = useModal<any>(Modals.ConfirmTicketModal);
+    /*const confirmTicket = () => {
         confirmTicketModal.open({
           onSave: () => {
             confirmTicketModal.close();
@@ -38,7 +41,7 @@ export const MyTickets = () => {
             confirmTicketModal.close();
           },
         });
-    }
+    }*/
 
     const deleteTicketDialog = useModal<any>(Modals.DeleteTicketDialog);
     const deleteTicket = (ticketId: string) => {
@@ -58,8 +61,8 @@ export const MyTickets = () => {
         });
     }
 
-    const requestRefundModal = useModal<any>(Modals.RequestRefundModal);
-    const requestRefund = () => {
+    //const requestRefundModal = useModal<any>(Modals.RequestRefundModal);
+    /*const requestRefund = () => {
         requestRefundModal.open({
           onSave: () => {
             requestRefundModal.close();
@@ -71,7 +74,7 @@ export const MyTickets = () => {
             requestRefundModal.close();
           },
         });
-    }
+    }*/
 
     const editTicketPriceModal = useModal<any>(Modals.EditTicketPriceModal);
     const editTicketPrice = (ticketId: string, actualPrice: number) => {
@@ -120,6 +123,7 @@ export const MyTickets = () => {
                 <Tabs variant="unstyled">
                     <TabList>
                         <Tab>Mis entradas anunciadas</Tab>
+                        <Tab>Mis entradas favoritas</Tab>
                         {/* <Tab>Mis entradas compradas</Tab> */}
                     </TabList>
                     <TabIndicator
@@ -184,117 +188,78 @@ export const MyTickets = () => {
                                             </Grid>);
                                   })
                                 }
-
-                                {/* <HStack width={"100%"}>
-                                    <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
-                                            eventName={"World Hottest Tour"}
-                                            artistName={"Bad Bunny"}
-                                            eventDate={1234}
-                                            ticketZone="Zona Playa"
-                                            ticketPrice={200}
-                                            seat="45D"></EventTicketCard>
-                                    <VStack alignItems={"start"}>
-                                        <MyButton textColor="white" 
-                                                backgroundColor="red.default" 
-                                                backgroundColorHover="red.dark" 
-                                                title={"Eliminar"}
-                                                fontSize="14px"
-                                                padding="0px 5px"
-                                                onClick={deleteTicket}
-                                                width="100%"></MyButton>
-                                        <MyButton textColor="white" 
-                                                backgroundColor="secondary.default" 
-                                                backgroundColorHover="secondary.dark" 
-                                                title={"Editar Precio"}
-                                                fontSize="14px"
-                                                padding="0px 5px"
-                                                onClick={editTicketPrice}
-                                                width="100%"></MyButton>
-                                    </VStack>
-                                </HStack>
-                                <HStack width={"100%"}>
-                                    <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
-                                            eventName={"World Hottest Tour"}
-                                            artistName={"Bad Bunny"}
-                                            eventDate={123}
-                                            ticketZone="Zona Playa"
-                                            ticketPrice={200}
-                                            seat="45D"></EventTicketCard>
-                                    <VStack alignItems={"start"}>
-                                        <MyButton textColor="white" 
-                                                backgroundColor="grey.default" 
-                                                backgroundColorHover="grey.dark" 
-                                                title={"Vendido"}
-                                                fontSize="14px"
-                                                padding="19px"
-                                                isDisabled={true}></MyButton>
-                                    </VStack>
-                                </HStack>
-                                <HStack width={"100%"}>
-                                    <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
-                                            eventName={"World Hottest Tour"}
-                                            artistName={"Bad Bunny"}
-                                            eventDate={123}
-                                            ticketZone="Zona Playa"
-                                            ticketPrice={200}
-                                            seat="45D"></EventTicketCard>
-                                    <VStack alignItems={"start"}>
-                                        <MyButton textColor="white" 
-                                                backgroundColor="grey.default" 
-                                                backgroundColorHover="grey.dark" 
-                                                title={"Confirmando"}
-                                                fontSize="14px"
-                                                padding="4px"
-                                                border="2px var(--chakra-colors-orange-default) solid"></MyButton>
-                                    </VStack>
-                                </HStack>*/}
                             </VStack>
                         </TabPanel>
                         <TabPanel>
-                        <VStack justifyContent={"stretch"}>
-                                <HStack width={"100%"}>
-                                    <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
-                                            eventName={"World Hottest Tour"}
-                                            artistName={"Bad Bunny"}
-                                            eventDate={123}
-                                            ticketZone="Zona Playa"
-                                            ticketPrice={200}
-                                            ratingNumber={5}
-                                            sellerImage={"https://bit.ly/kent-c-dodds"}
-                                            sellerName={"Carlos Alberto"}
-                                            seat="45D"></EventTicketCard>
-                                    <VStack alignItems={"start"}>
-                                        <MyButton textColor="white" 
-                                                backgroundColor="secondary.default" 
-                                                backgroundColorHover="secondary.dark" 
-                                                title={"Confirmar"}
-                                                fontSize="14px"
-                                                padding="0px 5px"
-                                                onClick={confirmTicket}
-                                                width="100%"></MyButton>
-                                        <MyButton textColor="white" 
-                                                backgroundColor="orange.default" 
-                                                backgroundColorHover="orange.dark" 
-                                                title={"Reembolso"}
-                                                fontSize="14px"
-                                                padding="0px 5px"
-                                                onClick={requestRefund}></MyButton>
-                                    </VStack>
-                                </HStack>
-                                <HStack width={"100%"}>
-                                    <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
-                                            eventName={"World Hottest Tour"}
-                                            artistName={"Bad Bunny"}
-                                            eventDate={123}
-                                            ticketZone="Zona Playa"
-                                            ticketPrice={200}
-                                            ratingNumber={5}
-                                            sellerImage={"https://bit.ly/kent-c-dodds"}
-                                            sellerName={"Carlos Alberto"}
-                                            seat="45D"></EventTicketCard>
-                                </HStack>
-                            </VStack>
+                          <VStack justifyContent={"stretch"}>
+                          {
+                                  ticketRequests.map((ticket: any, index: number) => {
+                                    return (<Grid key={index} templateColumns='repeat(7, 1fr)' gap={2} width={"100%"}>
+                                                <GridItem colSpan={{base: 7, sm: 7, customMd: 7}}>
+                                                  <EventTicketCard eventImage={ticket.ticket.eventDate?.event.image_url!}
+                                                          eventName={ticket.ticket.eventDate?.event.title!}
+                                                          artistName={ticket.ticket.eventDate?.event.artist.name!}
+                                                          eventDate={ticket.ticket.eventDate?.date!}
+                                                          ticketZone={ticket.ticket.zone.name}
+                                                          ticketPrice={ticket.ticket.price}
+                                                          seat={ticket.ticket.seat}
+                                                          state={ticket.ticket.state}
+                                                          ticketId={ticket.ticket.encId}></EventTicketCard>
+                                                </GridItem>
+                                            </Grid>);
+                                  })
+                                }
+                          </VStack>
                         </TabPanel>
+                        {
+                          /*
+                            <TabPanel>
+                              <VStack justifyContent={"stretch"}>
+                                      <HStack width={"100%"}>
+                                          <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
+                                                  eventName={"World Hottest Tour"}
+                                                  artistName={"Bad Bunny"}
+                                                  eventDate={123}
+                                                  ticketZone="Zona Playa"
+                                                  ticketPrice={200}
+                                                  ratingNumber={5}
+                                                  sellerImage={"https://bit.ly/kent-c-dodds"}
+                                                  sellerName={"Carlos Alberto"}
+                                                  seat="45D"></EventTicketCard>
+                                          <VStack alignItems={"start"}>
+                                              <MyButton textColor="white" 
+                                                      backgroundColor="secondary.default" 
+                                                      backgroundColorHover="secondary.dark" 
+                                                      title={"Confirmar"}
+                                                      fontSize="14px"
+                                                      padding="0px 5px"
+                                                      onClick={confirmTicket}
+                                                      width="100%"></MyButton>
+                                              <MyButton textColor="white" 
+                                                      backgroundColor="orange.default" 
+                                                      backgroundColorHover="orange.dark" 
+                                                      title={"Reembolso"}
+                                                      fontSize="14px"
+                                                      padding="0px 5px"
+                                                      onClick={requestRefund}></MyButton>
+                                          </VStack>
+                                      </HStack>
+                                      <HStack width={"100%"}>
+                                          <EventTicketCard eventImage={"https://cdn.teleticket.com.pe/especiales/badbunny2022-fecha2/images/ICS012_rs.jpg"}
+                                                  eventName={"World Hottest Tour"}
+                                                  artistName={"Bad Bunny"}
+                                                  eventDate={123}
+                                                  ticketZone="Zona Playa"
+                                                  ticketPrice={200}
+                                                  ratingNumber={5}
+                                                  sellerImage={"https://bit.ly/kent-c-dodds"}
+                                                  sellerName={"Carlos Alberto"}
+                                                  seat="45D"></EventTicketCard>
+                                      </HStack>
+                                  </VStack>
+                              </TabPanel>
+                          */
+                        }
                     </TabPanels>
                 </Tabs>         
             </Box>

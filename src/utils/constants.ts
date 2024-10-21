@@ -28,6 +28,8 @@ export const BUY_TICKET = "/tickets/buy";
 export const SEND_RESET_PASSWORD_URL = MS_USER_URL + "/auth/sendResetPassword";
 export const RESET_PASSWORD_URL = MS_USER_URL + "/auth/resetPassword";
 export const SELL_TICKET = "/tickets/sell";
+export const REQUEST_TICKET = "/tickets/request";
+export const MY_REQUESTS_TICKET = "/tickets/requests/me";
 
 export const PAYMENT_METHOD_BANK_ACCOUNT = "1";
 export const PAYMENT_METHOD_CREDIT_CARD = "2";

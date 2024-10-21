@@ -19,7 +19,7 @@ import Utils from "../../utils/utils";
 import { Ticket } from "../../services/models/ticket.model";
 import moment from 'moment/min/moment-with-locales';
 import { TICKET_DETAIL_TOUR_STEPS } from "../../utils/constants";
-import { buyTicket, getTicketById } from "../../services/ticket.service";
+import { buyTicket, getTicketById, requestTicket } from "../../services/ticket.service";
 import { User } from "../../services/models/user.model";
 import { getUserById } from "../../services/user.service";
 import { getRatingsByUserId } from "../../services/rating.service";
@@ -82,6 +82,8 @@ const TicketDetail = () => {
             setLoading(false);
             return;
         }
+        
+        await requestTicket(String(ticketId));
         setLoading(false);
         toast({
             title: 'Hemos enviado tu información al vendedor, en breves él se comunicará contigo!',
