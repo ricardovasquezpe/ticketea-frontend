@@ -2,6 +2,7 @@ import { jwtDecode, JwtPayload } from "jwt-decode";
 
 export default class Session {
     static JWTUSER_KEY = "jwt_user";
+    static BANNERVISIBILITY_KEY = "banner_visibility";
 
     static getUserToken = () => {
         return localStorage.getItem(this.JWTUSER_KEY);
@@ -13,6 +14,16 @@ export default class Session {
 
     static clearUserToken = () => {
         localStorage.removeItem(this.JWTUSER_KEY);
+    }
+
+    static saveBannerVisibility = () => {
+        localStorage.setItem(this.BANNERVISIBILITY_KEY, "0");
+    }
+
+    static getBannerVisibility = () => {
+        var visibility = localStorage.getItem(this.BANNERVISIBILITY_KEY);
+        if(!visibility) return true;
+        return visibility == "1";
     }
 
     static isLoggedIn = ():boolean =>{

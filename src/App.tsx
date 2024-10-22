@@ -5,6 +5,7 @@ import { ModalRenderer } from "./config/modal/modal-renderer"
 import { AuthGuard } from "./utils/authGuard"
 import { lazy, Suspense } from "react"
 import { Loading } from "./components/loading/loading"
+import Banner from "./components/banner/banner"
 
 const SearchEventComp = lazy(() => import('./pages/searchEvent/searchEvent'));
 const ListTicketsComp = lazy(() => import('./pages/listTickets/listTickets'));
@@ -40,6 +41,7 @@ function App() {
           </Routes>
         </Suspense>
         <Footer></Footer>
+        <Banner></Banner>
       </BrowserRouter>
     </>
   )
