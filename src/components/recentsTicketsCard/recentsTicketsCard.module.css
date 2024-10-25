@@ -1,0 +1,38 @@
+.parent{
+    background-color: var(--chakra-colors-primary-ligth);
+    border-radius: var(--chakra-radii-custom);
+    padding: 20px;
+    cursor: pointer;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.parent:hover{
+    background-color: var(--chakra-colors-secondary-half);
+}
+
+.eventImage{
+    object-fit: cover;
+    width: 80px;
+    height: 80px;
+}
+
+.eventName{
+    font-size: 16px;
+    color: var(--chakra-colors-white-half);
+}
+
+.artistName{
+    font-size: 16px;
+    color: var(--chakra-colors-white-half);
+}
+
+.ticketsNumber{
+    margin-bottom: 8px;
+}
+
+.eventDate{
+    font-size: 18px;
+}

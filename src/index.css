@@ -16,3 +16,8 @@ h1{
   font-family: "MontserratBold";
   src: url("/fonts/Montserrat-Bold.ttf");
 }
+
+.carousel-item-padding-40-px{
+  padding-right: 10px;
+  padding-left: 10px;
+}

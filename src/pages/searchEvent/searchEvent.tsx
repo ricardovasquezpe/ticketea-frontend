@@ -18,16 +18,20 @@ import { MySeo } from "../../components/mySeo/mySeo";
 import { store } from "../../store/store";
 import Carousel from "react-multi-carousel";
 import 'react-multi-carousel/lib/styles.css';
+import { getRecentsTickets } from "../../services/ticket.service";
+import { RecentsTicketsCard } from "../../components/recentsTicketsCard/recentsTicketsCard";
 
 const SearchEvent = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [events, setEvents] = useState([] as EventDate[]);
+    const [recentsTickets, setRecentsTickets] = useState([]);
     const [search, setSearch] = useState("");
     const [orderByDate, setOrderByDate] = useState(false);
     const [timer, setTimer] = useState(null as any);
     const loadingModal = useModal<any>(Modals.LoadingModal);
     const imageNumber = useMemo(() => Utils.generateRandom(3, 9), []);
+    const [isMoving, setIsMoving] = useState(false);
 
     useEffect(() => {
         loadingModal.open({ title: "Cargando los eventos" });
@@ -40,6 +44,8 @@ const SearchEvent = () => {
         setSearch(searchText);
         var res: any = await searchEvents(searchText, "date", ASC_ORDER_BY)
         setEvents(res.data);
+        var resTickets: any = await getRecentsTickets();
+        setRecentsTickets(resTickets.data);
         loadingModal.close();
     }
 
@@ -87,47 +93,61 @@ const SearchEvent = () => {
             </Box>
             <Box marginTop={{ "base": "-75px", "sm": "-75px", "customMd": "-90px" }} padding={{ "base": "40px 1.5rem", "sm": "40px 1.5rem", "customMd": "40px 250px", "customLg": "40px 350px", "customXl": "40px 450px" }}>
                 <MyBigInputSearch value={search} setValue={inputChanged}></MyBigInputSearch>
-                
-                <Carousel
-                    arrows={false} 
-                    showDots={false}
-                    autoPlay
-                    autoPlaySpeed={3000}
-                    centerMode={true}
-                    dotListClass=""
-                    draggable
-                    focusOnSelect={false}
-                    infinite
-                    minimumTouchDrag={80}
-                    pauseOnHover
-                    responsive={{
-                        desktop: {
-                            breakpoint: {
-                                max: 3000,
-                                min: 1024
-                            },
-                            items: 3,
-                            partialVisibilityGutter: 40
-                        }
-                    }}
-                    rewind={false}
-                    rewindWithAnimation={false}
-                    rtl={false}
-                    shouldResetAutoplay
-                    slidesToSlide={2}
-                    swipeable
-                >
-                    <div>1</div>
-                    <div>1</div>
-                    <div>1</div>
-                    <div>1</div>
-                    <div>1</div>
-                    <div>1</div>
-                    <div>1</div>
-                    <div>1</div>
-                    <div>1</div>
-                    <div>1</div>
-                </Carousel>
+                <br />
+                <SectionTitle title="Últimas entradas anunciadas"></SectionTitle>
+                <br />
+                {
+                    (recentsTickets.length > 0) ?
+                        <Carousel
+                            arrows={false}
+                            showDots={false}
+                            autoPlay
+                            autoPlaySpeed={3000}
+                            centerMode={true}
+                            dotListClass=""
+                            draggable
+                            focusOnSelect={false}
+                            infinite
+                            minimumTouchDrag={80}
+                            pauseOnHover
+                            responsive={{
+                                desktop: {
+                                    breakpoint: {
+                                        max: 3000,
+                                        min: 1024
+                                    },
+                                    items: 1,
+                                    partialVisibilityGutter: 40
+                                }
+                            }}
+                            rewind={false}
+                            rewindWithAnimation={false}
+                            rtl={false}
+                            shouldResetAutoplay
+                            slidesToSlide={1}
+                            itemClass="carousel-item-padding-40-px"
+                            swipeable
+                            beforeChange={() => setIsMoving(true)}
+                            afterChange={() => setIsMoving(false)}>
+                            {
+                                recentsTickets.map((ticket: any, index: any) => (
+                                    <Box onClick={()=> {
+                                        if(!isMoving) {
+                                            window.open(`https://ticketea.me/ticket-detalle/${ticket.encId}`)
+                                        }
+                                    }}>
+                                        <RecentsTicketsCard
+                                        key={index}
+                                        eventImage={ticket.eventDate.event.image_url}
+                                        eventName={ticket.eventDate.event.title}
+                                        eventDate={ticket.eventDate.date}
+                                        ticketPrice={ticket.price}></RecentsTicketsCard>
+                                    </Box>
+                                ))
+                            }
+                        </Carousel>
+                        : <></>
+                }
 
                 {
                     (events.length) ?
