@@ -170,7 +170,7 @@ export const HowItWorks = () => {
                                 <VStack gap={5} padding={"15px"} textAlign={"center"}>
                                     <Image src={"/images/how/seller_announce.png"} width={"80px"}></Image>
                                     {/*<FontAwesomeIcon icon={faCartShopping} size="3x"/>*/}
-                                    <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Anuncia tu entrada y <Text fontFamily={"montserratBold"} display={"inline-block"}>Ticketea</Text> lo pondrá visible para posibles compradores</Text>
+                                    <Text fontSize={"20px"} textShadow={"2px 3px 5px rgba(0,0,0,0.5)"}>Anuncia tu entrada y <Text fontFamily={"montserratBold"} display={"inline-block"}>Ticketea</Text> lo pondrá visible para posibles compradores en Facebook, Instagram y Tiktok</Text>
                                 </VStack>
                             </MyContainer>
                         </GridItem>
@@ -184,6 +184,7 @@ export const HowItWorks = () => {
                             </MyContainer>
                         </GridItem>
                     </Grid>
+                    <Text fontSize={"18px"} color={"white.half"} marginTop={"10px"} textAlign={"center"}> Y no te preocupes, no requerimos que subas foto o e-ticket de tu entrada. Solo seleccionaras el evento e ingresaras el precio de venta de tu entrada!</Text>
                     <MyButton textColor="black" 
                             backgroundColor="gold.default" 
                             backgroundColorHover="gold.dark" 
