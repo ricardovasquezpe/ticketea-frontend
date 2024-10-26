@@ -242,7 +242,7 @@ export const SellTicket = () => {
                                         })} 
                                     isInvalid={(errors?.event?.message != null) ? true : false}>
                                 {events.map((event: EventDate, index: number) => {
-                                    return <option key={index} value={event.encId}> {event.event.title} || {event.event.artist.name} || {moment(event.date * 1000).format("DD MMMM. YYYY")}</option>
+                                    return <option key={index} value={event.encId}> {event.event.title} - 🎤​ {event.event.artist.name} - 📅​​ {moment(event.date * 1000).format("DD MMMM. YYYY")}</option>
                                 })}
                             </Select>
                             {
