@@ -57,7 +57,8 @@ export const Header = () => {
                 },
                 duration: 9000,
                 isClosable: true,
-            })
+            });
+            navigate("mi-cuenta");
           },
           onClose: () => {
             registerModal.close();

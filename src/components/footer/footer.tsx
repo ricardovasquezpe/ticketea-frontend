@@ -42,7 +42,8 @@ export const Footer = () => {
                 },
                 duration: 9000,
                 isClosable: true,
-            })
+            });
+            navigate("mi-cuenta");
           },
           onClose: () => {
             registerModal.close();

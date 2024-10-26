@@ -12,6 +12,7 @@ import Session from "../../../utils/session";
 import { ErrorType } from "../../../utils/enums/errorType.enum";
 import { useModal } from "../../../config/modal/use-modal";
 import { Modals } from "../../../config/modal/modal-config";
+import { useNavigate } from "react-router-dom";
 
 export const LoginModal = (props: Props) => {
     const { register: login, trigger: loginTrigger, getValues: loginGetValues, formState: { errors } } = useForm();
@@ -20,12 +21,14 @@ export const LoginModal = (props: Props) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const clickShowPassword = () => setShowPassword(!showPassword);
+    const navigate = useNavigate();
 
     const registerModal = useModal<any>(Modals.RegisterModal);
     const openRegister = () => {
         registerModal.open({
             onSave: () => {
                 registerModal.close();
+                navigate("mi-cuenta");
             },
             onClose: () => {
                 registerModal.close();
