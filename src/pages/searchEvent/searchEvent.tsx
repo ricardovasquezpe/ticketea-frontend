@@ -118,6 +118,11 @@ const SearchEvent = () => {
                                     },
                                     items: 1,
                                     partialVisibilityGutter: 40
+                                },
+                                mobile: {
+                                    breakpoint: { max: 464, min: 0 },
+                                    items: 1,
+                                    partialVisibilityGutter: 0
                                 }
                             }}
                             rewind={false}
@@ -131,17 +136,17 @@ const SearchEvent = () => {
                             afterChange={() => setIsMoving(false)}>
                             {
                                 recentsTickets.map((ticket: any, index: any) => (
-                                    <Box onClick={()=> {
-                                        if(!isMoving) {
+                                    <Box onClick={() => {
+                                        if (!isMoving) {
                                             window.open(`https://ticketea.me/ticket-detalle/${ticket.encId}`)
                                         }
                                     }}>
                                         <RecentsTicketsCard
-                                        key={index}
-                                        eventImage={ticket.eventDate.event.image_url}
-                                        eventName={ticket.eventDate.event.title}
-                                        eventDate={ticket.eventDate.date}
-                                        ticketPrice={ticket.price}></RecentsTicketsCard>
+                                            key={index}
+                                            eventImage={ticket.eventDate.event.image_url}
+                                            eventName={ticket.eventDate.event.title}
+                                            eventDate={ticket.eventDate.date}
+                                            ticketPrice={ticket.price}></RecentsTicketsCard>
                                     </Box>
                                 ))
                             }
