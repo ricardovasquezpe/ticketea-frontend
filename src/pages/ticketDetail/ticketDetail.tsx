@@ -13,12 +13,10 @@ import { getEventByEventDateId } from "../../services/event.service";
 import { RatingBadge } from "../../components/ratingBadge/ratingBadge";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleXmark, faShieldHeart } from "@fortawesome/free-solid-svg-icons";
-import { TourGuideClient } from "@sjmc11/tourguidejs";
 import "@sjmc11/tourguidejs/src/scss/tour.scss" 
 import Utils from "../../utils/utils";
 import { Ticket } from "../../services/models/ticket.model";
 import moment from 'moment/min/moment-with-locales';
-import { TICKET_DETAIL_TOUR_STEPS } from "../../utils/constants";
 import { buyTicket, getTicketById, requestTicket } from "../../services/ticket.service";
 import { User } from "../../services/models/user.model";
 import { getUserById } from "../../services/user.service";
@@ -36,13 +34,13 @@ const TicketDetail = () => {
     const [user, setUser] = useState({} as User);
     const [loading, setLoading] = useState(false);
     const { ticketId } = useParams();
-    const tg = new TourGuideClient({steps: TICKET_DETAIL_TOUR_STEPS, 
+    /*const tg = new TourGuideClient({steps: TICKET_DETAIL_TOUR_STEPS, 
                                     autoScroll: true, 
                                     dialogPlacement: 'bottom',
                                     nextLabel: "Siguiente", 
                                     prevLabel: "Atras", 
                                     finishLabel: "Terminar",
-                                    autoScrollOffset: 500});
+                                    autoScrollOffset: 500});*/
     const loadingModal = useModal<any>(Modals.LoadingModal);
     const loginModal = useModal<any>(Modals.LoginModal);
     const toast = useToast();
@@ -100,13 +98,13 @@ const TicketDetail = () => {
         onLoadData();
     }, []);
 
-    const tourInit = () => {
+    /*const tourInit = () => {
         const tour = localStorage.getItem('tour-ticket-detail');
         if(tour != "true") {
             tg.start();
             localStorage.setItem('tour-ticket-detail', "true");
         }
-    } 
+    } */
 
     const onLoadData = async() => {
         var ticketRes = await getTicketById(ticketId);
@@ -120,7 +118,7 @@ const TicketDetail = () => {
         setUser(userRes.data);
 
         loadingModal.close();
-        tourInit();
+        //tourInit();
     }
 
     const ratingDetailModal = useModal<any>(Modals.RatingDetailsModal);
