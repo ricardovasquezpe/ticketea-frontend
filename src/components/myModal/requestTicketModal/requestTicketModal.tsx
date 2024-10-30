@@ -18,6 +18,7 @@ export const RequestTicketModal = (props: Props) => {
 
     const bodyComponents = () => {
         return <VStack gap={3} alignItems={"start"}>
+            <Text as={"label"} textAlign={"center"} color={"white.half"} fontSize={"14px"}>Enviaremos tu información al vendedor y el se pondrá en contacto contigo para acordar la compra y venta de la entrada!</Text>
             <Input placeholder='Nombre Completo' {...request("name", { required: "El Nombre completo es obligatorio", validate: (value) => { return !!value.trim() }, maxLength: { value: 100, message: "Los Nombres no debe ser tener de 100 caracteres" }, setValueAs: value => value.trim() })} isInvalid={(errors?.name?.message != null) ? true : false} />
             <Input placeholder='Correo Electrónico' {...request("email", { required: "El Correo electrónico es obligatorio", validate: (value) => { return !!value.trim() }, pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "El correo electrónico debe ser un email valido" }, maxLength: { value: 150, message: "El Correo electrónico no debe tener mas de 150 caracteres" }, setValueAs: value => value.trim() })} isInvalid={(errors?.email?.message != null) ? true : false} />
             <InputGroup>
