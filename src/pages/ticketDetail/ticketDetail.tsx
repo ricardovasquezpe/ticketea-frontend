@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Center, Divider, Grid, GridItem, HStack, Highlight, Image, Link, Show, Text, VStack, useToast } from "@chakra-ui/react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Center, Divider, Grid, GridItem, HStack, Highlight, Image, Link, Show, Text, VStack } from "@chakra-ui/react";
 import { SectionTitle } from "../../components/sectionTitle/sectionTitle";
 import { MyContainer } from "../../components/myContainer/myContainer";
 import { MyButton } from "../../components/myButton/myButton";
@@ -8,7 +8,7 @@ import { ReturnButton } from "../../components/returnButton/returnButton";
 import { useEffect, useState } from "react";
 import { Modals } from "../../config/modal/modal-config";
 import { useModal } from "../../config/modal/use-modal";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getEventByEventDateId } from "../../services/event.service";
 import { RatingBadge } from "../../components/ratingBadge/ratingBadge";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,22 +17,19 @@ import "@sjmc11/tourguidejs/src/scss/tour.scss"
 import Utils from "../../utils/utils";
 import { Ticket } from "../../services/models/ticket.model";
 import moment from 'moment/min/moment-with-locales';
-import { buyTicket, getTicketById, requestTicket } from "../../services/ticket.service";
+import { getTicketById } from "../../services/ticket.service";
 import { User } from "../../services/models/user.model";
 import { getUserById } from "../../services/user.service";
 import { getRatingsByUserId } from "../../services/rating.service";
 import { UserValidationType } from "../../utils/enums/userValidationType.enum";
 import { EventDate } from "../../services/models/eventDate.model";
-import Session from "../../utils/session";
 import { MySeo } from "../../components/mySeo/mySeo";
-import { ErrorType } from "../../utils/enums/errorType.enum";
 
 const TicketDetail = () => {
     //const navigate = useNavigate();
     const [event, setEvent] = useState({} as EventDate);
     const [ticket, setTicket] = useState({} as Ticket);
     const [user, setUser] = useState({} as User);
-    const [loading, setLoading] = useState(false);
     const { ticketId } = useParams();
     /*const tg = new TourGuideClient({steps: TICKET_DETAIL_TOUR_STEPS, 
                                     autoScroll: true, 
@@ -42,13 +39,11 @@ const TicketDetail = () => {
                                     finishLabel: "Terminar",
                                     autoScrollOffset: 500});*/
     const loadingModal = useModal<any>(Modals.LoadingModal);
-    const loginModal = useModal<any>(Modals.LoginModal);
-    const toast = useToast();
-    const navigate = useNavigate();
+    const requestTicketModal = useModal<any>(Modals.RequestTicketModal);
 
     const click = async () => {
         //navigate("/ticket-buy/" + ticketId);
-        if(Session.isLoggedIn()){
+        /*if(Session.isLoggedIn()){
             setLoading(true);
             callBuyTicket();
         } else {
@@ -62,10 +57,19 @@ const TicketDetail = () => {
                     loginModal.close();
                 }
             });
-        }
+        }*/
+        requestTicketModal.open({
+            ticketId: ticketId,
+            onSave: async () =>{
+                requestTicketModal.close();
+            },
+            onClose: ()=>{
+                requestTicketModal.close();
+            }
+        });
     }
 
-    const callBuyTicket = async() => {
+    /*const callBuyTicket = async() => {
         var res = await buyTicket(String(ticketId));
         if(res.data.errorType == ErrorType.Info){
             toast({
@@ -90,7 +94,7 @@ const TicketDetail = () => {
             duration: 10000,
             isClosable: true,
         });
-    }
+    }*/
 
     useEffect(() => {
         loadingModal.open({title: "Cargando el detalle de la entrada"});
@@ -252,8 +256,7 @@ const TicketDetail = () => {
                                 title={"Deseo adquirir la entrada!"}
                                 fontSize="18px"
                                 padding="14px"
-                                onClick={click}
-                                isLoading={loading}></MyButton>
+                                onClick={click}></MyButton>
                     </VStack>
                 </MyContainer>
                 <Box marginTop={5}></Box>

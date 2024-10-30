@@ -31,6 +31,7 @@ export const SELL_TICKET = "/tickets/sell";
 export const REQUEST_TICKET = "/tickets/request";
 export const MY_REQUESTS_TICKET = "/tickets/requests/me";
 export const RECENTS_TICKETS = "/tickets/recents";
+export const REQUEST_TICKET_INFO = "/tickets/requestInfo";
 
 export const PAYMENT_METHOD_BANK_ACCOUNT = "1";
 export const PAYMENT_METHOD_CREDIT_CARD = "2";

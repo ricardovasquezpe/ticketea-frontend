@@ -1,4 +1,4 @@
-import { BUY_TICKET, CREATE_TICKET, DELETE_TICKET_URL, MY_REQUESTS_TICKET, MY_TICKETS_URL, RECENTS_TICKETS, REQUEST_TICKET, SELL_TICKET, TICKETS_BY_EVENT_DATE_URL, TICKETS_BY_EVENT_URL, TICKET_BY_ID, UPDATE_TICKET_PRICE_URL } from "../utils/constants";
+import { BUY_TICKET, CREATE_TICKET, DELETE_TICKET_URL, MY_REQUESTS_TICKET, MY_TICKETS_URL, RECENTS_TICKETS, REQUEST_TICKET, REQUEST_TICKET_INFO, SELL_TICKET, TICKETS_BY_EVENT_DATE_URL, TICKETS_BY_EVENT_URL, TICKET_BY_ID, UPDATE_TICKET_PRICE_URL } from "../utils/constants";
 import httpClient from "./config/httpClient";
 
 export async function getTicketsByEventId(eventId: any, orderBy: string, order: string): Promise<any>{
@@ -47,4 +47,8 @@ export async function getMyRequestsTicket(): Promise<any>{
 
 export async function getRecentsTickets(): Promise<any>{
     return httpClient.get(RECENTS_TICKETS);   
+}
+
+export async function requestTicketInfo(ticketId: string, data: any): Promise<any>{
+    return httpClient.post(REQUEST_TICKET_INFO + "/" + ticketId, data);   
 }
